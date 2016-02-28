@@ -1,0 +1,18 @@
+<form class="well filter-form">
+  <div class="form-group">
+    <label for="<%- idPrefix %>-personnelId"><%- t('users', 'PROPERTY:personnelId') %></label>
+    <input id="<%- idPrefix %>-personnelId" class="form-control" name="personnelId" type="text">
+  </div>
+  <div class="form-group">
+    <label for="<%- idPrefix %>-login"><%- t('users', 'PROPERTY:login') %></label>
+    <input id="<%- idPrefix %>-login" class="form-control" name="login" type="text">
+  </div>
+  <div class="form-group">
+    <label for="<%- idPrefix %>-lastName"><%- t('users', 'PROPERTY:lastName') %></label>
+    <input id="<%- idPrefix %>-lastName" class="form-control" name="lastName" type="text">
+  </div>
+  <%- renderLimit() %>
+  <div class="form-group filter-actions">
+    <button type="submit" class="btn btn-default"><i class="fa fa-filter"></i><span><%= t('users', 'filter:submit') %></span></button>
+  </div>
+</form>

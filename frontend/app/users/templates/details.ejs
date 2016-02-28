@@ -1,0 +1,57 @@
+<div class="users-details">
+	<div class="panel panel-primary">
+		<div class="panel-heading"><%- t('users', 'PANEL:TITLE:details:basic') %></div>
+		<div class="panel-details">
+			<div class="props first">
+				<div class="prop">
+					<div class="prop-name"><%- t('users', 'PROPERTY:name') %></div>
+					<div class="prop-value">
+						<% if (!model.lastName && !model.firstName) { %>
+						-
+						<% } else { %>
+						<%= model.lastName || '' %> <%= model.firstName || '' %>
+						<% } %>
+					</div>
+				</div>
+				<div class="prop">
+					<div class="prop-name"><%- t('users', 'PROPERTY:login') %></div>
+					<div class="prop-value"><%= model.login %></div>
+				</div>
+				<div class="prop">
+					<div class="prop-name"><%- t('users', 'PROPERTY:personnelId') %></div>
+					<div class="prop-value"><%= model.personnelId || '-' %></div>
+				</div>
+				<div class="prop">
+					<div class="prop-name"><%- t('users', 'PROPERTY:email') %></div>
+					<div class="prop-value"><%= model.email || '-' %></div>
+				</div>
+				<div class="prop">
+					<div class="prop-name"><%- t('users', 'PROPERTY:mobile') %></div>
+					<div class="prop-value">
+						<% if (_.isEmpty(model.mobile)) { %>
+						-
+						<% } else if (model.mobile.length === 1) { %>
+						<%- t('users', 'DETAILS:mobile:item', model.mobile[0]) %>
+						<% } else { %>
+						<ul>
+							<% _.forEach(model.mobile, function(mobile) { %>
+							<li><%- t('users', 'DETAILS:mobile:item', mobile) %></li>
+							<% }) %>
+						</ul>
+						<% } %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  <% if (!_.isEmpty(model.privileges)) { %>
+  <div class="panel panel-default users-details-privileges">
+    <div class="panel-heading"><%- t('users', 'PANEL:TITLE:details:privileges') %></div>
+    <div class="panel-body">
+      <% model.privileges.forEach(function(privilege) { %>
+      <span class="label label-<%- /VIEW/.test(privilege) ? 'info' : 'warning' %>"><%- t('users', 'PRIVILEGE:' + privilege) %></span>
+      <% }) %>
+    </div>
+  </div>
+  <% } %>
+</div>

@@ -1,0 +1,30 @@
+{
+  "MSG:LOADING_FAILURE": "Ładowanie zdarzeń nie powiodło się :(",
+  "MSG:LOADING_TYPES_FAILURE": "Ładowanie typów zdarzeń nie powiodło się :(",
+
+  "BREADCRUMBS:browse": "Zdarzenia",
+
+  "filter:placeholder:type": "Dowolny typ",
+  "filter:submit": "Filtruj zdarzenia",
+
+  "PROPERTY:time": "Czas wystąpienia",
+  "PROPERTY:user": "Użytkownik",
+  "PROPERTY:type": "Typ",
+  "PROPERTY:text": "Opis",
+  "PROPERTY:severity": "Poziom ważności",
+
+  "TYPE:app.started": "Start systemu",
+  "TEXT:app.started": "Serwer <em>{id}</em> wystartował w środowisku <em>{env, select, development{rozwojowym} testing{testowym} production{produkcyjnym} other{{env}}}</em> w ciągu <em>{time}</em> ms.",
+  "TYPE:users.login": "Użytkownicy: zalogowanie",
+  "TEXT:users.login": "-",
+  "TYPE:users.loginFailure": "Użytkownicy: nieudane logowanie",
+  "TEXT:users.loginFailure": "Nieudane logowanie na konto: <em>{login}</em>",
+  "TYPE:users.logout": "Użytkownicy: wylogowanie",
+  "TEXT:users.logout": "-",
+  "TYPE:users.added": "Użytkownicy: dodanie",
+  "TEXT:users.added": "Dodano użytkownika: <a href='\\#users/{model->_id}'>{model->login}</a>",
+  "TYPE:users.edited": "Użytkownicy: edycja",
+  "TEXT:users.edited": "Zmodyfikowano użytkownika: <a href='\\#users/{model->_id}'>{model->login}</a>",
+  "TYPE:users.deleted": "Użytkownicy: usunięcie",
+  "TEXT:users.deleted": "Usunięto użytkownika: <em>{model->login}</em>"
+}

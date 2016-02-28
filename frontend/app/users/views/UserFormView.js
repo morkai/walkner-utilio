@@ -1,0 +1,370 @@
+// Part of <https://miracle.systems/p/walkner-utilio> licensed under <CC BY-NC-SA 4.0>
+
+define([
+  'underscore',
+  'jquery',
+  'app/ZeroClipboard',
+  'app/i18n',
+  'app/user',
+  'app/core/Model',
+  'app/core/views/FormView',
+  'app/core/util/idAndLabel',
+  'app/data/privileges',
+  'app/data/loadedModules',
+  'app/users/templates/formMobileList',
+  'app/users/templates/form'
+], function(
+  _,
+  $,
+  ZeroClipboard,
+  t,
+  user,
+  Model,
+  FormView,
+  idAndLabel,
+  privileges,
+  loadedModules,
+  formMobileListTemplate,
+  formTemplate
+) {
+  'use strict';
+
+  return FormView.extend({
+
+    template: formTemplate,
+
+    events: {
+      'submit': 'submitForm',
+      'input input[type="password"]': function(e)
+      {
+        if (this.timers.validatePasswords !== null)
+        {
+          clearTimeout(this.timers.validatePasswords);
+        }
+
+        this.timers.validatePasswords = setTimeout(this.validatePasswords.bind(this, e), 30);
+      },
+      'keydown #-mobile': function(e)
+      {
+        if (e.keyCode === 13)
+        {
+          this.$id('mobile-add').click();
+
+          return false;
+        }
+
+        return true;
+      },
+      'click #-mobile-add': function()
+      {
+        var $number = this.$id('mobile-number');
+        var $from = this.$id('mobile-from');
+        var $to = this.$id('mobile-to');
+
+        this.addMobile($number.val(), $from.val(), $to.val());
+        this.renderMobileList();
+
+        $number.val('').focus();
+        $from.val('');
+        $to.val('');
+      },
+      'click .users-form-mobile-remove': function(e)
+      {
+        this.removeMobile(this.$(e.target).closest('li').attr('data-number'));
+        this.$id('mobile-number').select();
+
+        return false;
+      }
+    },
+
+    initialize: function()
+    {
+      FormView.prototype.initialize.call(this);
+
+      this.mobileList = null;
+
+      this.accountMode = this.options.editMode
+        && user.data._id === this.model.id
+        && !user.isAllowedTo('USERS:MANAGE');
+
+      $(window).on('resize.' + this.idPrefix, _.debounce(this.resizeColumns.bind(this), 16));
+    },
+
+    destroy: function()
+    {
+      $(window).off('.' + this.idPrefix);
+
+      if (this.privilegesCopyClient)
+      {
+        this.privilegesCopyClient.destroy();
+      }
+    },
+
+    afterRender: function()
+    {
+      FormView.prototype.afterRender.call(this);
+
+      if (!this.accountMode)
+      {
+        this.setUpPrivilegesControls();
+      }
+
+      this.resizeColumns();
+
+      if (!this.mobileList)
+      {
+        this.mobileList = this.model.get('mobile') || [];
+      }
+
+      this.renderMobileList();
+    },
+
+    setUpPrivilegesControls: function()
+    {
+      var privilegeMap = {};
+      var privilegeList = [];
+
+      privileges.forEach(function(privilege)
+      {
+        var tag = t('users', 'PRIVILEGE:' + privilege);
+
+        privilegeMap[tag] = privilege;
+        privilegeList.push({
+          id: privilege,
+          text: tag
+        });
+      });
+
+      var $privileges = this.$id('privileges').select2({
+        width: '100%',
+        allowClear: false,
+        tags: privilegeList,
+        tokenSeparators: [';'],
+        createSearchChoice: function(term)
+        {
+          var tag = term.trim();
+          var privilege = privilegeMap[tag];
+
+          return !privilege ? null : {
+            id: privilege,
+            text: tag
+          };
+        }
+      });
+
+      this.privilegesCopyClient = new ZeroClipboard(this.$id('copyPrivileges'));
+
+      this.privilegesCopyClient.on('load', function(client)
+      {
+        client.on('datarequested', function(client)
+        {
+          var selectedOptions = $privileges.select2('data');
+
+          if (selectedOptions.length === 0)
+          {
+            client.setText('');
+          }
+          else
+          {
+            client.setText(
+              selectedOptions.map(function(data) { return data.text; }).join(';') + ';'
+            );
+          }
+        });
+      } );
+
+      this.privilegesCopyClient.on('wrongflash noflash', function()
+      {
+        ZeroClipboard.destroy();
+      });
+    },
+
+    validatePasswords: function()
+    {
+      var $password1 = this.$id('password');
+      var $password2 = this.$id('password2');
+
+      if ($password1.val() === $password2.val())
+      {
+        $password2[0].setCustomValidity('');
+      }
+      else
+      {
+        $password2[0].setCustomValidity(t('users', 'FORM:ERROR:passwordMismatch'));
+      }
+
+      this.timers.validatePassword = null;
+    },
+
+    serialize: function()
+    {
+      return _.extend(FormView.prototype.serialize.call(this), {
+        privileges: privileges,
+        accountMode: this.accountMode
+      });
+    },
+
+    serializeToForm: function()
+    {
+      var formData = this.model.toJSON();
+
+      formData.privileges = formData.privileges.join(',');
+
+      return formData;
+    },
+
+    serializeForm: function(formData)
+    {
+      formData = _.defaults(formData, {
+        privileges: []
+      });
+
+      ['firstName', 'lastName', 'personnelId', 'email'].forEach(function(prop)
+      {
+        if (!formData[prop] || !formData[prop].length)
+        {
+          formData[prop] = '';
+        }
+      });
+
+      if (typeof formData.privileges === 'string')
+      {
+        formData.privileges = formData.privileges.split(',');
+      }
+
+      formData.mobile = this.serializeMobile();
+
+      return formData;
+    },
+
+    serializeMobile: function()
+    {
+      var mobileMap = {};
+
+      _.forEach(this.mobileList, function(mobile)
+      {
+        mobileMap[mobile.number] = mobile;
+      });
+
+      return _.values(mobileMap);
+    },
+
+    resizeColumns: function()
+    {
+      var $columns = this.$('.col-lg-3');
+      var $maxColumn = null;
+      var maxHeight = 0;
+
+      $columns.each(function()
+      {
+        var $column = $(this).css('height', '');
+        var columnHeight = $column.outerHeight();
+
+        if (columnHeight > maxHeight)
+        {
+          $maxColumn = $column;
+          maxHeight = columnHeight;
+        }
+      });
+
+      if (window.innerWidth >= 1200)
+      {
+        $columns.each(function()
+        {
+          this.style.height = this === $maxColumn[0] ? '' : (maxHeight + 'px');
+        });
+      }
+    },
+
+    renderMobileList: function()
+    {
+      this.$id('mobile-list').html(formMobileListTemplate({
+        mobileList: this.mobileList
+      }));
+    },
+
+    removeMobile: function(number)
+    {
+      this.mobileList = this.mobileList.filter(function(mobile) { return mobile.number !== number; });
+
+      this.renderMobileList();
+    },
+
+    addMobile: function(number, fromTime, toTime)
+    {
+      number = this.parseMobileNumber(number);
+      fromTime = this.parseMobileTime(fromTime);
+      toTime = this.parseMobileTime(toTime);
+
+      if (number && fromTime && toTime)
+      {
+        this.mobileList.push({
+          number: number,
+          fromTime: fromTime,
+          toTime: toTime
+        });
+      }
+    },
+
+    parseMobileNumber: function(number)
+    {
+      number = number.replace(/[^0-9]/g, '');
+
+      if (number.length < 9)
+      {
+        return '';
+      }
+
+      if (number.length === 9)
+      {
+        number = '48' + number;
+      }
+
+      if (number.length > 11)
+      {
+        return '';
+      }
+
+      return '+' + number;
+    },
+
+    parseMobileTime: function(time)
+    {
+      if (!time.trim().length)
+      {
+        time = '00:00';
+      }
+
+      if (time > -1 && time < 25)
+      {
+        if (time < 10)
+        {
+          time = '0' + time + ':00';
+        }
+        else if (time === '24')
+        {
+          time = '00:00';
+        }
+        else
+        {
+          time += ':00';
+        }
+      }
+
+      var matches = time.match(/([0-9]{1,2})[^0-9]*([0-9]{2})/);
+
+      if (matches === null)
+      {
+        return '00:00';
+      }
+
+      if (matches[1].length === 1)
+      {
+        matches[1] = '0' + matches[1];
+      }
+
+      return matches[1] + ':' + matches[2];
+    }
+
+  });
+});

@@ -1,0 +1,82 @@
+{
+  "private": true,
+  "guid": "EAAA43F4-7395-43E2-BFCB-6A292AAB9451",
+  "name": "walkner-utilio",
+  "version": "0.0.0",
+  "updater": {
+    "utilio": {
+      "backend": 1,
+      "frontend": 1,
+      "reports": 1,
+      "alarms": 1,
+      "controller": 1,
+      "watchdog": 1,
+      "mailer": 1
+    }
+  },
+  "description": "Utilities monitoring application in Node.js.",
+  "license": "CC BY-NC-SA 4.0",
+  "homepage": "https://github.com/morkai/walkner-utilio",
+  "author": {
+    "name": "Łukasz Walukiewicz",
+    "email": "lukasz@miracle.systems",
+    "url": "https://miracle.systems/"
+  },
+  "bugs": "https://github.com/morkai/walkner-utilio/issues",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/morkai/walkner-utilio.git"
+  },
+  "engine": [
+    "node >=5.7.1"
+  ],
+  "main": "./backend/main",
+  "dependencies": {
+    "axon": "~2.0.2",
+    "bcrypt": "~0.8.5",
+    "blocked": "~1.2.1",
+    "body-parser": "~1.15.0",
+    "cookie": "~0.2.3",
+    "cookie-parser": "~1.4.1",
+    "csv": "~0.3.7",
+    "deep-equal": "~1.0.1",
+    "ejs": "~2.4.1",
+    "ejs-amd": "~1.0.0",
+    "express": "~4.13.4",
+    "express-session": "~1.13.0",
+    "fs-extra": "~0.26.5",
+    "h5.step": "~0.1.0",
+    "h5.pubsub": "git+http://github.com/morkai/h5.pubsub.git#c1a899cb7e",
+    "h5.rql": "git+http://github.com/morkai/h5.rql.git#5622189665",
+    "h5.main": "git+http://github.com/morkai/h5.main.git#7fb51e2571",
+    "h5.modbus": "git+http://github.com/morkai/h5.modbus",
+    "later": "~1.2.0",
+    "lodash": "~4.5.1",
+    "mail-listener2": "~0.1.8",
+    "messageformat": "~0.3.1",
+    "messageformat-amd": "git+http://github.com/morkai/messageformat-amd.git#d41fd5caba",
+    "methods": "~1.1.2",
+    "moment": "~2.11.2",
+    "mongodb": "~2.1.7",
+    "mongoose": "~4.4.5",
+    "mongoose-auto-increment": "~5.0.1",
+    "multer": "~1.1.0",
+    "node-uuid": "~1.4.7",
+    "nodemailer": "~2.2.1",
+    "request": "~2.69.0",
+    "socket.io": "~1.4.5",
+    "twilio": "~2.9.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-clean": "~1.0.0",
+    "grunt-contrib-copy": "~0.8.2",
+    "grunt-contrib-concat": "~1.0.0",
+    "grunt-contrib-requirejs": "~0.4.4",
+    "grunt-eslint": "~18.0.0",
+    "grunt-ejs-amd": "git+http://github.com/morkai/grunt-ejs-amd.git#a09723eabe",
+    "grunt-messageformat-amd": "git+http://github.com/morkai/grunt-messageformat-amd.git#7c47f564a5",
+    "grunt-run": "~0.5.2",
+    "grunt-text-replace": "~0.4.0"
+  }
+}

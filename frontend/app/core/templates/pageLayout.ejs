@@ -1,0 +1,23 @@
+<div class="page">
+  <div class="hd">
+    <nav class="navbar navbar-default"></nav>
+    <div class="page-alerts"></div>
+    <div class="page-header">
+      <ul class="page-actions"></ul>
+      <ul class="page-breadcrumbs"></ul>
+    </div>
+  </div>
+  <div class="bd"></div>
+  <div class="ft">
+    <p>
+      Utilio
+      <% if (changelogUrl) { %>
+      <a href="<%- changelogUrl %>">v<%- version %></a>
+      <% } else { %>
+      v<%- version %>
+      <% } %>
+      <br>
+      <a href="https://miracle.systems/">miracle.systems</a>
+    </p>
+  </div>
+</div>

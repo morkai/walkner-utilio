@@ -1,0 +1,8 @@
+<div class="changelog">
+  <% include ./latest.ejs %>
+  <% include ./2016.ejs %>
+  <p>
+    <button id="<%- idPrefix %>-showMore" class="btn btn-link btn-lg btn-block"><%- t('changelog', 'showMore') %></button>
+    <button id="<%- idPrefix %>-showAll" class="btn btn-link btn-lg btn-block hidden"><%- t('changelog', 'showAll') %></button>
+  </p>
+</div>

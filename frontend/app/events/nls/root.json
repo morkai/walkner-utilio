@@ -1,0 +1,33 @@
+{
+  "root": {
+    "MSG:LOADING_FAILURE": "Failed to load the events :(",
+    "MSG:LOADING_TYPES_FAILURE": "Failed to load the event types :(",
+
+    "BREADCRUMBS:browse": "Events",
+
+    "filter:placeholder:type": "Any type",
+    "filter:submit": "Filter events",
+
+    "PROPERTY:time": "Time",
+    "PROPERTY:user": "User",
+    "PROPERTY:type": "Type",
+    "PROPERTY:text": "Description",
+    "PROPERTY:severity": "Severity",
+
+    "TYPE:app.started": "System start",
+    "TEXT:app.started": "Server <em>{id}</em> started in the <em>{env}</em> environment in <em>{time}</em> ms.",
+    "TYPE:users.login": "Users: log in",
+    "TEXT:users.login": "-",
+    "TYPE:users.loginFailure": "Users: log in failure",
+    "TEXT:users.loginFailure": "Failed log in to account: <em>{login}</em>",
+    "TYPE:users.logout": "Users: log out",
+    "TEXT:users.logout": "-",
+    "TYPE:users.added": "Users: added",
+    "TEXT:users.added": "Added user: <a href='\\#users/{model->_id}'>{model->login}</a>",
+    "TYPE:users.edited": "Users: edited",
+    "TEXT:users.edited": "Edited user: <a href='\\#users/{model->_id}'>{model->login}</a>",
+    "TYPE:users.deleted": "Users: deleted",
+    "TEXT:users.deleted": "Deleted user: <em>{model->login}</em>"
+  },
+  "pl": true
+}

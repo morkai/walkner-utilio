@@ -1,0 +1,16 @@
+{
+	"env": {
+		"node": false,
+		"es6": false,
+		"browser": true,
+		"amd": true
+	},
+	"ecmaFeatures": {
+
+	},
+	"rules": {
+		"strict": [2, "function"],
+		"no-shadow": 0,
+		"quote-props": 0
+	}
+}
