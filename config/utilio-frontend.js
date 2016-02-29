@@ -144,6 +144,10 @@ exports.user = {
   ]
 };
 
+exports.users = {
+
+};
+
 exports['messenger/server'] = {
   pubHost: ports.frontend.pubHost,
   pubPort: ports.frontend.pubPort,
