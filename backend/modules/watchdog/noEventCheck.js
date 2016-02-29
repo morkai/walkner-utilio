@@ -64,7 +64,7 @@ module.exports = function setUpNoEventCheck(app, watchdogModule)
 
   function notifyNoEvent(event, lastOccurrenceAt)
   {
-    var to = _.unique([].concat(
+    var to = _.uniq([].concat(
       event.recipients || [],
       watchdogModule.config.recipients,
       watchdogModule.config.noEventRecipients
