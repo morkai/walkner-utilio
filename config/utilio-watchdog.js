@@ -2,14 +2,16 @@
 
 'use strict';
 
-const mongodb = require('./utilio-mongodb');
 const later = require('later');
+const mongodb = require('./utilio-mongodb');
+const ports = require('./utilio-ports');
 
 later.date.localTime();
 
 exports.id = 'utilio-watchdog';
 
 exports.modules = [
+  'health/endpoint',
   'updater',
   'mongoose',
   'settings',
@@ -101,4 +103,16 @@ exports.watchdog = {
   noEventRecipients: [],
   events: [],
   emptyDirectories: []
+};
+
+exports['messenger/client:utilio-controller'] = {
+  pubHost: ports.controller.pubHost,
+  pubPort: ports.controller.pubPort,
+  repHost: ports.controller.repHost,
+  repPort: ports.controller.repPort,
+  responseTimeout: 15000
+};
+
+exports['health/endpoint'] = {
+  messengerClientId: 'messenger/client:utilio-controller'
 };
