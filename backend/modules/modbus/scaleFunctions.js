@@ -120,6 +120,21 @@ var SCALE_FUNCTIONS = {
       rawValueToValue: offset.bind(null, offsetValue),
       valueToRawValue: offset.bind(null, -offsetValue)
     };
+  },
+
+  nil: function(tag, args)
+  {
+    if (args.length === 0)
+    {
+      return NOOP_SCALE_FUNCTIONS;
+    }
+
+    const nullValue = args[0];
+
+    return {
+      rawValueToValue: rawValue => rawValue === nullValue ? null : rawValue,
+      valueToRawValue: value => value === null ? nullValue : value
+    };
   }
 
 };
@@ -264,6 +279,11 @@ exports.create = function(tag)
       for (let i = 0; i < scaleFunctionsCount; ++i)
       {
         value = scaleFunctions[i].rawValueToValue(value);
+
+        if (value === null)
+        {
+          return null;
+        }
       }
 
       return value;
