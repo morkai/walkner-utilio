@@ -25,6 +25,10 @@ define([
 
     },
 
+    localTopics: {
+      'socket.connected': 'load'
+    },
+
     remoteTopics: {
       'controller.tagValuesChanged': 'updateTagValues',
       'controller.tagsChanged': 'updateTags'
