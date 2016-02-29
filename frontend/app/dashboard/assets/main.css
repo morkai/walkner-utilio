@@ -13,9 +13,12 @@
 .dashboard-rows > .panel {
   margin-right: 14px;
 }
-.dashboard-rows > .panel-danger:hover > .panel-body {
+.dashboard-rows > .panel-danger:hover {
   background-color: rgba(217, 83, 79, 0.1);
 }
-.dashboard-rows > .panel-warning:hover > .panel-body {
+.dashboard-rows > .panel-warning:hover {
   background-color: rgba(240, 173, 78, 0.1);
+}
+.dashboard-rows > .panel-primary:hover {
+  background-color: rgba(51, 122, 183, 0.1);
 }

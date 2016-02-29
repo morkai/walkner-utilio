@@ -1,6 +1,6 @@
 <div class="dashboard-rows">
   <% _.forEach(['01', '02', '03'], function(n) { %>
-  <div class="panel panel-danger">
+  <div class="panel panel-primary">
     <div class="panel-heading">Care Sensor #3 <%- n %></div>
     <div class="panel-body">
       <dl>
@@ -10,6 +10,19 @@
         <dd><span data-tag="cs3.<%- n %>.H">?</span>%</dd>
         <dt>Ruch</dt>
         <dd><span data-tag="cs3.<%- n %>.motion">?</span></dd>
+      </dl>
+    </div>
+  </div>
+  <% }) %>
+  <% _.forEach(['01', '02'], function(n) { %>
+  <div class="panel panel-danger">
+    <div class="panel-heading">Care Sensor HT <%- n %></div>
+    <div class="panel-body">
+      <dl>
+        <dt>Temperatura</dt>
+        <dd><span data-tag="csht.<%- n %>.T">?</span>°C</dd>
+        <dt>Wilgotność</dt>
+        <dd><span data-tag="csht.<%- n %>.H">?</span>%</dd>
       </dl>
     </div>
   </div>
