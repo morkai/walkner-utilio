@@ -1,27 +1,40 @@
 name,description,master,kind,unit,address,readable,writable,type,rawMin,rawMax,scaleUnit,scaleFunction,scaleMin,scaleMax,noise,archive,valueMap
-,B41: Budynek 41,,,,,,,,,,,,,,,,
-b41.T,B41: Temperatura,inodeLan,register,1,17,1,0,int16,-,-,*C,div(100),-,-,-,avg,-
-b41.H,B41: Wilgotność,inodeLan,register,1,18,1,0,int16,-,-,*C,div(100),-,-,-,avg,-
-b41.flags,B41: Flagi,inodeLan,register,1,16,1,0,uint16,-,-,-,-,-,-,-,-,-
-b41.motion,B41: Ruch,inodeLan,virtual,-,b41.flags&2,0,0,bool,-,-,-,-,-,-,-,all,
-,PL: Pokój Łukasza,,,,,,,,,,,,,,,,
-pl.T,PL: Temperatura,inodeLan,register,2,17,1,0,int16,-,-,*C,div(100),-,-,-,avg,-
-pl.H,PL: Wilgotność,inodeLan,register,2,18,1,0,int16,-,-,*C,div(100),-,-,-,avg,-
-pl.flags,PL: Flagi,inodeLan,register,2,16,1,0,uint16,-,-,-,-,-,-,-,-,-
-pl.motion,PL: Ruch,inodeLan,virtual,-,pl.flags&2,0,0,bool,-,-,-,-,-,-,-,all,
+,CS3-01,,,,,,,,,,,,,,,,
+cs3.01.T,CS3-01: Temperatura,inodeLan,register,1,17,1,0,int16,-,-,°C,div(100),-,-,-,avg,-
+cs3.01.H,CS3-01: Wilgotność,inodeLan,register,1,18,1,0,int16,-,-,%,div(100),-,-,-,avg,-
+cs3.01.flags,CS3-01: Flagi,inodeLan,register,1,16,1,0,uint16,-,-,-,-,-,-,-,-,-
+cs3.01.motion,CS3-01: Ruch,inodeLan,virtual,-,cs3.01.flags&2,0,0,bool,-,-,-,-,-,-,-,all,
+,CS3-02,,,,,,,,,,,,,,,,
+cs3.02.T,CS3-02: Temperatura,inodeLan,register,2,17,1,0,int16,-,-,°C,div(100),-,-,-,avg,-
+cs3.02.H,CS3-02: Wilgotność,inodeLan,register,2,18,1,0,int16,-,-,%,div(100),-,-,-,avg,-
+cs3.02.flags,CS3-02: Flagi,inodeLan,register,2,16,1,0,uint16,-,-,-,-,-,-,-,-,-
+cs3.02.motion,CS3-02: Ruch,inodeLan,virtual,-,cs3.02.flags&2,0,0,bool,-,-,-,-,-,-,-,all,
+,CS3-03,,,,,,,,,,,,,,,,
+cs3.03.T,CS3-03: Temperatura,inodeLan,register,3,17,1,0,int16,-,-,°C,div(100),-,-,-,avg,-
+cs3.03.H,CS3-03: Wilgotność,inodeLan,register,3,18,1,0,int16,-,-,%,div(100),-,-,-,avg,-
+cs3.03.flags,CS3-03: Flagi,inodeLan,register,3,16,1,0,uint16,-,-,-,-,-,-,-,-,-
+cs3.03.motion,CS3-03: Ruch,inodeLan,virtual,-,cs3.03.flags&2,0,0,bool,-,-,-,-,-,-,-,all,
+,EM-01,,,,,,,,,,,,,,,,
+em.01.constant,EM-01: Stała,inodeLan,register,100,16,1,0,uint16,-,-,-,-,-,-,-,all,
+em.01.unit,EM-01: Jednostka,inodeLan,register,100,17,1,0,uint16,-,-,-,-,-,-,-,all,-
+em.01.sum,EM-01: Suma,inodeLan,register,100,18,1,0,uint32,-,-,-,div(100),-,-,-,avg,-
+em.01.avg,EM-01: Średnia,inodeLan,register,100,20,1,0,uint32,-,-,-,div(100),-,-,-,avg,-
+,EM-02,,,,,,,,,,,,,,,,
+em.02.constant,EM-02: Stała,inodeLan,register,101,16,1,0,uint16,-,-,-,-,-,-,-,all,
+em.02.unit,EM-02: Jednostka,inodeLan,register,101,17,1,0,uint16,-,-,-,-,-,-,-,all,-
+em.02.sum,EM-02: Suma,inodeLan,register,101,18,1,0,uint32,-,-,-,div(1000),-,-,-,avg,-
+em.02.avg,EM-02: Średnia,inodeLan,register,101,20,1,0,uint32,-,-,-,div(1000),-,-,-,avg,-
 ,Stany połączenia z urządzeniami,,,,,,,,,,,,,,,,
 masters.controlProcess,Stan połączenia z urządzeniami sterowania,-,virtual,-,-,0,0,bool,-,-,-,-,-,-,-,-,-
 masters.inodeLan,Stan połączenia z iNode LAN Gateway,inodeLan,virtual,-,-,0,0,bool,-,-,-,-,-,-,0,all,-
-,Wysyłanie e-maili,,,,,,,,,,,,,,,,
-mailer.from,Nagłówek e-mail: From,-,setting,-,-,0,1,string,-,-,-,-,-,-,0,all,-
-mailer.replyTo,Nagłowek e-mail: Reply-To,-,setting,-,-,0,1,string,-,-,-,-,-,-,0,all,-
-mailer.bcc,Nagłowek e-mail: BCC,-,setting,-,-,0,1,string,-,-,-,-,-,-,0,all,-
 ,Diagnostyka,,,,,,,,,,,,,,,,
 health.os.uptime,System: uptime,-,setting,-,-,0,1,double,-,-,-,-,-,-,0,avg,-
 health.os.cpu,System: obciążenie CPU,-,setting,-,-,0,1,float,-,-,-,-,-,-,0,avg,-
 health.os.memory,System: zajęta pamięć,-,setting,-,-,0,1,double,-,-,-,-,-,-,0,avg,-
 health.controller.uptime,Serwer sterownika: uptime,-,setting,-,-,0,1,double,-,-,-,-,-,-,0,avg,-
 health.controller.memory,Serwer sterownika: zajeta pamięć,-,setting,-,-,0,1,double,-,-,-,-,-,-,0,avg,-
+health.inodelan.uptime,Gateway iNode LAN: uptime,-,setting,-,-,0,1,double,-,-,-,-,-,-,0,avg,-
+health.inodelan.memory,Gateway iNode LAN: zajeta pamięć,-,setting,-,-,0,1,double,-,-,-,-,-,-,0,avg,-
 health.frontend.uptime,Serwer aplikacji: uptime,-,setting,-,-,0,1,double,-,-,-,-,-,-,0,avg,-
 health.frontend.memory,Serwer aplikacji: zajęta pamięć,-,setting,-,-,0,1,double,-,-,-,-,-,-,0,avg,-
 health.frontend.websockets,Serwer aplikacji: ilość połączonych klientów,-,setting,-,-,0,1,uint16,-,-,-,-,-,-,0,avg,-

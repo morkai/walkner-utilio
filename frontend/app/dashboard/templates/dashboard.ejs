@@ -1,31 +1,46 @@
-<div>
-	<h3>Budynek 41</h3>
-	<dl>
-		<dt>Temperatura</dt>
-		<dd><span data-tag="b41.T">?</span>°C</dd>
-		<dt>Wilgotność</dt>
-		<dd><span data-tag="b41.H">?</span>%</dd>
-		<dt>Ruch</dt>
-		<dd><span data-tag="b41.motion">?</span></dd>
-	</dl>
-	<h3>Pokój Łukasza</h3>
-	<dl>
-		<dt>Temperatura</dt>
-		<dd><span data-tag="pl.T">?</span>°C</dd>
-		<dt>Wilgotność</dt>
-		<dd><span data-tag="pl.H">?</span>%</dd>
-		<dt>Ruch</dt>
-		<dd><span data-tag="pl.motion">?</span></dd>
-	</dl>
-	<div class="de" data-tag="b41.T">
-		<div class="den">
-			<div class="dene">
-				<div class="denem">
-					<div class="deneme">
-						<span class="integer">0</span><span class="decimal">.0</span><strong>°</strong>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="dashboard-rows">
+  <% _.forEach(['01', '02', '03'], function(n) { %>
+  <div class="panel panel-danger">
+    <div class="panel-heading">Care Sensor #3 <%- n %></div>
+    <div class="panel-body">
+      <dl>
+        <dt>Temperatura</dt>
+        <dd><span data-tag="cs3.<%- n %>.T">?</span>°C</dd>
+        <dt>Wilgotność</dt>
+        <dd><span data-tag="cs3.<%- n %>.H">?</span>%</dd>
+        <dt>Ruch</dt>
+        <dd><span data-tag="cs3.<%- n %>.motion">?</span></dd>
+      </dl>
+    </div>
+  </div>
+  <% }) %>
+  <% _.forEach(['01', '02'], function(n) { %>
+  <div class="panel panel-warning">
+    <div class="panel-heading">Energy Meter <%- n %></div>
+    <div class="panel-body">
+      <dl>
+        <dt>Stała</dt>
+        <dd><span data-tag="em.<%- n %>.constant">?</span></dd>
+        <dt>Suma</dt>
+        <dd>
+          <span data-tag="em.<%- n %>.sum">?</span>
+          <span data-tag="em.<%- n %>.unit" data-select-value>
+            <span class="hidden" data-value="0">kW</span>
+            <span class="hidden" data-value="1">m³</span>
+            <span class="hidden" data-value="2">cnt</span>
+          </span>
+        </dd>
+        <dt>Średnia z minuty</dt>
+        <dd>
+          <span data-tag="em.<%- n %>.avg">?</span>
+          <span data-tag="em.<%- n %>.unit" data-select-value>
+            <span class="hidden" data-value="0">kWh</span>
+            <span class="hidden" data-value="1">m³</span>
+            <span class="hidden" data-value="2">cnt</span>
+          </span>
+        </dd>
+      </dl>
+    </div>
+  </div>
+  <% }) %>
 </div>

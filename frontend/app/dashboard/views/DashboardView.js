@@ -26,20 +26,20 @@ define([
     },
 
     remoteTopics: {
-      'controller.tagValuesChanged': 'updateTags'
+      'controller.tagValuesChanged': 'updateTagValues',
+      'controller.tagsChanged': 'updateTags'
     },
 
     initialize: function()
     {
       this.defineModels();
       this.defineViews();
-
       this.load();
     },
 
     defineModels: function()
     {
-
+      this.tags = {};
     },
 
     defineViews: function()
@@ -56,50 +56,93 @@ define([
 
       req.done(function(res)
       {
-        var changes = {};
-
-        _.forEach(res.collection, function(tag)
-        {
-          changes[tag.name] = tag.value;
-        });
-
-        view.updateTags(changes);
+        view.updateTags(res.collection);
       });
     },
 
-    updateTags: function(changes)
+    updateTags: function(tags)
+    {
+      var view = this;
+      var changes = {};
+
+      this.tags = {};
+
+      _.forEach(tags, function(tag)
+      {
+        view.tags[tag.name] = tag;
+        changes[tag.name] = tag.value;
+      });
+
+      this.updateTagValues(changes);
+    },
+
+    updateTagValues: function(changes)
     {
       var view = this;
 
-      _.forEach(changes, function(value, tagId)
+      _.forEach(changes, function(value, tag)
       {
-        view.$('span[data-tag="' + tagId + '"]').text(value);
+        tag = view.tags[tag];
+
+        if (tag)
+        {
+          tag.value = value;
+
+          view.updateTag(tag);
+        }
       });
-
-      if (changes['b41.T'] != null)
-      {
-        this.updateT('b41.T', changes['b41.T']);
-      }
-
-      if (changes['pl.T'] != null)
-      {
-        this.updateT('pl.T', changes['b41.T']);
-      }
     },
 
-    updateT: function(tagId, value)
+    updateTag: function(tag)
     {
-      var $thermometer = this.$('.de[data-tag="' + tagId + '"]');
+      var view = this;
 
-      if (!$thermometer.length)
+      this.$('[data-tag="' + tag.name + '"]').each(function()
       {
-        return;
+        view.updateTagElement(this, tag);
+      });
+    },
+
+    updateTagElement: function(tagEl, tag)
+    {
+      if (typeof tagEl.dataset.selectValue !== 'undefined')
+      {
+        return this.selectTagValue(tagEl, tag);
       }
 
-      var parts = value.toFixed(1).split('.');
+      this.updateTagTextContent(tagEl, tag);
+    },
 
-      $thermometer.find('.integer').text(parts[0]);
-      $thermometer.find('.decimal').text('.' + parts[1]);
+    selectTagValue: function(tagEl, tag)
+    {
+      var $options = this.$(tagEl).find('[data-value]');
+
+      $options.addClass('hidden').filter('[data-value="' + tag.value + '"]').removeClass('hidden');
+    },
+
+    updateTagTextContent: function(tagEl, tag)
+    {
+      tagEl.textContent = this.valueToString(tag.value);
+    },
+
+    valueToString: function(rawValue)
+    {
+      if (rawValue == null)
+      {
+        return '?';
+      }
+
+      if (typeof rawValue === 'boolean')
+      {
+        return rawValue ? '1' : '0';
+      }
+
+      if (typeof rawValue === 'number')
+      {
+        return (Math.round(rawValue * 100) / 100).toLocaleString();
+      }
+
+      return String(rawValue);
     }
 
   });
