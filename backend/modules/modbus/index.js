@@ -277,7 +277,7 @@ exports.start = function startModbusModule(app, module, done)
         {
           resetTagsTimer = null;
 
-          _.forEach(master.tags, tag => tag.setValue(null));
+          _.forEach(master.tags, tag => { tag.setValue(null); });
         });
       }
     });
@@ -515,7 +515,6 @@ exports.start = function startModbusModule(app, module, done)
 
       lastAddress = tag.address;
     });
-
   }
 
   /**
