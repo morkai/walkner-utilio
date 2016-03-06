@@ -101,7 +101,6 @@ define([
       var showManageActions = this.options.hideManageActions !== true && user.isAllowedTo('ALARMS:MANAGE');
       var canAck = user.isAllowedTo('ALARMS:ACK');
       var collection = this.collection;
-      var viewEditDelete = ListView.actions.viewEditDelete(collection);
 
       return function(row)
       {

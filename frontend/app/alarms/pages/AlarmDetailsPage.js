@@ -4,6 +4,7 @@ define([
   'jquery',
   'app/viewport',
   'app/i18n',
+  'app/user',
   'app/core/util/pageActions',
   'app/core/util/bindLoadingMessage',
   'app/core/pages/DetailsPage',
@@ -20,6 +21,7 @@ define([
   $,
   viewport,
   t,
+  user,
   pageActions,
   bindLoadingMessage,
   DetailsPage,
@@ -110,7 +112,12 @@ define([
         });
       }
 
-      return actions.concat(pageActions.edit(alarm), pageActions.delete(alarm));
+      actions.push(
+        pageActions.edit(alarm, 'ALARMS:MANAGE'),
+        pageActions.delete(alarm, 'ALARMS:MANAGE')
+      );
+
+      return actions;
     },
 
     initialize: function()

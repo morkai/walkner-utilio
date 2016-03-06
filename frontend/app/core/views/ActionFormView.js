@@ -240,7 +240,7 @@ define([
 
       dialogView.on('success', function()
       {
-        viewport.closeDialog();
+        setTimeout(viewport.closeDialog.bind(viewport), 1);
       });
 
       viewport.showDialog(dialogView, dialogTitle);
