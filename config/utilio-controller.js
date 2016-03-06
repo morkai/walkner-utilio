@@ -25,7 +25,7 @@ exports.events = {
   insertDelay: 1000,
   topics: {
     debug: [
-      'app.started'
+      
     ],
     info: [
       'events.**'
@@ -34,6 +34,7 @@ exports.events = {
 
     ],
     error: [
+      'app.started',
       'collector.saveFailed'
     ]
   },

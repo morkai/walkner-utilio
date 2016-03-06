@@ -25,7 +25,6 @@ exports.events = {
   insertDelay: 1000,
   topics: {
     debug: [
-      'app.started',
       'alarms.actionExecuted'
     ],
     info: [
@@ -40,6 +39,7 @@ exports.events = {
       'alarms.stopped'
     ],
     error: [
+      'app.started',
       'alarms.compileFailed',
       'alarms.conditionCheckFailed',
       'alarms.actions.emailFailed',
