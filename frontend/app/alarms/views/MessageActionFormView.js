@@ -64,6 +64,8 @@ define([
     {
       this.$('input[name*="users"]').remove();
 
+      this.userIndex = 0;
+
       _.forEach(this.$id('users').select2('data'), function(user)
       {
         $('<input type="hidden">').attr({
@@ -75,9 +77,9 @@ define([
           name: this.fieldNamePrefix + '.parameters.users[' + this.userIndex + '].label',
           value: user.text
         }).appendTo(this.el);
-      }, this);
 
-      ++this.userIndex;
+        ++this.userIndex;
+      }, this);
 
       this.trigger('resize');
     }
