@@ -30,6 +30,7 @@ exports.modules = [
   'users',
   'permalinks',
   'controller',
+  'alarms/frontend',
   'mail/sender',
   'messenger/server',
   {id: 'messenger/client', name: 'messenger/client:utilio-controller'},
@@ -98,7 +99,7 @@ exports.pubsub = {
     '*.added', '*.edited', '*.deleted', '*.synced',
     'updater.newVersion',
     'settings.updated.**',
-    'alarms.**',
+    'alarms.run', 'alarms.stopped', 'alarms.acked', 'alarms.activated', 'alarms.deactivated', 'alarms.actionExecuted',
     'controller.tagsChanged', 'controller.tagValuesChanged'
   ]
 };
@@ -109,7 +110,7 @@ exports.mongoose = {
   maxConnectTries: 10,
   connectAttemptDelay: 500,
   models: [
-    'setting', 'event', 'user', 'passwordResetRequest'
+    'setting', 'event', 'user', 'passwordResetRequest', 'alarm'
   ]
 };
 exports.mongoose.options.server.poolSize = 10;
@@ -139,8 +140,9 @@ exports.user = {
   privileges: [
     'USERS:VIEW', 'USERS:MANAGE',
     'EVENTS:VIEW', 'EVENTS:MANAGE',
+    'ALARMS:VIEW', 'ALARMS:MANAGE', 'ALARMS:ACK',
     'DICTIONARIES:VIEW', 'DICTIONARIES:MANAGE',
-    'SETTINGS:MANAGE'
+    'SETTINGS:VIEW', 'SETTINGS:MANAGE'
   ]
 };
 
@@ -203,7 +205,7 @@ exports.updater = {
 };
 
 exports['mail/sender'] = {
-  from: 'WMES Bot <wmes@localhost>'
+  from: 'Utilio Bot <utilio@localhost>'
 };
 
 exports['health/endpoint'] = {

@@ -1,0 +1,19 @@
+<form class="well filter-form">
+  <div class="form-group">
+    <label for="<%- idPrefix %>-name"><%- t('alarms', 'PROPERTY:name') %></label>
+    <input id="<%- idPrefix %>-name" class="form-control" name="name" type="text">
+  </div>
+  <div class="form-group">
+    <label for="<%- idPrefix %>-state"><%- t('alarms', 'PROPERTY:state') %></label>
+    <select id="<%- idPrefix %>-state" class="form-control" name="state">
+      <option></option>
+      <% [0, 1, 2].forEach(function(state, i) { %>
+      <option value="<%- i %>"><%- t('alarms', 'state:' + i) %></option>
+      <% }) %>
+    </select>
+  </div>
+  <%- renderLimit() %>
+  <div class="form-group filter-actions">
+    <button type="submit" class="btn btn-default"><i class="fa fa-filter"></i><span><%= t('alarms', 'filter:submit') %></span></button>
+  </div>
+</form>

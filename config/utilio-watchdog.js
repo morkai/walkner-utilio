@@ -69,10 +69,10 @@ exports.mongoose = {
 exports.mongoose.options.server.poolSize = 2;
 
 exports['messenger/server'] = {
-  pubHost: '127.0.0.1',
-  pubPort: 60070,
-  repHost: '127.0.0.1',
-  repPort: 60071,
+  pubHost: ports.watchdog.pubHost,
+  pubPort: ports.watchdog.pubPort,
+  repHost: ports.watchdog.repHost,
+  repPort: ports.watchdog.repPort,
   responseTimeout: 5000,
   broadcastTopics: [
     'events.saved'
@@ -84,13 +84,13 @@ exports.updater = {
   sioId: null,
   packageJsonPath: __dirname + '/../package.json',
   restartDelay: 1337,
-  versionsKey: 'wmes',
+  versionsKey: 'utilio',
   backendVersionKey: 'watchdog',
   frontendVersionKey: null
 };
 
 exports['mail/sender'] = {
-  from: 'WMES Bot <wmes@localhost>'
+  from: 'Utilio Bot <wmes@localhost>'
 };
 
 exports.twilio = {

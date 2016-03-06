@@ -42,7 +42,7 @@ define([
     viewport.loadPage(['app/users/pages/UserListPage'], function(UserListPage)
     {
       return new UserListPage({
-        collection: new UserCollection({rqlQuery: req.rql})
+        collection: new UserCollection(null, {rqlQuery: req.rql})
       });
     });
   });

@@ -37,7 +37,7 @@ dt:first-child {
   margin-top: 0;
 }
 dd {
-  margin-left: 1em;
+  margin-left: 15px;
 }
 p:last-child {
   margin-bottom: 0;
@@ -61,7 +61,7 @@ kbd {
   user-select: none;
 }
 .well {
-  padding: 1em;
+  padding: 15px;
   background-image: none;
 }
 .messages {
@@ -116,16 +116,13 @@ kbd {
   background-color: #FFD1D1;
   border-color: #F8ACAC;
 }
-.bd {
-  margin: 1em;
-}
 .bd > :last-child {
   margin-bottom: 0;
 }
 .ft {
   color: gray;
   text-align: center;
-  margin: 1em;
+  margin: 15px;
 }
 .ft p {
   font-size: .9em;
@@ -148,7 +145,7 @@ kbd {
 
 .page-header {
   border-bottom: none;
-  margin: 1em;
+  margin: 15px;
   padding-bottom: 0;
 }
 .page-breadcrumbs {
@@ -177,7 +174,7 @@ kbd {
 }
 .page-actions > li {
   display: inline-block;
-  margin-left: 1em;
+  margin-left: 15px;
   vertical-align: top;
 }
 .page-actions-jump {
@@ -355,7 +352,7 @@ kbd {
   .page-actions > li {
     display: block;
     margin-left: 0;
-    margin-bottom: 1em;
+    margin-bottom: 15px;
   }
   .page-actions > li > .btn {
     width: 100%;

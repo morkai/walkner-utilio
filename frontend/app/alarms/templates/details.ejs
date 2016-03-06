@@ -1,0 +1,30 @@
+<div class="well alarms-details">
+  <dl>
+    <dt><%= t('alarms', 'PROPERTY:name') %>
+    <dd><%= alarm.name %>
+    <dt><%= t('alarms', 'PROPERTY:state') %>
+    <dd class="alarms-details-state" data-severity="<%- alarm.severity %>"><%= alarm.stateText %>
+    <dt><%= t('alarms', 'PROPERTY:lastStateChangeTime') %>
+    <dd><%= alarm.lastStateChangeTimeText %>
+    <dt><%= t('alarms', 'PROPERTY:startCondition') %>
+    <dd><pre><code><%= alarm.startCondition %></code></pre>
+    <dt><%= t('alarms', 'PROPERTY:stopCondition') %>
+    <dd>
+      <% if (alarm.stopConditionMode === 'manual' || alarm.stopConditionMode === 'negated') { %>
+      <%= t('alarms', 'stopConditionMode:' + alarm.stopConditionMode) %>
+      <% } else { %>
+      <pre><code><%= alarm.stopCondition %></code></pre>
+      <% } %>
+    <dt><%= t('alarms', 'PROPERTY:actions') %>
+    <dd>
+      <% if (startActions.length) { %>
+      <ol class="alarms-details-actions">
+        <% startActions.forEach(function(action) { %>
+        <li class="alarms-details-action" data-severity="<%- action.severity %>"><%- action.render() %>
+        <% }) %>
+      </ol>
+      <% } else { %>
+      -
+      <% } %>
+  </dl>
+</div>

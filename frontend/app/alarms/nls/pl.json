@@ -1,0 +1,95 @@
+{
+  "BREADCRUMBS:browse": "Alarmy",
+  "BREADCRUMBS:addForm": "Dodawanie",
+  "BREADCRUMBS:editForm": "Edycja",
+  "BREADCRUMBS:ACTION_FORM:delete": "Usuwanie",
+  "BREADCRUMBS:ACTION_FORM:run": "Uruchamianie",
+  "BREADCRUMBS:ACTION_FORM:stop": "Zatrzymywanie",
+  "BREADCRUMBS:ACTION_FORM:ack": "Dezaktywacja",
+
+  "MSG:LOADING_FAILURE": "Ładowanie alarmów nie powiodło się :(",
+  "MSG:LOADING_SINGLE_FAILURE": "Ładowanie alarmu nie powiodło się :(",
+  "MSG:DELETED": "Alarm <em>{label}</em> został usunięty.",
+
+  "PAGE_ACTION:add": "Dodaj alarm",
+  "PAGE_ACTION:edit": "Edytuj alarm",
+  "PAGE_ACTION:delete": "Usuń alarm",
+  "PAGE_ACTION:ack": "Wyłącz alarm",
+  "PAGE_ACTION:run": "Uruchom alarm",
+  "PAGE_ACTION:stop": "Zatrzymaj alarm",
+
+  "LIST:ACTION:ack": "Potwierdź dezaktywację alarmu",
+  "LIST:ACTION:run": "Uruchom alarm",
+  "LIST:ACTION:stop": "Zatrzymaj alarm",
+
+  "PROPERTY:name": "Nazwa",
+  "PROPERTY:state": "Stan",
+  "PROPERTY:lastStateChangeTime": "Ostatnia zmiana stanu",
+  "PROPERTY:startCondition": "Warunek aktywacji",
+  "PROPERTY:stopCondition": "Warunek dezaktywacji",
+  "PROPERTY:actions": "Akcje",
+
+  "state:0": "Zatrzymany",
+  "state:1": "Uruchomiony",
+  "state:2": "Aktywny",
+
+  "stopConditionMode:manual": "Wyłączenie ręczne",
+  "stopConditionMode:negated": "Przeciwność warunku aktywacji",
+  "stopConditionMode:specified": "Określony:",
+
+  "PANEL:TITLE:details": "Szczegóły alarmu",
+  "PANEL:TITLE:addForm": "Formularz dodawania alarmu",
+  "PANEL:TITLE:editForm": "Formularz edycji alarmu",
+
+  "FORM:ACTION:add": "Dodaj alarm",
+  "FORM:ACTION:edit": "Edytuj alarm",
+  "FORM:ERROR:noActions": "Zdefiniuj przynajmniej jedną akcję.",
+  "FORM:ERROR:addFailure": "Nie udało się dodać alarmu :-(",
+  "FORM:ERROR:editFailure": "Nie udało się zmodyfikować alarmu :-(",
+  "FORM:ERROR:UNKNOWN_TAG_NAME": "Tag <em>{tagName}</em> nie istnieje.",
+  "FORM:ERROR:RESERVED_VARIABLE_NAME": "Zmienna <em>{varName}</em> jest zarezerwowa.",
+  "FORM:ERROR:ILLEGAL_STATEMENT": "Niedozwolona instrukcja: <em>{nodeType}</em>.",
+  "FORM:ERROR:ILLEGAL_COMPLEX_TAG_NAME": "Niedozwolone wyrażenie w nazwie taga: <em>{nodeType}</em>.",
+
+  "ACTION_FORM:DIALOG_TITLE:delete": "Potwierdzenie usunięcia alarmu",
+  "ACTION_FORM:BUTTON:delete": "Usuń alarm",
+  "ACTION_FORM:MESSAGE:delete": "Czy na pewno chcesz bezpowrotnie usunąć wybrany alarm?",
+  "ACTION_FORM:MESSAGE_SPECIFIC:delete": "Czy na pewno chcesz bezpowrotnie usunąć alarm <em>{label}</em>?",
+  "ACTION_FORM:MESSAGE_FAILURE:delete": "Nie udało się usunąć alarmu :-(",
+
+  "ACTION_FORM:DIALOG_TITLE:run": "Potwierdzenie uruchomienia alarmu",
+  "ACTION_FORM:BUTTON:run": "Uruchom alarm",
+  "ACTION_FORM:MESSAGE:run": "Czy na pewno chcesz uruchomić wybrany alarm?",
+  "ACTION_FORM:MESSAGE_SPECIFIC:run": "Czy na pewno chcesz uruchomić alarm <em>{label}</em>?",
+  "ACTION_FORM:MESSAGE_FAILURE:run": "Nie udało się uruchomić alarmu :-(",
+
+  "ACTION_FORM:DIALOG_TITLE:stop": "Potwierdzenie zatrzymania alarmu",
+  "ACTION_FORM:BUTTON:stop": "Zatrzymaj alarm",
+  "ACTION_FORM:MESSAGE:stop": "Czy na pewno chcesz zatrzymać wybrany alarm?",
+  "ACTION_FORM:MESSAGE_SPECIFIC:stop": "Czy na pewno chcesz zatrzymać alarm <em>{label}</em>?",
+  "ACTION_FORM:MESSAGE_FAILURE:stop": "Nie udało się zatrzymać alarmu :-(",
+
+  "ACTION_FORM:DIALOG_TITLE:ack": "Potwierdzenie dezaktywacji alarmu",
+  "ACTION_FORM:BUTTON:ack": "Dezaktywuj alarm",
+  "ACTION_FORM:MESSAGE:ack": "Czy na pewno chcesz dezaktywować wybrany alarm?<br><br>Alarmu nie uda się dezaktywować, jeżeli warunek początkowy nadal jest spełniony.",
+  "ACTION_FORM:MESSAGE_SPECIFIC:ack": "Czy na pewno chcesz dezaktywować alarm <em>{label}</em>?<br><br>Alarmu nie uda się dezaktywować, jeżeli warunek początkowy nadal jest spełniony.",
+  "ACTION_FORM:MESSAGE_FAILURE:ack": "Nie udało się dezaktywować alarmu :-(",
+
+  "ACTION_TYPE:email": "Wysłanie e-maila",
+  "ACTION_TYPE:sms": "Wysłanie SMS",
+  "ACTION_TYPE:severity": "Zmiana priorytetu",
+
+  "ACTION:message:HEADER:email": "Wysłanie e-maila",
+  "ACTION:message:HEADER:sms": "Wysłanie SMS",
+  "ACTION:message:DELAY": "Po: ",
+  "ACTION:message:TEXT": "wyślij wiadomość o treści: ",
+  "ACTION:message:USERS": "do następujących użytkowników: ",
+  "ACTION:message:DETAILS": "Po {delay}s wyślij do: {users} wiadomość o treści:",
+
+  "ACTION:severity:HEADER": "Zmiana priorytetu",
+  "ACTION:severity:DELAY": "Po: ",
+  "ACTION:severity:TEXT": "zmień priorytet alarmu.",
+  "ACTION:severity:DETAILS": "Po {delay}s zmień priorytet alarmu.",
+
+  "filter:submit": "Filtruj alarmy"
+}

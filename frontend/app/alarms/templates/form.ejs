@@ -1,0 +1,41 @@
+<form class="alarms-form" method="post" action="<%- formAction %>" autocomplete="off">
+  <input type="hidden" type="_method" value="<%- formMethod %>">
+  <div class="panel panel-primary">
+    <div class="panel-heading"><%- panelTitleText %></div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label for="<%- idPrefix %>-name" class="control-label is-required"><%- t('alarms', 'PROPERTY:name') %></label>
+        <input id="<%- idPrefix %>-name" name="name" class="form-control" type="text" value="" autofocus required maxlength="100">
+      </div>
+      <div class="form-group">
+        <label for="<%- idPrefix %>-startCondition" class="control-label is-required"><%- t('alarms', 'PROPERTY:startCondition') %></label>
+        <textarea id="<%- idPrefix %>-startCondition" name="startCondition" class="form-control alarms-form-condition" required rows="5"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="<%- idPrefix %>-stopCondition" class="control-label"><%- t('alarms', 'PROPERTY:stopCondition') %></label>
+        <% ['manual', 'negated', 'specified'].forEach(function(stopConditionMode) { %>
+        <div class="radio">
+          <label><input type="radio" name="stopConditionMode" value="<%- stopConditionMode %>"> <%- t('alarms', 'stopConditionMode:' + stopConditionMode) %></label>
+        </div>
+        <% }) %>
+        <textarea id="<%- idPrefix %>-stopCondition" class="form-control alarms-form-condition" name="stopCondition" rows="5"></textarea>
+      </div>
+      <div class="form-group alarms-form-actions-control-group">
+        <label class="control-label" for="<%- idPrefix %>-actions-type"><%- t('alarms', 'PROPERTY:actions') %></label>
+        <div class="alarms-form-actions-arrow"></div>
+        <div class="alarms-form-actions"></div>
+        <div class="form-group alarms-form-actions-controls">
+          <select id="<%- idPrefix %>-actions-type" class="form-control alarms-form-actions-type">
+            <% ['severity', 'sms', 'email'].forEach(function(actionType) { %>
+            <option value="<%- actionType %>"><%- t('alarms', 'ACTION_TYPE:' + actionType) %></option>
+            <% }) %>
+          </select>
+          <button class="btn btn-default alarms-form-actions-add" type="button"><i class="fa fa-plus"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer">
+      <button type="submit" class="btn btn-primary"><%- formActionText %></button>
+    </div>
+  </div>
+</form>

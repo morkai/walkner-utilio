@@ -1,45 +1,45 @@
 name,description,master,kind,unit,address,readable,writable,type,rawMin,rawMax,scaleUnit,scaleFunction,scaleMin,scaleMax,noise,archive,valueMap
 ,CS3-01,,,,,,,,,,,,,,,,
-cs3.01.T,CS3-01: Temperatura,inodeLan,register,1,17,1,0,int16,-,-,°C,"nil(25500)
+cs3.1.T,CS3-01: Temperatura,inodeLan,register,1,17,1,0,int16,-,-,°C,"nil(25500)
 div(100)",-,-,-,avg,-
-cs3.01.H,CS3-01: Wilgotność,inodeLan,register,1,18,1,0,uint16,-,-,%,"nil(25500)
+cs3.1.H,CS3-01: Wilgotność,inodeLan,register,1,18,1,0,uint16,-,-,%,"nil(25500)
 div(100)",-,-,-,avg,-
-cs3.01.flags,CS3-01: Flagi,inodeLan,register,1,16,1,0,uint16,-,-,-,-,-,-,-,-,-
-cs3.01.motion,CS3-01: Ruch,inodeLan,virtual,-,cs3.01.flags&2,0,0,bool,-,-,-,-,-,-,-,all,
+cs3.1.flags,CS3-01: Flagi,inodeLan,register,1,16,1,0,uint16,-,-,-,-,-,-,-,-,-
+cs3.1.motion,CS3-01: Ruch,inodeLan,virtual,-,cs3.1.flags&2,0,0,bool,-,-,-,-,-,-,-,all,
 ,CS3-02,,,,,,,,,,,,,,,,
-cs3.02.T,CS3-02: Temperatura,inodeLan,register,2,17,1,0,int16,-,-,°C,"nil(25500)
+cs3.2.T,CS3-02: Temperatura,inodeLan,register,2,17,1,0,int16,-,-,°C,"nil(25500)
 div(100)",-,-,-,avg,-
-cs3.02.H,CS3-02: Wilgotność,inodeLan,register,2,18,1,0,uint16,-,-,%,"nil(25500)
+cs3.2.H,CS3-02: Wilgotność,inodeLan,register,2,18,1,0,uint16,-,-,%,"nil(25500)
 div(100)",-,-,-,avg,-
-cs3.02.flags,CS3-02: Flagi,inodeLan,register,2,16,1,0,uint16,-,-,-,-,-,-,-,-,-
-cs3.02.motion,CS3-02: Ruch,inodeLan,virtual,-,cs3.02.flags&2,0,0,bool,-,-,-,-,-,-,-,all,
+cs3.2.flags,CS3-02: Flagi,inodeLan,register,2,16,1,0,uint16,-,-,-,-,-,-,-,-,-
+cs3.2.motion,CS3-02: Ruch,inodeLan,virtual,-,cs3.2.flags&2,0,0,bool,-,-,-,-,-,-,-,all,
 ,CS3-03,,,,,,,,,,,,,,,,
-cs3.03.T,CS3-03: Temperatura,inodeLan,register,3,17,1,0,int16,-,-,°C,"nil(25500)
+cs3.3.T,CS3-03: Temperatura,inodeLan,register,3,17,1,0,int16,-,-,°C,"nil(25500)
 div(100)",-,-,-,avg,-
-cs3.03.H,CS3-03: Wilgotność,inodeLan,register,3,18,1,0,uint16,-,-,%,"nil(25500)
+cs3.3.H,CS3-03: Wilgotność,inodeLan,register,3,18,1,0,uint16,-,-,%,"nil(25500)
 div(100)",-,-,-,avg,-
-cs3.03.flags,CS3-03: Flagi,inodeLan,register,3,16,1,0,uint16,-,-,-,-,-,-,-,-,-
-cs3.03.motion,CS3-03: Ruch,inodeLan,virtual,-,cs3.03.flags&2,0,0,bool,-,-,-,-,-,-,-,all,
+cs3.3.flags,CS3-03: Flagi,inodeLan,register,3,16,1,0,uint16,-,-,-,-,-,-,-,-,-
+cs3.3.motion,CS3-03: Ruch,inodeLan,virtual,-,cs3.3.flags&2,0,0,bool,-,-,-,-,-,-,-,all,
 ,CSHT-01,,,,,,,,,,,,,,,,
-csht.01.T,CSHT-01: Temperatura,inodeLan,register,4,17,1,0,int16,-,-,°C,"nil(25500)
+csht.1.T,CSHT-01: Temperatura,inodeLan,register,4,17,1,0,int16,-,-,°C,"nil(25500)
 div(100)",-,-,-,avg,-
-csht.01.H,CSHT-01: Wilgotność,inodeLan,register,4,18,1,0,uint16,-,-,%,"nil(25500)
+csht.1.H,CSHT-01: Wilgotność,inodeLan,register,4,18,1,0,uint16,-,-,%,"nil(25500)
 div(100)",-,-,-,avg,-
 ,CSHT-02,,,,,,,,,,,,,,,,
-csht.02.T,CSHT-02: Temperatura,inodeLan,register,5,17,1,0,int16,-,-,°C,"nil(25500)
+csht.2.T,CSHT-02: Temperatura,inodeLan,register,5,17,1,0,int16,-,-,°C,"nil(25500)
 div(100)",-,-,-,avg,-
-csht.02.H,CSHT-02: Wilgotność,inodeLan,register,5,18,1,0,uint16,-,-,%,"nil(25500)
+csht.2.H,CSHT-02: Wilgotność,inodeLan,register,5,18,1,0,uint16,-,-,%,"nil(25500)
 div(100)",-,-,-,avg,-
 ,EM-01,,,,,,,,,,,,,,,,
-em.01.constant,EM-01: Stała,inodeLan,register,100,16,1,0,uint16,-,-,-,-,-,-,-,all,
-em.01.unit,EM-01: Jednostka,inodeLan,register,100,17,1,0,uint16,-,-,-,-,-,-,-,all,-
-em.01.sum,EM-01: Suma,inodeLan,register,100,18,1,0,uint32,-,-,-,div(100),-,-,-,avg,-
-em.01.avg,EM-01: Średnia,inodeLan,register,100,20,1,0,uint32,-,-,-,div(100),-,-,-,avg,-
+em.1.constant,EM-01: Stała,inodeLan,register,100,16,1,0,uint16,-,-,-,-,-,-,-,all,
+em.1.unit,EM-01: Jednostka,inodeLan,register,100,17,1,0,uint16,-,-,-,-,-,-,-,all,-
+em.1.sum,EM-01: Suma,inodeLan,register,100,18,1,0,uint32,-,-,-,div(100),-,-,-,avg,-
+em.1.avg,EM-01: Średnia,inodeLan,register,100,20,1,0,uint32,-,-,-,div(100),-,-,-,avg,-
 ,EM-02,,,,,,,,,,,,,,,,
-em.02.constant,EM-02: Stała,inodeLan,register,101,16,1,0,uint16,-,-,-,-,-,-,-,all,
-em.02.unit,EM-02: Jednostka,inodeLan,register,101,17,1,0,uint16,-,-,-,-,-,-,-,all,-
-em.02.sum,EM-02: Suma,inodeLan,register,101,18,1,0,uint32,-,-,-,div(1000),-,-,-,avg,-
-em.02.avg,EM-02: Średnia,inodeLan,register,101,20,1,0,uint32,-,-,-,div(1000),-,-,-,avg,-
+em.2.constant,EM-02: Stała,inodeLan,register,101,16,1,0,uint16,-,-,-,-,-,-,-,all,
+em.2.unit,EM-02: Jednostka,inodeLan,register,101,17,1,0,uint16,-,-,-,-,-,-,-,all,-
+em.2.sum,EM-02: Suma,inodeLan,register,101,18,1,0,uint32,-,-,-,div(1000),-,-,-,avg,-
+em.2.avg,EM-02: Średnia,inodeLan,register,101,20,1,0,uint32,-,-,-,div(1000),-,-,-,avg,-
 ,Stany połączenia z urządzeniami,,,,,,,,,,,,,,,,
 masters.controlProcess,Stan połączenia z urządzeniami sterowania,-,virtual,-,-,0,0,bool,-,-,-,-,-,-,-,-,-
 masters.inodeLan,Stan połączenia z iNode LAN Gateway,inodeLan,virtual,-,-,0,0,bool,-,-,-,-,-,-,0,all,-

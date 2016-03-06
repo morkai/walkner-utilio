@@ -214,7 +214,7 @@ exports.readRoute = function(app, options, req, res, next)
 
     if (typeof Model.customizeLeanObject === 'function')
     {
-      model = Model.customizeLeanObject(model);
+      model = Model.customizeLeanObject(model, queryOptions.fields);
     }
 
     if (typeof options.prepareResult === 'function')

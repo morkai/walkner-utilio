@@ -67,10 +67,15 @@ exports.start = function startExpressModule(app, expressModule, done)
 
   expressModule.router = express.Router();
 
-  expressModule.createHttpError = function(message, statusCode)
+  expressModule.createHttpError = function(message, statusCode, errorCode)
   {
     var httpError = new Error(message);
     httpError.status = statusCode || 400;
+
+    if (errorCode)
+    {
+      httpError.code = errorCode;
+    }
 
     return httpError;
   };

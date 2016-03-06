@@ -10,6 +10,7 @@
 @import url("../app/updater/assets/main.css");
 @import url("../app/changelog/assets/main.css");
 @import url("../app/dashboard/assets/main.css");
+@import url("../app/alarms/assets/main.css");
 
 #app-loading {
   position: absolute;

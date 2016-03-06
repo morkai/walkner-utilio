@@ -15,6 +15,7 @@
 
   "TYPE:app.started": "Start systemu",
   "TEXT:app.started": "Serwer <em>{id}</em> wystartował w środowisku <em>{env, select, development{rozwojowym} testing{testowym} production{produkcyjnym} other{{env}}}</em> w ciągu <em>{time}</em> ms.",
+
   "TYPE:users.login": "Użytkownicy: zalogowanie",
   "TEXT:users.login": "-",
   "TYPE:users.loginFailure": "Użytkownicy: nieudane logowanie",
@@ -26,5 +27,42 @@
   "TYPE:users.edited": "Użytkownicy: edycja",
   "TEXT:users.edited": "Zmodyfikowano użytkownika: <a href='\\#users/{model->_id}'>{model->login}</a>",
   "TYPE:users.deleted": "Użytkownicy: usunięcie",
-  "TEXT:users.deleted": "Usunięto użytkownika: <em>{model->login}</em>"
+  "TEXT:users.deleted": "Usunięto użytkownika: <em>{model->login}</em>",
+
+  "TYPE:alarms.added": "Alarmy: dodanie",
+  "TEXT:alarms.added": "Dodano alarm <a href='\\#alarms/{model->_id}'>{model->name}</a>.",
+  "TYPE:alarms.edited": "Alarmy: edycja",
+  "TEXT:alarms.edited": "Zmodyfikowano alarm <a href='\\#alarms/{model->_id}'>{model->name}</a>.",
+  "TYPE:alarms.deleted": "Alarmy: usunięcie",
+  "TEXT:alarms.deleted": "Usunięto alarm <em>{model->name}</em>.",
+  "TYPE:alarms.run": "Alarmy: uruchomienie",
+  "TEXT:alarms.run": "Uruchomiono alarm <a href='\\#alarms/{model->_id}'>{model->name}</a>.",
+  "TYPE:alarms.stopped": "Alarmy: zatrzymanie",
+  "TEXT:alarms.stopped": "Zatrzymano alarm <a href='\\#alarms/{model->_id}'>{model->name}</a>.",
+  "TYPE:alarms.compileFailed": "Alarmy: niepowodzenie kompilacji",
+  "TEXT:alarms.compileFailed": "Nie udało się skompilować warunku załączenia/wyłączenia alarmu <em><a href='\\#alarms/{model->_id}'>{model->name}</a></em>: <em>{error->message}</em>",
+  "TYPE:alarms.conditionCheckFailed": "Alarmy: niepowodzenie wykonywania warunku",
+  "TEXT:alarms.conditionCheckFailed": "Podczas sprawdzania <em>warunku {conditionKind, select, start{aktywacji} stop{dezaktywacji} other{{conditionKind}}}</em> alarmu <em><a href='\\#alarms/{model->_id}'>{model->name}</a></em> wystapił błąd: <em>{error->message}</em>",
+  "TYPE:alarms.activated": "Alarmy: aktywacja",
+  "TEXT:alarms.activated": "Aktywowano alarm <em><a href='\\#alarms/{model->_id}'>{model->name}</a></em>.",
+  "TYPE:alarms.deactivated": "Alarmy: dezaktywacja",
+  "TEXT:alarms.deactivated": "Dezaktywowano alarm <em><a href='\\#alarms/{model->_id}'>{model->name}</a></em>.",
+  "TYPE:alarms.actionExecuted": "Alarmy: akcja",
+  "TEXT:alarms.actionExecuted": "Wykonano akcję <em>{action->no}. {action->type, select, sms{Wysłanie SMSa} email{Wysłanie e-maila} severity{Zmiana priorytetu} other{{action->type}}}</em> z alarmu <a href='\\#alarms/{model->_id}'>{model->name}</a>",
+  "TYPE:alarms.actions.emailSent": "Alarmy: wysłanie e-maila",
+  "TEXT:alarms.actions.emailSent": "Wysłano e-maila do <em>{recipients}</em> podczas wykonywania akcji <em>{action->no}. Wysłanie e-maila</em> z alarmu <a href='\\#alarms/{model->_id}'>{model->name}</a>",
+  "TYPE:alarms.actions.emailFailed": "Alarmy: niepowodzenie wysyłania e-maila",
+  "TEXT:alarms.actions.emailFailed": "Nie udało się wysłać e-maila do <em>{recipients}</em> podczas wykonywania akcji <em>{action->no}. Wysłanie e-maila</em> z alarmu <a href='\\#alarms/{model->_id}'>{model->name}</a>: <em>{error->message}</em>",
+  "TYPE:alarms.actions.smsSent": "Alarmy: wysłanie SMS",
+  "TEXT:alarms.actions.smsSent": "Wysłano SMS do <em>{recipients}</em> podczas wykonywania akcji <em>{action->no}. Wysłanie SMS</em> z alarmu <a href='\\#alarms/{model->_id}'>{model->name}</a>",
+  "TYPE:alarms.actions.smsFailed": "Alarmy: niepowodzenie wysyłania SMS",
+  "TEXT:alarms.actions.smsFailed": "Nie udało się wysłać SMS do <em>{recipients}</em> podczas wykonywania akcji <em>{action->no}. Wysłanie SMS</em> z alarmu <a href='\\#alarms/{model->_id}'>{model->name}</a>: <em>{error->message}</em>",
+
+  "TYPE:collector.saveFailed": "Niepowodzenie zapisu wartości",
+  "TEXT:collector.saveFailed": "[{code}] {message}",
+
+  "TYPE:controller.tagValueSet": "Zmiana wartości",
+  "TEXT:controller.tagValueSet": "Zmieniono wartość <em>{tag}</em> z <em>{oldValue}</em> na <em>{newValue}</em>.",
+  "TYPE:controller.settingChanged": "Zmiana ustawień",
+  "TEXT:controller.settingChanged": "Zmieniono wartość <em>{tag}</em> z <em>{oldValue}</em> na <em>{newValue}</em>."
 }
