@@ -210,7 +210,7 @@
 .alarms-details-action.active {
   border-left-width: 2em;
 }
-.alarms-details-action-message h5 {
+.alarms-details-action h5 {
   margin: 0 0 .5em 0;
   font-weight: bold;
 }
@@ -223,8 +223,8 @@
 .alarms-details-action-message dt {
   font-weight: normal;
 }
-@media (max-width: 767px) {
-  .alarms-details-container {
-    margin-bottom: 1em;
+@media (max-width: 1199px) {
+  .alarms-details {
+    margin-bottom: 1em!important;
   }
 }
