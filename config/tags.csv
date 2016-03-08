@@ -31,10 +31,10 @@ div(100)",-,-,-,avg,-
 csht.2.H,CSHT-02: Wilgotność,inodeLan,register,5,18,1,0,uint16,-,-,%,"nil(25500)
 div(100)",-,-,-,avg,-
 ,EM-01,,,,,,,,,,,,,,,,
-em.1.constant,EM-01: Stała,inodeLan,register,100,16,1,0,uint16,-,-,-,-,-,-,-,all,
-em.1.unit,EM-01: Jednostka,inodeLan,register,100,17,1,0,uint16,-,-,-,-,-,-,-,all,-
-em.1.sum,EM-01: Suma,inodeLan,register,100,18,1,0,uint32,-,-,-,div(100),-,-,-,avg,-
-em.1.avg,EM-01: Średnia,inodeLan,register,100,20,1,0,uint32,-,-,-,div(100),-,-,-,avg,-
+em.1.constant,EM-01: Stała,inodeGsm,register,100,16,1,0,uint16,-,-,-,-,-,-,-,all,
+em.1.unit,EM-01: Jednostka,inodeGsm,register,100,17,1,0,uint16,-,-,-,-,-,-,-,all,-
+em.1.sum,EM-01: Suma,inodeGsm,register,100,18,1,0,uint32,-,-,-,div(100),-,-,-,avg,-
+em.1.avg,EM-01: Średnia,inodeGsm,register,100,20,1,0,uint32,-,-,-,div(100),-,-,-,avg,-
 ,EM-02,,,,,,,,,,,,,,,,
 em.2.constant,EM-02: Stała,inodeLan,register,101,16,1,0,uint16,-,-,-,-,-,-,-,all,
 em.2.unit,EM-02: Jednostka,inodeLan,register,101,17,1,0,uint16,-,-,-,-,-,-,-,all,-
