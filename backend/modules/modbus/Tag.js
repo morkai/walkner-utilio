@@ -606,7 +606,11 @@ Tag.prototype.setUpVirtualization = function()
 
   this.broker.subscribe(topic, (message) =>
   {
-    if (typeof message.newValue === 'number')
+    if (message.newValue === null)
+    {
+      this.setValue(null);
+    }
+    else if (typeof message.newValue === 'number')
     {
       this.setValue((message.newValue & this.bitMask) >> this.bits[0]);
     }

@@ -570,6 +570,11 @@ exports.start = function startModbusModule(app, module, done)
     {
       if (res.isException())
       {
+        if (res.exceptionCode === modbus.ExceptionCode.GatewayTargetDeviceFailedToRespond)
+        {
+          return nullifyTags(tInfo.tags);
+        }
+
         app.broker.publish('modbus.exception', {
           severity: 'debug',
           master: masterName,
@@ -607,6 +612,23 @@ exports.start = function startModbusModule(app, module, done)
         tag.setValue(newValue);
       }
     };
+  }
+
+  /**
+   * @private
+   * @param {Array<string>} tagNames
+   */
+  function nullifyTags(tagNames)
+  {
+    _.forEach(tagNames, function(tagName)
+    {
+      var tag = module.tags[tagName];
+
+      if (tag)
+      {
+        tag.setValue(null);
+      }
+    });
   }
 
   /**
