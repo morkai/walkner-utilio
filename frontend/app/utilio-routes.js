@@ -5,7 +5,8 @@ define([
   './events/routes',
   './users/routes',
   './changelog/routes',
-  './alarms/routes'
+  './alarms/routes',
+  './analytics/routes'
 ], function()
 {
   'use strict';

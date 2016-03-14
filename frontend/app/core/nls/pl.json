@@ -66,6 +66,9 @@
   "NAVBAR:LOG_OUT": "Wyloguj się",
   "NAVBAR:DICTIONARIES": "Słowniki",
   "NAVBAR:ALARMS": "Alarmy",
+  "NAVBAR:ANALYTICS": "Analiza",
+  "NAVBAR:ANALYTICS:CHARTS": "Wykresy",
+  "NAVBAR:ANALYTICS:CHANGES": "Historia zmian",
 
   "ACTION_FORM:BUTTON": "Wykonaj akcję",
   "ACTION_FORM:BUTTON:delete": "Usuń",

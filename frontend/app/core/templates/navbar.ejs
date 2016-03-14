@@ -5,6 +5,7 @@
       <li><a href="#"><%- t('core', 'NAVBAR:DASHBOARD') %></a>
       <li data-online data-privilege="EVENTS:VIEW" data-module><a href="#events"><%- t('core', 'NAVBAR:EVENTS') %></a>
       <li data-online data-privilege="ALARMS:VIEW" data-module="alarms/frontend"><a href="#alarms"><%- t('core', 'NAVBAR:ALARMS') %></a>
+      <% include navbar/analytics.ejs %>
       <% include navbar/dictionaries.ejs %>
     </ul>
     <% include navbar/right.ejs %>

@@ -6,6 +6,7 @@ define([
   'app/user',
   'app/core/Model',
   'app/core/View',
+  'app/data/controller',
   'app/dashboard/templates/dashboard'
 ], function(
   _,
@@ -13,6 +14,7 @@ define([
   user,
   Model,
   View,
+  controller,
   template
 ) {
   'use strict';
@@ -21,63 +23,13 @@ define([
 
     template: template,
 
-    events: {
-
-    },
-
     localTopics: {
-      'socket.connected': 'load'
+      'controller.valuesChanged': 'updateTagValues'
     },
 
-    remoteTopics: {
-      'controller.tagValuesChanged': 'updateTagValues',
-      'controller.tagsChanged': 'updateTags'
-    },
-
-    initialize: function()
+    afterRender: function()
     {
-      this.defineModels();
-      this.defineViews();
-      this.load();
-    },
-
-    defineModels: function()
-    {
-      this.tags = {};
-    },
-
-    defineViews: function()
-    {
-
-    },
-
-    load: function()
-    {
-      var view = this;
-      var req = view.ajax({
-        url: '/tags'
-      });
-
-      req.done(function(res)
-      {
-        view.updateTags(res.collection);
-      });
-    },
-
-    updateTags: function(tags)
-    {
-      var view = this;
-      var changes = {};
-
-      this.tags = {};
-
-      _.forEach(tags, function(tag)
-      {
-        view.tags[tag.name] = tag;
-        changes[tag.name] = tag.value;
-      });
-
-      this.updateTagValues(changes);
+      controller.forEach(this.updateTag, this);
     },
 
     updateTagValues: function(changes)
@@ -86,14 +38,7 @@ define([
 
       _.forEach(changes, function(value, tag)
       {
-        tag = view.tags[tag];
-
-        if (tag)
-        {
-          tag.value = value;
-
-          view.updateTag(tag);
-        }
+        view.updateTag(controller.get(tag));
       });
     },
 
@@ -101,7 +46,7 @@ define([
     {
       var view = this;
 
-      this.$('[data-tag="' + tag.name + '"]').each(function()
+      this.$('[data-tag="' + tag.id + '"]').each(function()
       {
         view.updateTagElement(this, tag);
       });
@@ -121,12 +66,12 @@ define([
     {
       var $options = this.$(tagEl).find('[data-value]');
 
-      $options.addClass('hidden').filter('[data-value="' + tag.value + '"]').removeClass('hidden');
+      $options.addClass('hidden').filter('[data-value="' + tag.get('value') + '"]').removeClass('hidden');
     },
 
     updateTagTextContent: function(tagEl, tag)
     {
-      tagEl.textContent = this.valueToString(tag.value);
+      tagEl.textContent = this.valueToString(tag.get('value'));
     },
 
     valueToString: function(rawValue)

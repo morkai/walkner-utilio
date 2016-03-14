@@ -141,7 +141,7 @@ define([
       utc: false
     });
 
-    var property = rqlQueryTerm.name === 'ge' ? 'from': 'to';
+    var property = rqlQueryTerm.name === 'ge' ? 'from' : 'to';
     var formMoment = (options.utc ? moment.utc : time.getMoment)(rqlQueryTerm.args[1]);
 
     if (type === 'date+time')

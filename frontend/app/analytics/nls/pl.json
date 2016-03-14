@@ -1,0 +1,26 @@
+{
+  "BREADCRUMBS:base": "Analiza",
+  "BREADCRUMBS:charts": "Wykresy",
+  "BREADCRUMBS:changes": "Historia zmian",
+
+  "CHART:CONTROLS:tag": "Tag:",
+  "CHART:CONTROLS:from": "Od:",
+  "CHART:CONTROLS:to": "Do:",
+  "CHART:CONTROLS:plot": "Wykreśl",
+  "CHART:CONTROLS:reset": "Resetuj",
+
+  "CHANGES:COLUMN:name": "Nazwa taga",
+  "CHANGES:COLUMN:description": "Opis taga",
+
+  "PROPERTY:time": "Czas zmiany",
+  "PROPERTY:value": "Wartość",
+  "PROPERTY:value:avg": "Średnia",
+  "PROPERTY:value:min": "Minimum",
+  "PROPERTY:value:max": "Maksimum",
+  "PROPERTY:value:sum": "Suma",
+
+  "changes:filter:submit": "Filtruj wartości",
+
+  "charts:filter:tag": "Tag",
+  "charts:filter:submit": "Wykreśl"
+}

@@ -50,7 +50,7 @@ define([
           return;
         }
 
-        var url = this.collection.get(e.currentTarget.dataset.id).genClientUrl();
+        var url = this.genClientUrl(e.currentTarget.dataset.id);
 
         if (e.ctrlKey)
         {
@@ -65,21 +65,21 @@ define([
           });
         }
       },
-      'mousedown .list-item[data-id]':  function(e)
+      'mousedown .list-item[data-id]': function(e)
       {
         if (!this.isNotClickable(e) && e.button === 1)
         {
           e.preventDefault();
         }
       },
-      'mouseup .list-item[data-id]':  function(e)
+      'mouseup .list-item[data-id]': function(e)
       {
         if (this.isNotClickable(e) || e.button !== 1)
         {
           return;
         }
 
-        window.open(this.collection.get(e.currentTarget.dataset.id).genClientUrl());
+        window.open(this.genClientUrl(e.currentTarget.dataset.id));
 
         return false;
       },
@@ -325,6 +325,11 @@ define([
         || e.target.classList.contains('actions')
         || window.getSelection().toString() !== ''
         || (e.target.tagName !== 'TD' && this.$(e.target).closest('a, input, button').length);
+    },
+
+    genClientUrl: function(id)
+    {
+      return this.collection.get(id).genClientUrl();
     }
 
   });

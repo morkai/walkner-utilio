@@ -1,0 +1,15 @@
+{
+  "MSG:LOADING_FAILURE": "Ładowanie tagów nie powiodło się :(",
+  "MSG:LOADING_SINGLE_FAILURE": "Ładowanie taga nie powiodło się :(",
+
+  "GROUP:other": "Inne",
+  "GROUP:health": "Zdrowie systemu",
+  "GROUP:masters": "Stany połączenia z urządzeniami",
+  "GROUP:cs3": "iNode Care Sensor 3",
+  "SUBGROUP:cs3": "CS3-{id}",
+  "GROUP:csht": "iNode Care Sensor HT",
+  "SUBGROUP:csht": "CSHT-{id}",
+  "GROUP:em": "iNode Energy Meter",
+  "SUBGROUP:em": "EM-{id}"
+
+}

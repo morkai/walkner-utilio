@@ -57,7 +57,7 @@ module.exports = function startControllerRoutes(app, module)
     let stop = parseInt(req.query.stop, 10);
     let step = parseInt(req.query.step, 10);
 
-    if (isNaN(stop) || stop < 0)
+    if (isNaN(stop) || stop <= 0)
     {
       stop = Date.now();
     }

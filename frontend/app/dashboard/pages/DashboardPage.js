@@ -5,12 +5,14 @@ define([
   'app/user',
   'app/core/View',
   'app/core/views/LogInFormView',
+  'app/data/controller',
   '../views/DashboardView'
 ], function(
   t,
   user,
   View,
   LogInFormView,
+  controller,
   DashboardView
 ) {
   'use strict';
@@ -38,6 +40,11 @@ define([
     initialize: function()
     {
       this.view = user.isLoggedIn() ? new DashboardView() : new LogInFormView();
+    },
+
+    load: function(when)
+    {
+      return when(controller.load());
     },
 
     afterRender: function()

@@ -1,0 +1,16 @@
+.analytics-changes td {
+  cursor: pointer;
+}
+.analytics-changes-group,
+.table-hover > tbody > tr:hover > td.analytics-changes-group {
+  font-weight: bold;
+  background-color: #ddd;
+}
+.analytics-changes-subgroup,
+.table-hover > tbody > tr:hover > td.analytics-changes-subgroup {
+  background-color: #eee;
+}
+.analytics-changes-tag {
+  font-family: monospace;
+  width: 1px;
+}

@@ -1,0 +1,36 @@
+<div class="list is-clickable">
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover table-condensed">
+      <thead>
+        <tr>
+          <th><%= t('analytics', 'CHANGES:COLUMN:name') %>
+          <th><%= t('analytics', 'CHANGES:COLUMN:description') %>
+        </tr>
+      </thead>
+      <tbody>
+      <% Object.keys(groups).forEach(function(group) { %>
+      <tr>
+        <td class="analytics-changes-group" colspan="2"><%= t('tags', 'GROUP:' + group) %></td>
+      </tr>
+        <% groups[group].tags.forEach(function(tag) { %>
+        <tr class="list-item" data-id="<%- tag.name %>">
+          <td class="analytics-changes-tag"><%- tag.name %></td>
+          <td><%= tag.description %></td>
+        </tr>
+        <% }) %>
+        <% Object.keys(groups[group].groups).forEach(function(subgroup) { %>
+        <tr>
+          <td class="analytics-changes-subgroup" colspan="2"><%= t('tags', 'SUBGROUP:' + group, {id: subgroup}) %></td>
+        </tr>
+          <% groups[group].groups[subgroup].forEach(function(tag) { %>
+          <tr class="list-item" data-id="<%- tag.name %>">
+            <td class="analytics-changes-tag"><%- tag.name %></td>
+            <td><%= tag.description %></td>
+          </tr>
+          <% }) %>
+        <% }) %>
+      <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>

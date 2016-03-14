@@ -76,6 +76,8 @@
   "PRIVILEGE:ALARMS:ACK": "Alarmy: dezaktywacja",
   "PRIVILEGE:SETTINGS:VIEW": "Ustawienia: przeglądanie",
   "PRIVILEGE:SETTINGS:MANAGE": "Ustawienia: zarządzanie",
+  "PRIVILEGE:ANALYTICS:VIEW": "Analiza: przeglądanie",
+  "PRIVILEGE:ANALYTICS:MANAGE": "Analiza: zarządzanie",
 
   "select2:placeholder": "Szukaj po nazwisku lub nr kadrowym...",
   "select2:users:system": "System"

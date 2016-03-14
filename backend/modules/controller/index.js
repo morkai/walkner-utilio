@@ -147,6 +147,8 @@ exports.start = function startControllerModule(app, module)
       }
     });
 
+    values['@timestamp'] = Date.now();
+
     app.broker.publish('controller.tagValuesChanged', values);
   }
 
