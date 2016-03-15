@@ -38,8 +38,8 @@ exports.start = function startHealthBackendModule(app, module)
    */
   function sendMemoryData()
   {
-    modbus.tags[`${tagPrefix}.memory`].setValue(roundBytes(process.memoryUsage().rss));
-    modbus.tags['health.os.memory'].setValue(roundBytes(os.totalmem() - os.freemem()));
+    modbus.setTagValue(`${tagPrefix}.memory`, roundBytes(process.memoryUsage().rss));
+    modbus.setTagValue('health.os.memory', roundBytes(os.totalmem() - os.freemem()));
 
     setTimeout(sendMemoryData, 1000);
   }
@@ -49,9 +49,9 @@ exports.start = function startHealthBackendModule(app, module)
    */
   function sendUptimeAndLoadData()
   {
-    modbus.tags[`${tagPrefix}.uptime`].setValue(Math.round(process.uptime()));
-    modbus.tags['health.os.uptime'].setValue(Math.round(os.uptime()));
-    modbus.tags['health.os.cpu'].setValue(os.loadavg()[0]);
+    modbus.setTagValue(`${tagPrefix}.uptime`, Math.round(process.uptime()));
+    modbus.setTagValue('health.os.uptime', Math.round(os.uptime()));
+    modbus.setTagValue('health.os.cpu', os.loadavg()[0]);
 
     setTimeout(sendUptimeAndLoadData, 60000);
   }
