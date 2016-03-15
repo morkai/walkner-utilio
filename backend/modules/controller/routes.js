@@ -293,10 +293,8 @@ module.exports = function startControllerRoutes(app, module)
       {
         queryOptions.selector._id = {};
 
-        Object.keys(t).forEach(function(op)
+        _.forEach(t, function(value, op)
         {
-          var value = t[op];
-
           if (typeof value !== 'number' || !_.includes(['$gt', '$gte', '$lt', '$lte'], op))
           {
             return;

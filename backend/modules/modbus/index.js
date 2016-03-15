@@ -189,34 +189,26 @@ exports.start = function startModbusModule(app, module, done)
 
     csvReader.on('record', function(record)
     {
-      Object.keys(record).forEach(function(key)
-      {
-        if (tags[record.name] != null)
-        {
-          return;
-        }
-
-        if (/^[A-Z]/.test(key))
-        {
-          delete record[key];
-
-          return;
-        }
-
-        if (record[key] === '-' || record[key] === '?')
-        {
-          record[key] = null;
-        }
-        else if (/^[0-9]+(\.[0-9]+)?$/.test(record[key]))
-        {
-          record[key] = parseFloat(record[key]);
-        }
-      });
-
-      if (record.name === '')
+      if (_.isEmpty(record.name) || tags[record.name])
       {
         return;
       }
+
+      _.forEach(record, function(value, key)
+      {
+        if (/^[A-Z]/.test(key))
+        {
+          delete record[key];
+        }
+        else if (value === '-' || value === '?')
+        {
+          record[key] = null;
+        }
+        else if (/^[0-9]+(\.[0-9]+)?$/.test(value))
+        {
+          record[key] = parseFloat(value);
+        }
+      });
 
       tags[record.name] = record;
     });
@@ -309,7 +301,7 @@ exports.start = function startModbusModule(app, module, done)
   {
     const config = module.config;
 
-    Object.keys(module.masters).forEach(function addStatusTag(masterName)
+    _.forEach(Object.keys(module.masters), function addStatusTag(masterName)
     {
       const statusTagName = `masters.${masterName}`;
       let statusTag = config.tags[statusTagName];
@@ -332,9 +324,8 @@ exports.start = function startModbusModule(app, module, done)
 
     let address = 0;
 
-    Object.keys(config.tags).forEach(function setUpTag(tagName)
+    _.forEach(config.tags, function setUpTag(tagConfig, tagName)
     {
-      const tagConfig = config.tags[tagName];
       let master = module.masters[tagConfig.master];
 
       if (config.writeAllTheThings
@@ -388,13 +379,11 @@ exports.start = function startModbusModule(app, module, done)
     const tagsByUnit = groupTagsByUnitAndCode(master.tags);
     const transactions = [];
 
-    Object.keys(tagsByUnit).forEach(function(unit)
+    _.forEach(tagsByUnit, function(tagsByCode, unit)
     {
-      const tagsByCode = tagsByUnit[unit];
-
-      Object.keys(tagsByCode).forEach(function(code)
+      _.forEach(tagsByCode, function(tags)
       {
-        createReadTransactions(transactions, tagsByCode[code]);
+        createReadTransactions(transactions, tags);
       });
     });
 

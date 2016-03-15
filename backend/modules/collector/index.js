@@ -157,13 +157,11 @@ exports.start = function(app, module)
   {
     avgDataSaveTimer = null;
 
-    var avgTags = Object.keys(avgData);
-    var saveData = [];
+    const saveData = [];
 
-    avgTags.forEach(function(tagName)
+    _.forEach(avgData, function(tagAvgData, tagName)
     {
-      var tagAvgData = avgData[tagName];
-      var currentValue = app[module.config.modbusId].values[tagName];
+      const currentValue = app[module.config.modbusId].values[tagName];
 
       tagAvgData.values.push(new Date(), currentValue);
 
@@ -186,13 +184,12 @@ exports.start = function(app, module)
       });
     });
 
-    saveData.forEach(function(tagSaveData)
+    _.forEach(saveData, function(tagSaveData)
     {
       setTimeout(
-        saveTagAvgData.bind(
-          null, tagSaveData.collection, tagSaveData.minuteData
-        ),
-        _.random(10, 10 + 10 * saveData.length)
+        saveTagAvgData,
+        _.random(10, 10 + 10 * saveData.length),
+        tagSaveData.collection, tagSaveData.minuteData
       );
     });
 
@@ -206,7 +203,7 @@ exports.start = function(app, module)
    */
   function saveTagAvgData(collection, minuteData)
   {
-    var documents = minuteData.map(function(data)
+    var documents = _.map(minuteData, function(data)
     {
       return {
         _id: new ObjectID(data.time / 1000),

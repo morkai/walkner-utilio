@@ -402,6 +402,7 @@ module.exports = function setUpAggregator(app, module)
    * @param {number} newTime
    * @param {Array<AveragedDoc>} averagedDocs
    * @param {function(?Error)} done
+   * @returns {undefined}
    */
   function saveAveragedDocs(collectionName, timeProperty, newTime, averagedDocs, done)
   {
