@@ -34,6 +34,31 @@ exports.start = function startModbusModule(app, module, done)
   module.masters = {};
   module.tags = {};
   module.values = {};
+  module.setTagValue = function(tagName, newValue, done)
+  {
+    if (!done)
+    {
+      done = function() {};
+    }
+
+    const tag = module.tags[tagName];
+
+    if (typeof tag === 'undefined')
+    {
+      done('UNKNOWN_TAG');
+
+      return;
+    }
+
+    if (newValue === tag.getValue())
+    {
+      done();
+
+      return;
+    }
+
+    tag.writeValue(newValue, done);
+  };
 
   app.onModuleReady(module.config.messengerServerId, setUpServerMessages);
 
@@ -121,23 +146,7 @@ exports.start = function startModbusModule(app, module, done)
    */
   function handleSetTagValueMessage(req, reply)
   {
-    const tag = module.tags[req.name];
-
-    if (typeof tag === 'undefined')
-    {
-      reply('UNKNOWN_TAG');
-
-      return;
-    }
-
-    if (req.value === tag.getValue())
-    {
-      reply();
-
-      return;
-    }
-
-    tag.writeValue(req.value, reply);
+    module.setTagValue(req.name, req.value, reply);
   }
 
   /**
@@ -680,20 +689,20 @@ exports.start = function startModbusModule(app, module, done)
     {
       if (err)
       {
-        module.error(`Failed to read the setting tags: ${err.message}`);
+        return module.error(`Failed to read the setting tags: ${err.message}`);
       }
-      else
-      {
-        _.forEach(docs, function(doc)
-        {
-          var tag = module.tags[doc._id];
 
-          if (_.isObject(tag))
-          {
-            tag.setValue(doc.value, doc.time);
-          }
-        });
-      }
+      const now = Date.now();
+
+      _.forEach(docs, function(doc)
+      {
+        const tag = module.tags[doc._id];
+
+        if (tag)
+        {
+          tag.setValue(doc.value, now);
+        }
+      });
     });
   }
 };
