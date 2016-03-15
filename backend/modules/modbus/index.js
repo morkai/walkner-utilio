@@ -24,7 +24,8 @@ exports.DEFAULT_CONFIG = {
   controlMasters: [],
   masters: {},
   tagsFile: null,
-  tags: {}
+  tags: {},
+  ignoreRe: null
 };
 
 exports.start = function startModbusModule(app, module, done)
@@ -39,6 +40,13 @@ exports.start = function startModbusModule(app, module, done)
     if (!done)
     {
       done = function() {};
+    }
+
+    if (module.config.ignoreRe && module.config.ignoreRe.test(tagName))
+    {
+      done();
+
+      return;
     }
 
     const tag = module.tags[tagName];
