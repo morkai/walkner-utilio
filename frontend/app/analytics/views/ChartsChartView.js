@@ -113,7 +113,21 @@ define([
           enabled: false
         },
         plotOptions: {
-
+          line: {
+            marker: {
+              enabled: false,
+              states: {
+                hover: {
+                  enabled: true
+                }
+              }
+            },
+            states: {
+              hover: {
+                lineWidthPlus: 0
+              }
+            }
+          }
         },
         series: series
       });
