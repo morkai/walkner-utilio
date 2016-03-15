@@ -87,8 +87,7 @@ define([
       this.chart = new Highcharts.Chart({
         chart: {
           renderTo: this.el,
-          plotBorderWidth: 1,
-          //height: 450
+          plotBorderWidth: 1
         },
         exporting: {
           enabled: false
@@ -159,7 +158,7 @@ define([
     serializeSeries: function()
     {
       var tag = controller.get(this.model.get('tag'));
-      var from = this.model.get('from');
+      var from = this.model.get('firstTime') || this.model.get('from');
 
       return [{
         type: 'line',

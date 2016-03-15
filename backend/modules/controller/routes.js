@@ -53,11 +53,12 @@ module.exports = function startControllerRoutes(app, module)
       return;
     }
 
+    const now = Date.now();
     let start = parseInt(req.query.start, 10);
     let stop = parseInt(req.query.stop, 10);
     let step = parseInt(req.query.step, 10);
 
-    if (isNaN(stop) || stop <= 0)
+    if (isNaN(stop) || stop <= 0 || stop > now)
     {
       stop = Date.now();
     }
@@ -93,7 +94,7 @@ module.exports = function startControllerRoutes(app, module)
         return;
       }
 
-      res.send(prepareMetrics(docs, valueField, stop, step));
+      res.send(prepareMetrics(docs, valueField, start, stop, step));
     });
   }
 
@@ -203,18 +204,32 @@ module.exports = function startControllerRoutes(app, module)
    * @private
    * @param {Array<Object>} docs
    * @param {string} valueField
+   * @param {number} start
    * @param {number} stop
    * @param {number} step
-   * @returns {Array<?number>}
+   * @returns {Object}
    */
-  function prepareMetrics(docs, valueField, stop, step)
+  function prepareMetrics(docs, valueField, start, stop, step)
   {
+    const metrics = [];
+    const result = {
+      start: start,
+      stop: stop,
+      step: step,
+      valueField: valueField,
+      firstTime: docs.length ? docs[0]._id.getTimestamp().getTime() : -1,
+      lastTime: docs.length ? docs[docs.length - 1]._id.getTimestamp().getTime() : -1,
+      totalCount: Math.ceil((stop - start) / step),
+      missingRight: 0,
+      missingLeft: 0,
+      values: metrics
+    };
+
     if (docs.length === 0)
     {
-      return [];
+      return result;
     }
 
-    const metrics = [];
     let prevDocTime = null;
     let prevValue = null;
 
@@ -245,12 +260,10 @@ module.exports = function startControllerRoutes(app, module)
     const lastMetricTime = docs[docs.length - 1]._id.getTimestamp().getTime();
     const missingRightMetrics = Math.ceil((stop - lastMetricTime) / step) - 1;
 
-    for (let j = 1; j < missingRightMetrics; ++j)
-    {
-      metrics.push(null);
-    }
+    result.missingRight = missingRightMetrics;
+    result.missingLeft = result.totalCount - metrics.length - missingRightMetrics;
 
-    return metrics;
+    return result;
   }
 
   /**

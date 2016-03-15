@@ -50,12 +50,6 @@ define([
             + '?start=' + this.get('from')
             + '&stop=' + (this.get('to') || 0)
             + '&valueField=' + (this.get('valueField') || '');
-        },
-        parse: function(res)
-        {
-          return {
-            values: res
-          };
         }
       });
 
@@ -92,6 +86,7 @@ define([
       var attrs = {
         values: [],
         to: null,
+        step: 60000,
         valueField: 'avg'
       };
 
