@@ -62,6 +62,11 @@ function calculateMinuteData(input, currentValue, aggregate)
 
       for (ii = 0; ii < minutesWithoutChange; ++ii)
       {
+        if (currentValue === null)
+        {
+          continue;
+        }
+
         results.push({
           time: (toTime + 1000) + ii * 60000,
           count: 60,
@@ -148,6 +153,13 @@ function arithmeticMean(fromTime, minuteData)
   for (let i = 0, l = result.count; i < l; ++i)
   {
     let value = minuteData[i];
+
+    if (value === null)
+    {
+      result.count -= 1;
+
+      continue;
+    }
 
     if (Array.isArray(value))
     {

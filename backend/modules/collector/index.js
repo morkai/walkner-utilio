@@ -131,7 +131,7 @@ exports.start = function(app, module)
     if (!_.isObject(avgData[tag.name]))
     {
       avgData[tag.name] = {
-        lastValue: 0,
+        lastValue: null,
         values: []
       };
     }
