@@ -86,7 +86,6 @@ define([
       var attrs = {
         values: [],
         to: null,
-        step: 60000,
         valueField: 'avg'
       };
 

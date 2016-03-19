@@ -173,20 +173,16 @@ define([
     {
       var tag = controller.get(this.model.get('tag'));
       var from = this.model.get('firstTime') || this.model.get('from');
+      var step = this.model.get('step') || 60000;
 
       return [{
         type: 'line',
         name: tag ? tag.id : '?',
         data: this.model.get('values').map(function(v, i)
         {
-          return [from + i * 60000, v];
+          return [from + i * step, v];
         })
       }];
-    },
-
-    serializeChartData: function()
-    {
-      return {};
     },
 
     onModelLoading: function()

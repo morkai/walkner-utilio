@@ -53,10 +53,16 @@ module.exports = function startControllerRoutes(app, module)
       return;
     }
 
+    const minute = 60;
+    const hour = minute * 60;
+    const day = hour * 24;
+    const month = day * 31;
+
     const now = Date.now();
     let start = parseInt(req.query.start, 10);
     let stop = parseInt(req.query.stop, 10);
-    let step = parseInt(req.query.step, 10);
+    let step = minute;
+    let interval = 'minutely';
 
     if (isNaN(stop) || stop <= 0 || stop > now)
     {
@@ -68,22 +74,47 @@ module.exports = function startControllerRoutes(app, module)
       start = stop - 3600 * 1000;
     }
 
-    if (isNaN(step) || step < 60000)
+    start = Math.floor(start / 1000) * 1000;
+    stop = Math.floor(stop / 1000) * 1000;
+
+    const timeDiff = (stop - start) / 1000;
+
+    if (timeDiff > month)
     {
-      step = 60000;
+      step = day;
+      interval = 'daily';
+    }
+    else if (timeDiff > day)
+    {
+      step = hour;
+      interval = 'hourly';
     }
 
-    const collection = mongoose.connection.db.collection(`tags.${tagName}.avg`);
-    const query = {
+    step *= 1000;
+
+    const minutely = interval === 'minutely';
+    const collection = mongoose.connection.db.collection(minutely ? `tags.${tagName}.avg` : `tags.avg.${interval}`);
+    const query = minutely ? {
       _id: {
-        $gte: ObjectID.createFromTime(Math.round(start / 1000)),
-        $lte: ObjectID.createFromTime(Math.round(stop / 1000))
+        $gte: ObjectID.createFromTime(Math.floor(start / 1000)),
+        $lt: ObjectID.createFromTime(Math.floor(stop / 1000))
+      }
+    } : {
+      tag: tagName,
+      time: {
+        $gte: start,
+        $lt: stop
       }
     };
-    const valueField = mapValueField(req.query.valueField);
+    const valueField = mapValueField(req.query.valueField, minutely);
     const fields = {
       [valueField]: 1
     };
+
+    if (!minutely)
+    {
+      fields.time = 1;
+    }
 
     collection.find(query, fields).toArray(function(err, docs)
     {
@@ -94,7 +125,7 @@ module.exports = function startControllerRoutes(app, module)
         return;
       }
 
-      res.send(prepareMetrics(docs, valueField, start, stop, step));
+      res.send(prepareMetrics(docs, valueField, start, stop, step, interval));
     });
   }
 
@@ -181,22 +212,40 @@ module.exports = function startControllerRoutes(app, module)
   /**
    * @private
    * @param {string} valueField
+   * @param {boolean} minutely
    * @returns {string}
    */
-  function mapValueField(valueField)
+  function mapValueField(valueField, minutely)
   {
+    if (minutely)
+    {
+      switch (valueField)
+      {
+        case 'min':
+        case 'n':
+          return 'n';
+
+        case 'max':
+        case 'x':
+          return 'x';
+
+        default:
+          return 'v';
+      }
+    }
+
     switch (valueField)
     {
       case 'min':
       case 'n':
-        return 'n';
+        return 'min';
 
       case 'max':
       case 'x':
-        return 'x';
+        return 'max';
 
       default:
-        return 'v';
+        return 'avg';
     }
   }
 
@@ -207,21 +256,26 @@ module.exports = function startControllerRoutes(app, module)
    * @param {number} start
    * @param {number} stop
    * @param {number} step
+   * @param {string} interval
    * @returns {Object}
    */
-  function prepareMetrics(docs, valueField, start, stop, step)
+  function prepareMetrics(docs, valueField, start, stop, step, interval)
   {
+    const getMetricTime = interval === 'minutely' ? getMetricTimeFromId : getMetricTimeFromTime;
     const metrics = [];
     const result = {
       start: start,
       stop: stop,
       step: step,
+      interval: interval,
       valueField: valueField,
-      firstTime: docs.length ? docs[0]._id.getTimestamp().getTime() : -1,
-      lastTime: docs.length ? docs[docs.length - 1]._id.getTimestamp().getTime() : -1,
+      firstTime: docs.length ? getMetricTime(docs[0]) : -1,
+      lastTime: docs.length ? getMetricTime(docs[docs.length - 1]) : -1,
       totalCount: Math.ceil((stop - start) / step),
       missingRight: 0,
       missingLeft: 0,
+      minValue: Number.MAX_SAFE_INTEGER,
+      maxValue: Number.MIN_SAFE_INTEGER,
       values: metrics
     };
 
@@ -236,7 +290,7 @@ module.exports = function startControllerRoutes(app, module)
     for (var i = 0, l = docs.length; i < l; ++i)
     {
       const doc = docs[i];
-      const docTime = doc._id.getTimestamp().getTime();
+      const docTime = getMetricTime(doc);
 
       if (prevDocTime !== null)
       {
@@ -254,16 +308,35 @@ module.exports = function startControllerRoutes(app, module)
       prevDocTime = docTime;
       prevValue = doc[valueField];
 
+      if (prevValue > result.maxValue)
+      {
+        result.maxValue = prevValue;
+      }
+
+      if (prevValue < result.minValue)
+      {
+        result.minValue = prevValue;
+      }
+
       metrics.push(prevValue);
     }
 
-    const lastMetricTime = docs[docs.length - 1]._id.getTimestamp().getTime();
-    const missingRightMetrics = Math.ceil((stop - lastMetricTime) / step) - 1;
+    const missingRightMetrics = Math.ceil((stop - result.lastTime) / step) - 1;
 
     result.missingRight = missingRightMetrics;
     result.missingLeft = result.totalCount - metrics.length - missingRightMetrics;
 
     return result;
+  }
+
+  function getMetricTimeFromId(doc)
+  {
+    return doc._id.getTimestamp().getTime();
+  }
+
+  function getMetricTimeFromTime(doc)
+  {
+    return doc.time;
   }
 
   /**
