@@ -116,7 +116,7 @@ module.exports = function startControllerRoutes(app, module)
       fields.time = 1;
     }
 
-    collection.find(query, fields).toArray(function(err, docs)
+    collection.find(query).project(fields).toArray(function(err, docs)
     {
       if (err)
       {
