@@ -1,59 +1,35 @@
-name,description,master,kind,unit,address,readable,writable,type,rawMin,rawMax,scaleUnit,scaleFunction,scaleMin,scaleMax,archive,valueMap
-,CS3-1,,,,,,,,,,,,,,,
-cs3.1.T,CS3-1: Temperatura,inodeLan,register,1,17,1,0,int16,-,-,°C,"nil(25500)
-div(100)",-,-,avg,-
-cs3.1.H,CS3-1: Wilgotność,inodeLan,register,1,18,1,0,uint16,-,-,%,"nil(25500)
-div(100)",-,-,avg,-
-cs3.1.flags,CS3-1: Flagi,inodeLan,register,1,16,1,0,uint16,-,-,-,-,-,-,-,-
-cs3.1.motion,CS3-1: Ruch,inodeLan,virtual,-,cs3.1.flags&2,0,0,bool,-,-,-,-,-,-,all,
-,CS3-2,,,,,,,,,,,,,,,
-cs3.2.T,CS3-2: Temperatura,inodeLan,register,2,17,1,0,int16,-,-,°C,"nil(25500)
-div(100)",-,-,avg,-
-cs3.2.H,CS3-2: Wilgotność,inodeLan,register,2,18,1,0,uint16,-,-,%,"nil(25500)
-div(100)",-,-,avg,-
-cs3.2.flags,CS3-2: Flagi,inodeLan,register,2,16,1,0,uint16,-,-,-,-,-,-,-,-
-cs3.2.motion,CS3-2: Ruch,inodeLan,virtual,-,cs3.2.flags&2,0,0,bool,-,-,-,-,-,-,all,
-,CS3-3,,,,,,,,,,,,,,,
-cs3.3.T,CS3-3: Temperatura,inodeLan,register,3,17,1,0,int16,-,-,°C,"nil(25500)
-div(100)",-,-,avg,-
-cs3.3.H,CS3-3: Wilgotność,inodeLan,register,3,18,1,0,uint16,-,-,%,"nil(25500)
-div(100)",-,-,avg,-
-cs3.3.flags,CS3-3: Flagi,inodeLan,register,3,16,1,0,uint16,-,-,-,-,-,-,-,-
-cs3.3.motion,CS3-3: Ruch,inodeLan,virtual,-,cs3.3.flags&2,0,0,bool,-,-,-,-,-,-,all,
-,CSHT-1,,,,,,,,,,,,,,,
-csht.1.T,CSHT-1: Temperatura,inodeLan,register,4,17,1,0,int16,-,-,°C,"nil(25500)
-div(100)",-,-,avg,-
-csht.1.H,CSHT-1: Wilgotność,inodeLan,register,4,18,1,0,uint16,-,-,%,"nil(25500)
-div(100)",-,-,avg,-
-,CSHT-2,,,,,,,,,,,,,,,
-csht.2.T,CSHT-2: Temperatura,inodeLan,register,5,17,1,0,int16,-,-,°C,"nil(25500)
-div(100)",-,-,avg,-
-csht.2.H,CSHT-2: Wilgotność,inodeLan,register,5,18,1,0,uint16,-,-,%,"nil(25500)
-div(100)",-,-,avg,-
-,EM-1,,,,,,,,,,,,,,,
-em.1.constant,EM-1: Stała,inodeGsm,register,100,16,1,0,uint16,-,-,-,-,-,-,all,
-em.1.unit,EM-1: Jednostka,inodeGsm,register,100,17,1,0,uint16,-,-,-,-,-,-,all,-
-em.1.sum,EM-1: Suma,inodeGsm,register,100,18,1,0,uint32,-,-,-,div(100),-,-,avg,-
-em.1.avg,EM-1: Średnia,inodeGsm,register,100,20,1,0,uint32,-,-,-,div(100),-,-,avg,-
-,EM-2,,,,,,,,,,,,,,,
-em.2.constant,EM-2: Stała,inodeLan,register,101,16,1,0,uint16,-,-,-,-,-,-,all,
-em.2.unit,EM-2: Jednostka,inodeLan,register,101,17,1,0,uint16,-,-,-,-,-,-,all,-
-em.2.sum,EM-2: Suma,inodeLan,register,101,18,1,0,uint32,-,-,-,div(1000),-,-,avg,-
-em.2.avg,EM-2: Średnia,inodeLan,register,101,20,1,0,uint32,-,-,-,div(1000),-,-,avg,-
-,Stany połączenia z urządzeniami,,,,,,,,,,,,,,,
-masters.controlProcess,Stan połączenia z urządzeniami sterowania,-,virtual,-,-,0,0,bool,-,-,-,-,-,-,-,-
-masters.inodeLan,Stan połączenia z iNode LAN Gateway,inodeLan,virtual,-,-,0,0,bool,-,-,-,-,-,-,all,-
-masters.inodeGsm,Stan połączenia z iNode GSM Gateway,inodeGsm,virtual,-,-,0,0,bool,-,-,-,-,-,-,all,-
-,Diagnostyka,,,,,,,,,,,,,,,
-health.os.uptime,System: uptime,-,setting,-,-,0,1,double,-,-,-,-,-,-,avg,-
-health.os.cpu,System: obciążenie CPU,-,setting,-,-,0,1,float,-,-,-,-,-,-,avg,-
-health.os.memory,System: zajęta pamięć,-,setting,-,-,0,1,double,-,-,-,-,-,-,avg,-
-health.controller.uptime,Serwer sterownika: uptime,-,setting,-,-,0,1,double,-,-,-,-,-,-,avg,-
-health.controller.memory,Serwer sterownika: zajeta pamięć,-,setting,-,-,0,1,double,-,-,-,-,-,-,avg,-
-health.inodelan.uptime,Gateway iNode LAN: uptime,-,setting,-,-,0,1,double,-,-,-,-,-,-,avg,-
-health.inodelan.memory,Gateway iNode LAN: zajeta pamięć,-,setting,-,-,0,1,double,-,-,-,-,-,-,avg,-
-health.frontend.uptime,Serwer aplikacji: uptime,-,setting,-,-,0,1,double,-,-,-,-,-,-,avg,-
-health.frontend.memory,Serwer aplikacji: zajęta pamięć,-,setting,-,-,0,1,double,-,-,-,-,-,-,avg,-
-health.frontend.websockets,Serwer aplikacji: ilość połączonych klientów,-,setting,-,-,0,1,uint16,-,-,-,-,-,-,avg,-
-health.alarms.uptime,Serwer alarmów: uptime,-,setting,-,-,0,1,double,-,-,-,-,-,-,avg,-
-health.alarms.memory,Serwer alarmów: zajęta pamięć,-,setting,-,-,0,1,double,-,-,-,-,-,-,avg,-
+name,description,master,kind,unit,address,readable,writable,type,rawMin,rawMax,scaleUnit,scaleFunction,scaleMin,scaleMax,archive
+,CS3-1,,,,,,,,,,,,,,
+cs3.1.T,CS3-1: Temperatura,inodeLan,register,1,17,1,0,int16,-40,125,°C,nil(25500); div(100),-,-,avg
+cs3.1.H,CS3-1: Wilgotność,inodeLan,register,1,18,1,0,uint16,0,100,%,nil(25500); div(100),-,-,avg
+cs3.1.flags,CS3-1: Flagi,inodeLan,register,1,16,1,0,uint16,-,-,-,-,-,-,-
+cs3.1.motion,CS3-1: Ruch,inodeLan,virtual,-,cs3.1.flags&2,0,0,bool,-,-,-,-,-,-,all
+,CS3-2,,,,,,,,,,,,,,
+cs3.2.T,CS3-2: Temperatura,inodeLan,register,2,17,1,0,int16,-40,125,°C,nil(25500); div(100),-,-,avg
+cs3.2.H,CS3-2: Wilgotność,inodeLan,register,2,18,1,0,uint16,0,100,%,nil(25500); div(100),-,-,avg
+cs3.2.flags,CS3-2: Flagi,inodeLan,register,2,16,1,0,uint16,-,-,-,-,-,-,-
+cs3.2.motion,CS3-2: Ruch,inodeLan,virtual,-,cs3.2.flags&2,0,0,bool,-,-,-,-,-,-,all
+,CS3-3,,,,,,,,,,,,,,
+cs3.3.T,CS3-3: Temperatura,inodeLan,register,3,17,1,0,int16,-40,125,°C,nil(25500); div(100),-,-,avg
+cs3.3.H,CS3-3: Wilgotność,inodeLan,register,3,18,1,0,uint16,0,100,%,nil(25500); div(100),-,-,avg
+cs3.3.flags,CS3-3: Flagi,inodeLan,register,3,16,1,0,uint16,-,-,-,-,-,-,-
+cs3.3.motion,CS3-3: Ruch,inodeLan,virtual,-,cs3.3.flags&2,0,0,bool,-,-,-,-,-,-,all
+,CSHT-1,,,,,,,,,,,,,,
+csht.1.T,CSHT-1: Temperatura,inodeLan,register,4,17,1,0,int16,-40,125,°C,nil(25500); div(100),-,-,avg
+csht.1.H,CSHT-1: Wilgotność,inodeLan,register,4,18,1,0,uint16,0,100,%,nil(25500); div(100),-,-,avg
+,CSHT-2,,,,,,,,,,,,,,
+csht.2.T,CSHT-2: Temperatura,inodeLan,register,5,17,1,0,int16,-40,125,°C,nil(25500); div(100),-,-,avg
+csht.2.H,CSHT-2: Wilgotność,inodeLan,register,5,18,1,0,uint16,0,100,%,nil(25500); div(100),-,-,avg
+,EM-1,,,,,,,,,,,,,,
+em.1.constant,EM-1: Stała,inodeGsm,register,100,16,1,0,uint16,-,-,-,-,-,-,all
+em.1.unit,EM-1: Jednostka,inodeGsm,register,100,17,1,0,uint16,-,-,-,-,-,-,all
+em.1.sum,EM-1: Suma,inodeGsm,register,100,18,1,0,uint32,-,-,-,div(100),-,-,avg
+,EM-2,,,,,,,,,,,,,,
+em.2.constant,EM-2: Stała,inodeLan,register,101,16,1,0,uint16,-,-,-,-,-,-,all
+em.2.unit,EM-2: Jednostka,inodeLan,register,101,17,1,0,uint16,-,-,-,-,-,-,all
+em.2.sum,EM-2: Suma,inodeLan,register,101,18,1,0,uint32,-,-,-,div(1000),-,-,avg
+,Stany połączenia z urządzeniami,,,,,,,,,,,,,,
+masters.controlProcess,Stan połączenia z urządzeniami sterowania,-,virtual,-,-,0,0,bool,-,-,-,-,-,-,-
+masters.inodeLan,Stan połączenia z iNode LAN Gateway,inodeLan,virtual,-,-,0,0,bool,-,-,-,-,-,-,all
+masters.inodeGsm,Stan połączenia z iNode GSM Gateway,inodeGsm,virtual,-,-,0,0,bool,-,-,-,-,-,-,all
+,Diagnostyka,,,,,,,,,,,,,,
