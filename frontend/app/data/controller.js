@@ -16,7 +16,7 @@ define([
   'use strict';
 
   var pendingChanges = [];
-  var tags = new TagCollection(JSON.parse(localStorage.TAGS || '[]'), {paginate: false});
+  var tags = new TagCollection([], {paginate: false});
 
   tags.loaded = false;
   tags.loading = null;
@@ -61,31 +61,45 @@ define([
 
   function reset(newTags)
   {
-    tags.loaded = true;
-
     var changes = {};
     var silent = {silent: true};
 
-    _.forEach(newTags, function(newTag)
+    tags.loaded = true;
+
+    if (tags.length === 0)
     {
-      var oldTag = tags.get(newTag.name);
-      var oldValue;
+      silent.silent = false;
 
-      if (oldTag)
-      {
-        oldValue = oldTag.get('value');
-        oldTag.set(newTag, silent);
-      }
-      else
-      {
-        tags.add(newTag, silent);
-      }
+      tags.reset(newTags);
 
-      if (newTag.value !== oldValue)
+      _.forEach(newTags, function(newTag)
       {
         changes[newTag.name] = newTag.value;
-      }
-    });
+      });
+    }
+    else
+    {
+      _.forEach(newTags, function(newTag)
+      {
+        var oldTag = tags.get(newTag.name);
+        var oldValue;
+
+        if (oldTag)
+        {
+          oldValue = oldTag.get('value');
+          oldTag.set(newTag, silent);
+        }
+        else
+        {
+          tags.add(newTag, silent);
+        }
+
+        if (newTag.value !== oldValue)
+        {
+          changes[newTag.name] = newTag.value;
+        }
+      });
+    }
 
     _.forEach(pendingChanges, function(pendingChange)
     {
@@ -109,9 +123,10 @@ define([
 
     pendingChanges = [];
 
-    localStorage.TAGS = JSON.stringify(tags);
-
-    tags.trigger('reset');
+    if (!silent.silent)
+    {
+      tags.trigger('reset');
+    }
 
     if (!_.isEmpty(changes))
     {
