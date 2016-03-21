@@ -6,10 +6,9 @@ define([
   './users/routes',
   './changelog/routes',
   './alarms/routes',
-  './analytics/routes'
+  './analytics/routes',
+  './screens/routes'
 ], function()
 {
   'use strict';
-
-
 });

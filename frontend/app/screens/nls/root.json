@@ -1,0 +1,12 @@
+{
+  "root": {
+    "BREADCRUMBS:browse": "Screens",
+    "BREADCRUMBS:addForm": "Adding",
+    "BREADCRUMBS:editForm": "Editing",
+
+    "MSG:LOADING_FAILURE": "Failed to load the screens :(",
+    "MSG:LOADING_SINGLE_FAILURE": "Failed to load the screen :(",
+    "MSG:DELETED": "Screen <em>{label}</em> was deleted."
+  },
+  "pl": true
+}

@@ -1,0 +1,19 @@
+<div class="screenEditor-canvas-outerWrapper" style="width: <%- outerWidth %>px; height: <%- outerHeight %>px">
+  <div id="<%- idPrefix %>-inner" class="screenEditor-canvas-innerWrapper" style="width: <%- innerWidth %>px; height: <%- innerHeight %>px">
+    <svg id="<%- idPrefix %>-canvas" class="screenEditor-canvas" width="<%- canvasWidth %>" height="<%- canvasHeight %>" viewBox="0 0 <%- canvasWidth %> <%- canvasHeight %>" pointer-events="all" xmlns="http://www.w3.org/2000/svg">
+      <g id="<%- idPrefix %>-components" class="screenEditor-components">
+        <g class="screen-component" data-id="rect.1">
+          <rect x="0" y="0" width="50" height="50" style="fill: rgba(255, 0, 0, 0.5);"></rect>
+        </g>
+        <g class="screen-component" data-id="rect.2">
+          <rect x="100" y="100" width="100" height="100" style="fill: rgba(0, 255, 0, 0.5);"></rect>
+        </g>
+        <g class="screen-component" data-id="rect.3">
+          <rect x="600" y="500" width="200" height="100" style="fill: rgba(0, 0, 255, 0.5);"></rect>
+        </g>
+      </g>
+      <g id="<%- idPrefix %>-selection" class="screenEditor-selection"></g>
+    </svg>
+  </div>
+</div>
+

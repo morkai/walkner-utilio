@@ -1,0 +1,15 @@
+{
+  "BREADCRUMBS:browse": "Ekrany",
+  "BREADCRUMBS:addForm": "Dodawanie",
+  "BREADCRUMBS:editForm": "Edycja",
+
+  "MSG:LOADING_FAILURE": "Ładowanie ekranów nie powiodło się :(",
+  "MSG:LOADING_SINGLE_FAILURE": "Ładowanie ekranu nie powiodło się :(",
+  "MSG:DELETED": "Ekran <em>{label}</em> został usunięty.",
+
+  "editor:toolbox:title": "Przybornik",
+
+  "editor:components:title": "Komponenty",
+
+  "editor:properties:title": "Właściwości"
+}

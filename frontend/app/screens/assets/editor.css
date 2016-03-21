@@ -1,0 +1,292 @@
+.screenEditor {
+  position: absolute;
+  top: 100px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+.screenEditor-hd {
+  flex: 0 0 auto;
+  margin-bottom: 7px;
+}
+.screenEditor-bd {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  min-height: 0;
+}
+.screenEditor-sidebar {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+.screenEditor-panel {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+}
+.screenEditor-panel + .screenEditor-panel {
+  margin-top: 7px;
+}
+.screenEditor-panel > .panel-heading {
+  flex: 0 0 auto;
+  padding: 4px 6px;
+  font-weight: normal;
+}
+.screenEditor-panel > .panel-body {
+  flex: 1 1 auto;
+  padding: 0;
+  overflow: scroll;
+}
+.screenEditor-panel-tabs {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  border-top: 0;
+}
+.screenEditor-panel-tab {
+  flex: 0 0 auto;
+  padding: 3px 7px;
+  border-right: 1px solid #E5E5E5;
+  font-size: 12px;
+  cursor: pointer;
+}
+.screenEditor-panel-tab:hover {
+  background: #e5e5e5;
+}
+.screenEditor-panel-tab.is-active {
+  cursor: default;
+  color: #fff;
+  background: #337ab7;
+  border-top-color: #fff;
+}
+.screenEditor-components {
+  flex-grow: 2;
+}
+.screenEditor-properties {
+  flex-grow: 3;
+}
+.screenEditor-viewport {
+  flex: 1 1 auto;
+  position: relative;
+  margin: 0 7px;
+  border: 1px solid #337ab7;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  background: #eee;
+  overflow: scroll;
+}
+.screenEditor-canvas-outerWrapper {
+  padding: 500px 1000px;
+}
+.screenEditor-canvas-outerWrapper.is-panning,
+.screenEditor-canvas-outerWrapper.is-panning > .screenEditor-canvas-innerWrapper {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
+.screenEditor-canvas-innerWrapper {
+  background-color: #fff;
+  background-position: left top, left top;
+  background-repeat: repeat, no-repeat;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 12px 0 #d9d9d9;
+}
+.screenEditor-canvas {
+  position: relative;
+  overflow: visible!important;
+}
+
+.screenEditor-toolbox > .panel-body {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.screenEditor-toolbox-filter {
+  flex: 0 0 auto;
+  padding: 0;
+  border-bottom: 1px solid #D4D4D4;
+}
+.screenEditor-toolbox-filter-value {
+  padding: 5px;
+  width: 100%;
+  border: 0;
+}
+.screenEditor-toolbox-filter-value:focus {
+  outline: none;
+  background: #FFFFD6;
+}
+.screenEditor-toolbox-groups {
+  flex: 1 1 auto;
+  overflow: scroll;
+  padding-bottom: 28px;
+}
+.screenEditor-toolbox-group-hd {
+  padding: 5px;
+  background: #F5F5F5;
+  border-bottom: 1px solid #D4D4D4;
+  font-size: 12px;
+}
+.screenEditor-toolbox-group-hd:hover {
+  background: #e5e5e5;
+  cursor: pointer;
+}
+.screenEditor-toolbox-group-bd {
+  border-bottom: 1px solid #D4D4D4;
+  min-height: 50px;
+}
+
+.screenEditor-components > .screen-component {
+  cursor: move;
+}
+.screenEditor-selection-outline {
+  pointer-events: none;
+  fill: none;
+  stroke: #00A8FF;
+  stroke-dasharray: 3 3;
+}
+.screenEditor-resizeHandle {
+  fill: #000;
+  stroke-width: 0;
+}
+.screenEditor-resizeHandle-n {
+  cursor: n-resize;
+}
+.screenEditor-resizeHandle-ne {
+  cursor: ne-resize;
+}
+.screenEditor-resizeHandle-nw {
+  cursor: nw-resize;
+}
+.screenEditor-resizeHandle-e {
+  cursor: e-resize;
+}
+.screenEditor-resizeHandle-w {
+  cursor: w-resize;
+}
+.screenEditor-resizeHandle-s {
+  cursor: s-resize;
+}
+.screenEditor-resizeHandle-se {
+  cursor: se-resize;
+}
+.screenEditor-resizeHandle-sw {
+  cursor: sw-resize;
+}
+.is-resizing .screenEditor-selection-outline,
+.is-resizing .screenEditor-resizeHandle,
+.is-dragging .screenEditor-selection {
+  visibility: hidden;
+}
+.screenEditor-resizeHandle.is-active {
+  visibility: visible;
+}
+
+.screenEditor ::-webkit-scrollbar {
+  height: 16px;
+  width: 16px;
+  overflow: visible;
+  background: #fff;
+}
+.screenEditor ::-webkit-scrollbar-button {
+  display: none;
+}
+.screenEditor ::-webkit-scrollbar-track {
+  -moz-background-clip: border;
+  -webkit-background-clip: border;
+  background-clip: border-box;
+  border-width: 0 0 0 4px;
+  border: solid transparent;
+}
+.screenEditor ::-webkit-scrollbar-track:hover {
+  background-color: rgba(0, 0, 0, .05);
+  -moz-box-shadow: inset 1px 0 0 rgba(0, 0, 0, .1);
+  -webkit-box-shadow: inset 1px 0 0 rgba(0, 0, 0, .1);
+  box-shadow: inset 1px 0 0 rgba(0, 0, 0, .1);
+}
+.screenEditor ::-webkit-scrollbar-track:active {
+  background-color: rgba(0, 0, 0, .05);
+  -moz-box-shadow: inset 1px 0 0 rgba(0, 0, 0, .14), inset -1px 0 0 rgba(0, 0, 0, .07);
+  -webkit-box-shadow: inset 1px 0 0 rgba(0, 0, 0, .14), inset -1px 0 0 rgba(0, 0, 0, .07);
+  box-shadow: inset 1px 0 0 rgba(0, 0, 0, .14), inset -1px 0 0 rgba(0, 0, 0, .07);
+}
+.screenEditor ::-webkit-scrollbar-track:horizontal {
+  border-width: 4px 0 0;
+}
+.screenEditor ::-webkit-scrollbar-track:horizontal:hover {
+  -moz-box-shadow: inset 0 1px 0 rgba(0, 0, 0, .1);
+  -webkit-box-shadow: inset 0 1px 0 rgba(0, 0, 0, .1);
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, .1);
+}
+.screenEditor ::-webkit-scrollbar-track:horizontal:active {
+  -moz-box-shadow: inset 0 1px 0 rgba(0, 0, 0, .14), inset 0 -1px 0 rgba(0, 0, 0, .07);
+  -webkit-box-shadow: inset 0 1px 0 rgba(0, 0, 0, .14), inset 0 -1px 0 rgba(0, 0, 0, .07);
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, .14), inset 0 -1px 0 rgba(0, 0, 0, .07);
+}
+.screenEditor ::-webkit-scrollbar-thumb {
+  -moz-background-clip: border;
+  -webkit-background-clip: border;
+  background-clip: border-box;
+  background-color: rgba(0, 0, 0, .2);
+  -moz-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1),inset 0 -1px 0 rgba(0, 0, 0, .07);
+  -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1),inset 0 -1px 0 rgba(0, 0, 0, .07);
+  box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1),inset 0 -1px 0 rgba(0, 0, 0, .07);
+  min-height: 28px;
+  padding: 100px 0 0;
+}
+.screenEditor ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, .4);
+  -moz-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, .25);
+  -webkit-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, .25);
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, .25);
+}
+.screenEditor ::-webkit-scrollbar-thumb:active {
+  background-color: rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.35);
+  -webkit-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.35);
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.35);
+}
+.screenEditor ::-webkit-scrollbar-thumb:horizontal {
+  border-width: 6px 1px 1px;
+  -moz-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1), inset -1px 0 0 rgba(0, 0, 0, .07);
+  -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1), inset -1px 0 0 rgba(0, 0, 0, .07);
+  box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1), inset -1px 0 0 rgba(0, 0, 0, .07);
+  padding: 0 0 0 100px;
+}
+.screenEditor ::-webkit-scrollbar-corner {
+  background: transparent;
+}
+.screenEditor ::-webkit-scrollbar-track-piece {
+  -moz-background-clip: border;
+  -webkit-background-clip: border;
+  background-clip: border-box;
+  background-color: #f5f5f5;
+  -moz-box-shadow: inset 1px 0 0 rgba(0, 0, 0, .14), inset -1px 0 0 rgba(0, 0, 0, .07);
+  -webkit-box-shadow: inset 1px 0 0 rgba(0, 0, 0, .14), inset -1px 0 0 rgba(0, 0, 0, .07);
+  box-shadow: inset 1px 0 0 rgba(0, 0, 0, .14), inset -1px 0 0 rgba(0, 0, 0, .07);
+}
+.screenEditor ::-webkit-scrollbar-track-piece:horizontal {
+  border-width:3px 0 0;
+  -moz-box-shadow: inset 0 1px 0 rgba(0, 0, 0, .14), inset 0 -1px 0 rgba(0, 0, 0, .07);
+  -webkit-box-shadow: inset 0 1px 0 rgba(0, 0, 0, .14), inset 0 -1px 0 rgba(0, 0, 0, .07);
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, .14), inset 0 -1px 0 rgba(0, 0, 0, .07);
+}
+.screenEditor ::-webkit-scrollbar-thumb {
+  border-width: 1px 1px 1px 5px;
+}
+.screenEditor ::-webkit-scrollbar-thumb:horizontal {
+  border-width: 5px 1px 1px;
+}
+.screenEditor ::-webkit-scrollbar-corner {
+  -moz-background-clip: border;
+  -webkit-background-clip: border;
+  background-clip: border-box;
+  background-color: #f5f5f5;
+  border: solid #E3E3E3;
+  border-width: 0 1px 1px 0;
+  -moz-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .14);
+  -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .14);
+  box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .14);
+}

@@ -189,6 +189,7 @@ define([
       }
 
       viewport.currentPage = page;
+      window.page = page;
 
       var layout = viewport.setLayout(layoutName);
 

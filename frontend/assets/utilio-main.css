@@ -12,6 +12,7 @@
 @import url("../app/dashboard/assets/main.css");
 @import url("../app/alarms/assets/main.css");
 @import url("../app/analytics/assets/main.css");
+@import url("../app/screens/assets/main.css");
 
 #app-loading {
   position: absolute;
