@@ -1,5 +1,5 @@
 <div class="dashboard-rows">
-  <% _.forEach(['1', '2', '3'], function(n) { %>
+  <% _.forEach(['1', '2', '3', '4'], function(n) { %>
   <div class="panel panel-primary">
     <div class="panel-heading">Care Sensor #3 <%- n %></div>
     <div class="panel-body">
@@ -27,7 +27,7 @@
     </div>
   </div>
   <% }) %>
-  <% _.forEach(['1', '2'], function(n) { %>
+  <% _.forEach(['1', '2', '3', '4'], function(n) { %>
   <div class="panel panel-warning">
     <div class="panel-heading">Energy Meter <%- n %></div>
     <div class="panel-body">
@@ -43,6 +43,7 @@
             <span class="hidden" data-value="2">cnt</span>
           </span>
         </dd>
+        <!--
         <dt>Średnia z minuty</dt>
         <dd>
           <span data-tag="em.<%- n %>.avg">?</span>
@@ -52,6 +53,7 @@
             <span class="hidden" data-value="2">cnt</span>
           </span>
         </dd>
+        //-->
       </dl>
     </div>
   </div>

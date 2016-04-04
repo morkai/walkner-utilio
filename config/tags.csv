@@ -1,35 +1,49 @@
 name,description,master,kind,unit,address,readable,writable,type,rawMin,rawMax,scaleUnit,scaleFunction,scaleMin,scaleMax,archive
 ,CS3-1,,,,,,,,,,,,,,
-cs3.1.T,CS3-1: Temperatura,inodeLan,register,1,17,1,0,int16,-40,125,°C,nil(25500); div(100),-,-,avg
-cs3.1.H,CS3-1: Wilgotność,inodeLan,register,1,18,1,0,uint16,0,100,%,nil(25500); div(100),-,-,avg
-cs3.1.flags,CS3-1: Flagi,inodeLan,register,1,16,1,0,uint16,-,-,-,-,-,-,-
-cs3.1.motion,CS3-1: Ruch,inodeLan,virtual,-,cs3.1.flags&2,0,0,bool,-,-,-,-,-,-,all
+cs3.1.T,CS3-1: Temperatura,inodeRpi,register,1,17,1,0,int16,-,-,°C,nil(25500); div(100),-,-,avg
+cs3.1.H,CS3-1: Wilgotność,inodeRpi,register,1,18,1,0,uint16,-,-,%,nil(25500); div(100),-,-,avg
+cs3.1.flags,CS3-1: Flagi,inodeRpi,register,1,16,1,0,uint16,-,-,-,-,-,-,-
+cs3.1.motion,CS3-1: Ruch,inodeRpi,virtual,-,cs3.1.flags&2,0,0,bool,-,-,-,-,-,-,all
 ,CS3-2,,,,,,,,,,,,,,
-cs3.2.T,CS3-2: Temperatura,inodeLan,register,2,17,1,0,int16,-40,125,°C,nil(25500); div(100),-,-,avg
-cs3.2.H,CS3-2: Wilgotność,inodeLan,register,2,18,1,0,uint16,0,100,%,nil(25500); div(100),-,-,avg
-cs3.2.flags,CS3-2: Flagi,inodeLan,register,2,16,1,0,uint16,-,-,-,-,-,-,-
-cs3.2.motion,CS3-2: Ruch,inodeLan,virtual,-,cs3.2.flags&2,0,0,bool,-,-,-,-,-,-,all
+cs3.2.T,CS3-2: Temperatura,inodeRpi,register,2,17,1,0,int16,-,-,°C,nil(25500); div(100),-,-,avg
+cs3.2.H,CS3-2: Wilgotność,inodeRpi,register,2,18,1,0,uint16,-,-,%,nil(25500); div(100),-,-,avg
+cs3.2.flags,CS3-2: Flagi,inodeRpi,register,2,16,1,0,uint16,-,-,-,-,-,-,-
+cs3.2.motion,CS3-2: Ruch,inodeRpi,virtual,-,cs3.2.flags&2,0,0,bool,-,-,-,-,-,-,all
 ,CS3-3,,,,,,,,,,,,,,
-cs3.3.T,CS3-3: Temperatura,inodeLan,register,3,17,1,0,int16,-40,125,°C,nil(25500); div(100),-,-,avg
-cs3.3.H,CS3-3: Wilgotność,inodeLan,register,3,18,1,0,uint16,0,100,%,nil(25500); div(100),-,-,avg
-cs3.3.flags,CS3-3: Flagi,inodeLan,register,3,16,1,0,uint16,-,-,-,-,-,-,-
-cs3.3.motion,CS3-3: Ruch,inodeLan,virtual,-,cs3.3.flags&2,0,0,bool,-,-,-,-,-,-,all
+cs3.3.T,CS3-3: Temperatura,inodeRpi,register,3,17,1,0,int16,-,-,°C,nil(25500); div(100),-,-,avg
+cs3.3.H,CS3-3: Wilgotność,inodeRpi,register,3,18,1,0,uint16,-,-,%,nil(25500); div(100),-,-,avg
+cs3.3.flags,CS3-3: Flagi,inodeRpi,register,3,16,1,0,uint16,-,-,-,-,-,-,-
+cs3.3.motion,CS3-3: Ruch,inodeRpi,virtual,-,cs3.3.flags&2,0,0,bool,-,-,-,-,-,-,all
+,CS3-4,,,,,,,,,,,,,,
+cs3.4.T,CS3-4: Temperatura,inodeRpi,register,4,17,1,0,int16,-,-,°C,nil(25500); div(100),-,-,avg
+cs3.4.H,CS3-4: Wilgotność,inodeRpi,register,4,18,1,0,uint16,-,-,%,nil(25500); div(100),-,-,avg
+cs3.4.flags,CS3-4: Flagi,inodeRpi,register,4,16,1,0,uint16,-,-,-,-,-,-,-
+cs3.4.motion,CS3-4: Ruch,inodeRpi,virtual,-,cs3.4.flags&2,0,0,bool,-,-,-,-,-,-,all
 ,CSHT-1,,,,,,,,,,,,,,
-csht.1.T,CSHT-1: Temperatura,inodeLan,register,4,17,1,0,int16,-40,125,°C,nil(25500); div(100),-,-,avg
-csht.1.H,CSHT-1: Wilgotność,inodeLan,register,4,18,1,0,uint16,0,100,%,nil(25500); div(100),-,-,avg
+csht.1.T,CSHT-1: Temperatura,inodeRpi,register,51,17,1,0,int16,-,-,°C,nil(25500); div(100),-,-,avg
+csht.1.H,CSHT-1: Wilgotność,inodeRpi,register,51,18,1,0,uint16,-,-,%,nil(25500); div(100),-,-,avg
 ,CSHT-2,,,,,,,,,,,,,,
-csht.2.T,CSHT-2: Temperatura,inodeLan,register,5,17,1,0,int16,-40,125,°C,nil(25500); div(100),-,-,avg
-csht.2.H,CSHT-2: Wilgotność,inodeLan,register,5,18,1,0,uint16,0,100,%,nil(25500); div(100),-,-,avg
+csht.2.T,CSHT-2: Temperatura,inodeRpi,register,52,17,1,0,int16,-,-,°C,nil(25500); div(100),-,-,avg
+csht.2.H,CSHT-2: Wilgotność,inodeRpi,register,52,18,1,0,uint16,-,-,%,nil(25500); div(100),-,-,avg
 ,EM-1,,,,,,,,,,,,,,
-em.1.constant,EM-1: Stała,inodeGsm,register,100,16,1,0,uint16,-,-,-,-,-,-,all
-em.1.unit,EM-1: Jednostka,inodeGsm,register,100,17,1,0,uint16,-,-,-,-,-,-,all
-em.1.sum,EM-1: Suma,inodeGsm,register,100,18,1,0,uint32,-,-,-,div(100),-,-,avg
+em.1.constant,EM-1: Stała,inodeRpi,register,101,16,1,0,uint16,-,-,-,-,-,-,all
+em.1.unit,EM-1: Jednostka,inodeRpi,register,101,17,1,0,uint16,-,-,-,-,-,-,all
+em.1.sum,EM-1: Suma,inodeRpi,register,101,18,1,0,uint32,-,-,-,div(100),-,-,avg
 ,EM-2,,,,,,,,,,,,,,
-em.2.constant,EM-2: Stała,inodeLan,register,101,16,1,0,uint16,-,-,-,-,-,-,all
-em.2.unit,EM-2: Jednostka,inodeLan,register,101,17,1,0,uint16,-,-,-,-,-,-,all
-em.2.sum,EM-2: Suma,inodeLan,register,101,18,1,0,uint32,-,-,-,div(1000),-,-,avg
+em.2.constant,EM-2: Stała,inodeRpi,register,102,16,1,0,uint16,-,-,-,-,-,-,all
+em.2.unit,EM-2: Jednostka,inodeRpi,register,102,17,1,0,uint16,-,-,-,-,-,-,all
+em.2.sum,EM-2: Suma,inodeRpi,register,102,18,1,0,uint32,-,-,-,div(1000),-,-,avg
+,EM-3,,,,,,,,,,,,,,
+em.3.constant,EM-3: Stała,inodeRpi,register,103,16,1,0,uint16,-,-,-,-,-,-,all
+em.3.unit,EM-3: Jednostka,inodeRpi,register,103,17,1,0,uint16,-,-,-,-,-,-,all
+em.3.sum,EM-3: Suma,inodeRpi,register,103,18,1,0,uint32,-,-,-,div(1000),-,-,avg
+,EM-4,,,,,,,,,,,,,,
+em.4.constant,EM-4: Stała,inodeRpi,register,104,16,1,0,uint16,-,-,-,-,-,-,all
+em.4.unit,EM-4: Jednostka,inodeRpi,register,104,17,1,0,uint16,-,-,-,-,-,-,all
+em.4.sum,EM-4: Suma,inodeRpi,register,104,18,1,0,uint32,-,-,-,div(1000),-,-,avg
 ,Stany połączenia z urządzeniami,,,,,,,,,,,,,,
 masters.controlProcess,Stan połączenia z urządzeniami sterowania,-,virtual,-,-,0,0,bool,-,-,-,-,-,-,-
 masters.inodeLan,Stan połączenia z iNode LAN Gateway,inodeLan,virtual,-,-,0,0,bool,-,-,-,-,-,-,all
 masters.inodeGsm,Stan połączenia z iNode GSM Gateway,inodeGsm,virtual,-,-,0,0,bool,-,-,-,-,-,-,all
+masters.inodeRpi,Stan połączenia z iNode RPI Gateway,inodeRpi,virtual,-,-,0,0,bool,-,-,-,-,-,-,all
 ,Diagnostyka,,,,,,,,,,,,,,
