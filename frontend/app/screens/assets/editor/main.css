@@ -1,0 +1,190 @@
+.screenEditor {
+  position: absolute;
+  top: 100px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.screenEditor-hd {
+  flex: 0 0 auto;
+  margin-bottom: 7px;
+}
+.screenEditor-bd {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  min-height: 0;
+}
+.screenEditor-sidebar {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+.screenEditor-panel {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+}
+.screenEditor-panel + .screenEditor-panel {
+  margin-top: 7px;
+}
+.screenEditor-panel > .panel-heading {
+  flex: 0 0 auto;
+  padding: 4px 6px;
+  font-weight: normal;
+}
+.screenEditor-panel > .panel-body {
+  flex: 1 1 auto;
+  padding: 0;
+  overflow: scroll;
+}
+.screenEditor-panel-tabs {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  border-top: 0;
+}
+.screenEditor-panel-tab {
+  flex: 0 0 auto;
+  padding: 3px 7px;
+  border-right: 1px solid #E5E5E5;
+  font-size: 12px;
+  cursor: pointer;
+}
+.screenEditor-panel-tab:hover {
+  background: #e5e5e5;
+}
+.screenEditor-panel-tab.is-active {
+  cursor: default;
+  color: #fff;
+  background: #337ab7;
+  border-top-color: #fff;
+}
+.screenEditor-structure {
+  flex-grow: 2;
+}
+.screenEditor-properties {
+  flex-grow: 3;
+}
+.screenEditor-viewport {
+  flex: 1 1 auto;
+  position: relative;
+  margin: 0 7px;
+  border: 1px solid #337ab7;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  background: #eee;
+  overflow: scroll;
+}
+.screenEditor-canvas-outerWrapper {
+  position: relative;
+  padding: 500px 1000px;
+}
+.screenEditor-canvas-outerWrapper.is-panning-forced,
+.screenEditor-canvas-outerWrapper.is-panning-forced * {
+  cursor: grab!important;
+  cursor: -moz-grab!important;
+  cursor: -webkit-grab!important;
+}
+.screenEditor-canvas-outerWrapper.is-panning,
+.screenEditor-canvas-outerWrapper.is-panning * {
+  cursor: grabbing!important;
+  cursor: -moz-grabbing!important;
+  cursor: -webkit-grabbing!important;
+}
+.screenEditor-canvas-outerWrapper.is-dragging,
+.screenEditor-canvas-outerWrapper.is-dragging * {
+  cursor: move!important;
+}
+.screenEditor-canvas-innerWrapper {
+  background-color: #fff;
+  background-position: left top, left top;
+  background-repeat: repeat, no-repeat;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 12px 0 #d9d9d9;
+}
+.screenEditor-canvas {
+  overflow: visible!important;
+}
+
+.screenEditor-components .screenComponent {
+
+}
+.screenEditor-components .screenComponent {
+  cursor: move;
+}
+.is-selecting .screenEditor-components .screenComponent,
+.is-dragging .screenEditor-components .screenComponent {
+  cursor: default;
+}
+.screenEditor-selection-box {
+  display: none;
+  position: absolute;
+  background-color: rgba(51, 153, 255, .1);
+  border: 1px dotted rgb(51, 153, 255);
+}
+.is-selecting .screenEditor-selection-box {
+  display: block;
+}
+.screenEditor-selection-outline {
+  pointer-events: none;
+  fill: none;
+  stroke: #00A8FF;
+  stroke-dasharray: 3 3;
+  transform: translate(0.5px, 0.5px);
+}
+.screenEditor-resizeHandle {
+  fill: #000;
+  stroke-width: 0;
+  pointer-events: all;
+}
+.is-selecting .screenEditor-resizeHandle {
+  cursor: default;
+}
+.screenEditor-resizeHandle-n {
+  cursor: n-resize;
+}
+.screenEditor-resizeHandle-ne {
+  cursor: ne-resize;
+}
+.screenEditor-resizeHandle-nw {
+  cursor: nw-resize;
+}
+.screenEditor-resizeHandle-e {
+  cursor: e-resize;
+}
+.screenEditor-resizeHandle-w {
+  cursor: w-resize;
+}
+.screenEditor-resizeHandle-s {
+  cursor: s-resize;
+}
+.screenEditor-resizeHandle-se {
+  cursor: se-resize;
+}
+.screenEditor-resizeHandle-sw {
+  cursor: sw-resize;
+}
+.is-resizing .screenEditor-selection-outline,
+.is-resizing .screenEditor-resizeHandle,
+.is-dragging .screenEditor-selection {
+  visibility: hidden;
+}
+.screenEditor-resizeHandle.is-active {
+  visibility: visible;
+}
+
+.screenEditor-ghost {
+  position: absolute;
+  z-index: 10;
+  border: 1px dashed #000;
+  width: 100px;
+  height: 100px;
+  box-sizing: border-box;
+}

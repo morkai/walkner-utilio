@@ -4,8 +4,8 @@ define([
   'underscore',
   'app/i18n',
   'app/user',
-  '../View',
-  'app/core/templates/navbar'
+  'app/core/View',
+  'ejs!app/core/templates/navbar'
 ], function(
   _,
   i18n,
@@ -17,7 +17,7 @@ define([
 
   /**
    * @constructor
-   * @extends {app.core.View}
+   * @extends {View}
    * @param {object} [options]
    */
   var NavbarView = View.extend({

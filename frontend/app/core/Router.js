@@ -2,8 +2,8 @@
 
 define([
   'underscore',
-  './util',
-  './Request'
+  'app/core/util',
+  'app/core/Request'
 ], function(
   _,
   util,
@@ -15,6 +15,10 @@ define([
 
   var escapeRegExp = /[\-\[\]{}()+?.,\\\^$|#\s]/g;
 
+  /**
+   * @constructor
+   * @param {h5.pubsub.Broker} broker
+   */
   function Router(broker)
   {
     /**
@@ -31,31 +35,31 @@ define([
 
     /**
      * @private
-     * @type {Boolean}
+     * @type {boolean}
      */
     this.dispatching = false;
 
     /**
      * @private
-     * @type {Array.<string>}
+     * @type {Array<string>}
      */
     this.dispatchQueue = [];
 
     /**
      * @private
-     * @type {Request|null}
+     * @type {?Request}
      */
     this.currentRequest = null;
 
     /**
      * @private
-     * @type {string|null}
+     * @type {?string}
      */
     this.previousUrl = null;
   }
 
   /**
-   * @returns {Request|null}
+   * @returns {?Request}
    */
   Router.prototype.getCurrentRequest = function()
   {
@@ -71,10 +75,10 @@ define([
   };
 
   /**
-   * @param {string|RegExp} pattern
-   * @param {...function(app.core.Request, string)} handlers
+   * @param {(string|RegExp)} pattern
+   * @param {...function(Request, string)} handlerN
    */
-  Router.prototype.map = function(pattern)
+  Router.prototype.map = function(pattern, handlerN) // eslint-disable-line no-unused-vars
   {
     var handlers = Array.prototype.slice.call(arguments);
 
@@ -85,9 +89,9 @@ define([
 
   /**
    * @param {string} url
-   * @param {object} [options]
-   * @param {Boolean=false} options.trigger
-   * @param {Boolean=false} options.replace
+   * @param {Object} [options]
+   * @param {boolean} [options.trigger=false]
+   * @param {boolean} [options.replace=false]
    */
   Router.prototype.navigate = function(url, options)
   {
@@ -176,8 +180,8 @@ define([
 
   /**
    * @private
-   * @param {app.core.Request} req
-   * @returns {function|null}
+   * @param {Request} req
+   * @returns {?function}
    */
   Router.prototype.match = function(req)
   {
@@ -198,8 +202,8 @@ define([
 
   /**
    * @private
-   * @param {Array.<function>} handlers
-   * @param {app.core.Request} req
+   * @param {Array<function>} handlers
+   * @param {Request} req
    */
   Router.prototype.execute = function(handlers, req)
   {
@@ -234,8 +238,8 @@ define([
 
   /**
    * @private
-   * @param {string|RegExp} pattern
-   * @returns {function(app.core.Request): boolean}
+   * @param {(string|RegExp)} pattern
+   * @returns {function(Request): boolean}
    */
   Router.prototype.createMatcher = function(pattern)
   {
@@ -258,8 +262,7 @@ define([
     var isRegExp = false;
     var patternRegExp = pattern.replace(escapeRegExp, '\\$&');
 
-    patternRegExp =
-      patternRegExp.replace(pathParamRegExp, function(match, op, param)
+    patternRegExp = patternRegExp.replace(pathParamRegExp, function(match, op, param)
     {
       isRegExp = true;
 
@@ -286,8 +289,8 @@ define([
 
   /**
    * @param {RegExp} regExp
-   * @param {Array.<string>} [params]
-   * @returns {function(app.core.Request): boolean}
+   * @param {Array<string>} [params]
+   * @returns {function(Request): boolean}
    */
   function createRegExpMatcher(regExp, params)
   {

@@ -7,17 +7,21 @@ define([
 ) {
   'use strict';
 
+  /**
+   * @constructor
+   * @param {(Socket|SocketSandbox)} socket
+   */
   function SocketSandbox(socket)
   {
     /**
      * @private
-     * @type {app.core.Socket|app.core.SocketSandbox}
+     * @type {(Socket|SocketSandbox)}
      */
     this.socket = socket;
 
     /**
      * @private
-     * @type {object}
+     * @type {Object}
      */
     this.listeners = {
       destroy: []
@@ -72,21 +76,35 @@ define([
     this.socket = null;
   };
 
+  /**
+   * @returns {SocketSandbox}
+   */
   SocketSandbox.prototype.sandbox = function()
   {
     return new SocketSandbox(this);
   };
 
+  /**
+   * @returns {?string}
+   */
   SocketSandbox.prototype.getId = function()
   {
     return this.socket.getId();
   };
 
+  /**
+   * @returns {boolean}
+   */
   SocketSandbox.prototype.isConnected = function()
   {
     return this.socket.isConnected();
   };
 
+  /**
+   * @param {string} eventName
+   * @param {function} cb
+   * @returns {SocketSandbox}
+   */
   SocketSandbox.prototype.on = function(eventName, cb)
   {
     var listeners = this.listeners[eventName];
@@ -106,6 +124,11 @@ define([
     return this;
   };
 
+  /**
+   * @param {string} eventName
+   * @param {function} [cb]
+   * @returns {SocketSandbox}
+   */
   SocketSandbox.prototype.off = function(eventName, cb)
   {
     var listeners = this.listeners[eventName];
@@ -144,7 +167,12 @@ define([
     return this;
   };
 
-  SocketSandbox.prototype.emit = function()
+  /**
+   * @param {string} eventName
+   * @param {...*} argN
+   * @returns {SocketSandbox}
+   */
+  SocketSandbox.prototype.emit = function(eventName, argN) // eslint-disable-line no-unused-vars
   {
     var args = Array.prototype.slice.call(arguments);
     var lastArgPos = args.length - 1;
@@ -156,6 +184,11 @@ define([
     return this;
   };
 
+  /**
+   * @param {Object} data
+   * @param {function} [cb]
+   * @returns {SocketSandbox}
+   */
   SocketSandbox.prototype.send = function(data, cb)
   {
     this.socket.send(data, this.wrapCallback(cb));
@@ -163,6 +196,11 @@ define([
     return this;
   };
 
+  /**
+   * @private
+   * @param {*} cb
+   * @returns {*}
+   */
   SocketSandbox.prototype.wrapCallback = function(cb)
   {
     if (!_.isFunction(cb))

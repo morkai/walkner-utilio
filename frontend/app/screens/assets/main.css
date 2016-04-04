@@ -1,4 +1,7 @@
-@import "./editor.css";
+@import "./editor/main.css";
+@import "./editor/scrollbar.css";
+@import "./editor/toolbar.css";
+@import "./editor/toolbox.css";
 
 .screen-component {
   transform: translate(0.5, 0.5);

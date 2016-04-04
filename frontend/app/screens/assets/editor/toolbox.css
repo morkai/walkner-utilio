@@ -1,0 +1,49 @@
+.screenEditor-toolbox > .panel-body {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.screenEditor-toolbox-filter {
+  flex: 0 0 auto;
+  padding: 0;
+  border-bottom: 1px solid #D4D4D4;
+}
+.screenEditor-toolbox-filter-value {
+  padding: 5px;
+  width: 100%;
+  border: 0;
+}
+.screenEditor-toolbox-filter-value:focus {
+  outline: none;
+  background: #FFFFD6;
+}
+.screenEditor-toolbox-groups {
+  flex: 1 1 auto;
+  overflow: scroll;
+  padding-bottom: 28px;
+}
+.screenEditor-toolbox-group-hd {
+  padding: 5px;
+  background: #F5F5F5;
+  border-bottom: 1px solid #D4D4D4;
+  font-size: 12px;
+}
+.screenEditor-toolbox-group-hd:hover {
+  background: #e5e5e5;
+  cursor: pointer;
+}
+.screenEditor-toolbox-group-bd {
+  display: flex;
+  padding: 7px;
+  border-bottom: 1px solid #D4D4D4;
+}
+.screenEditor-toolbox-component {
+  padding: 7px;
+  line-height: 1;
+  border: 1px solid transparent;
+}
+.screenEditor-toolbox-component:hover {
+  background: #f4f4f4;
+  border-color: #D4D4D4;
+  cursor: move;
+}

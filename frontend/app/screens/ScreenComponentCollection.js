@@ -13,22 +13,16 @@ define([
    * @constructor
    * @extends {Collection<ScreenComponent>}
    */
-  function EditorSelection()
+  function ScreenComponentCollection()
   {
-    /**
-     * @type {typeof ScreenComponent}
-     */
-    this.model = ScreenComponent;
-
-    /**
-     * @type {?ScreenComponent}
-     */
-    this.lastAdded = null;
-
     Collection.apply(this, arguments);
   }
 
-  inherits(EditorSelection, Collection);
+  inherits(ScreenComponentCollection, Collection, {
 
-  return EditorSelection;
+    model: ScreenComponent
+
+  });
+
+  return ScreenComponentCollection;
 });

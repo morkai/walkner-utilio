@@ -7,9 +7,27 @@
   "MSG:LOADING_SINGLE_FAILURE": "Ładowanie ekranu nie powiodło się :(",
   "MSG:DELETED": "Ekran <em>{label}</em> został usunięty.",
 
+  "editor:toolbar:toggleGrid": "Siatka",
+  "editor:toolbar:actualSize": "Rzeczywisty rozmiar",
+  "editor:toolbar:zoomIn": "Powiększ",
+  "editor:toolbar:zoomOut": "Zmniejsz",
+  "editor:toolbar:undo": "Cofnij",
+  "editor:toolbar:redo": "Ponów",
+  "editor:toolbar:deleteSelection": "Usuń",
+  "editor:toolbar:sendSelectionToBack": "Przesuń na spód",
+  "editor:toolbar:sendSelectionBackward": "Przesuń do tyłu",
+  "editor:toolbar:bringSelectionForward": "Przesuń do przodu",
+  "editor:toolbar:bringSelectionToFront": "Przesuń na wierzch",
+
   "editor:toolbox:title": "Przybornik",
 
-  "editor:components:title": "Komponenty",
+  "editor:structure:title": "Komponenty",
 
-  "editor:properties:title": "Właściwości"
+  "editor:properties:title": "Właściwości",
+
+  "rect:type": "Prostokąt",
+  "rect:name": "Prostokąt",
+
+  "ellipse:type": "Elipsa",
+  "ellipse:name": "Elipsa"
 }

@@ -7,22 +7,29 @@ define([
 ) {
   'use strict';
 
+  /* eslint-disable no-underscore-dangle */
+
   var util = {};
 
   /**
-   * @param {Function} ctor
-   * @param {Function} superCtor
-   * @returns {Function}
+   * @param {function} ctor
+   * @param {function} superCtor
+   * @param {Object} [proto]
+   * @returns {function}
    */
-  util.inherits = function(ctor, superCtor)
+  util.inherits = window.inherits || function(ctor, superCtor, proto)
   {
-    _.extend(ctor, superCtor);
+    function Surrogate()
+    {
+      this.constructor = ctor;
+    }
 
-    var Surrogate = function() { this.constructor = ctor; };
     Surrogate.prototype = superCtor.prototype;
     ctor.prototype = new Surrogate();
-
     ctor.__super__ = superCtor.prototype;
+
+    _.extend(ctor, superCtor);
+    _.extend(ctor.prototype, proto);
 
     return ctor;
   };
@@ -37,7 +44,7 @@ define([
   };
 
   /**
-   * @param {object} obj
+   * @param {Object} obj
    * @param {string} propertyName
    * @param {{sandbox: function}} parent
    */
@@ -60,10 +67,8 @@ define([
 
       return;
     }
-    else
-    {
-      sandboxedProperties[propertyName] = null;
-    }
+
+    sandboxedProperties[propertyName] = null;
 
     Object.defineProperty(obj, propertyName, {
       enumerable: true,
@@ -85,7 +90,7 @@ define([
   };
 
   /**
-   * @param {object} obj
+   * @param {Object} obj
    */
   util.cleanupSandboxedProperties = function(obj)
   {
@@ -112,9 +117,9 @@ define([
   };
 
   /**
-   * @param {object} obj
+   * @param {Object} obj
    * @param {string} brokerProperty
-   * @param {object.<string, function|string>|function(): object.<string, function|string>} topics
+   * @param {(Object<string, (function|string)>|function(): Object<string, (function|string)>)} topics
    * @param {boolean} bind
    */
   util.subscribeTopics = function(obj, brokerProperty, topics, bind)

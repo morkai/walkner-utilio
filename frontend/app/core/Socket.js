@@ -7,26 +7,46 @@ define([
 ) {
   'use strict';
 
+  /**
+   * @constructor
+   * @param {Object} sio
+   */
   function Socket(sio)
   {
+    /**
+     * @private
+     * @type {Object}
+     */
     this.sio = sio;
   }
 
+  /**
+   * @returns {SocketSandbox}
+   */
   Socket.prototype.sandbox = function()
   {
     return new SocketSandbox(this);
   };
 
+  /**
+   * @returns {?string}
+   */
   Socket.prototype.getId = function()
   {
     return this.sio.id || null;
   };
 
+  /**
+   * @returns {boolean}
+   */
   Socket.prototype.isConnected = function()
   {
     return this.sio.io.readyState === 'open';
   };
 
+  /**
+   * @returns {boolean}
+   */
   Socket.prototype.isConnecting = function()
   {
     return this.sio.io.readyState === 'opening';
@@ -42,6 +62,11 @@ define([
     this.connect();
   };
 
+  /**
+   * @param {string} eventName
+   * @param {function} cb
+   * @returns {Socket}
+   */
   Socket.prototype.on = function(eventName, cb)
   {
     this.sio.on(eventName, cb);
@@ -49,6 +74,11 @@ define([
     return this;
   };
 
+  /**
+   * @param {string} eventName
+   * @param {function} [cb]
+   * @returns {Socket}
+   */
   Socket.prototype.off = function(eventName, cb)
   {
     if (typeof cb === 'undefined')
@@ -63,13 +93,23 @@ define([
     return this;
   };
 
-  Socket.prototype.emit = function()
+  /**
+   * @param {string} eventName
+   * @param {...*} argN
+   * @returns {Socket}
+   */
+  Socket.prototype.emit = function(eventName, argN) // eslint-disable-line no-unused-vars
   {
     this.sio.json.emit.apply(this.sio.json, arguments);
 
     return this;
   };
 
+  /**
+   * @param {Object} data
+   * @param {function} [cb]
+   * @returns {Socket}
+   */
   Socket.prototype.send = function(data, cb)
   {
     this.sio.json.send(data, cb);

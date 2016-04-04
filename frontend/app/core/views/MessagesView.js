@@ -4,9 +4,9 @@ define([
   'underscore',
   'jquery',
   'app/i18n',
-  '../View',
-  'app/core/templates/messages',
-  'app/core/templates/message'
+  'app/core/View',
+  'ejs!app/core/templates/messages',
+  'ejs!app/core/templates/message'
 ], function(
   _,
   $,

@@ -4,17 +4,22 @@ define([
   'underscore',
   'backbone',
   'h5.rql/index',
-  './util',
   './PaginationData'
 ], function(
   _,
   Backbone,
   rql,
-  util,
   PaginationData
 ) {
   'use strict';
 
+  /**
+   * @constructor
+   * @template TModel
+   * @extends {Backbone.Collection<TModel>}
+   * @param {Array<(Object|TModel)>} [models]
+   * @param {Object} [options]
+   */
   function Collection(models, options)
   {
     if (!_.isObject(options))
@@ -22,14 +27,20 @@ define([
       options = {};
     }
 
+    /**
+     * @type {h5.rql.Query}
+     */
     this.rqlQuery = this.createRqlQuery(options.rqlQuery || this.rqlQuery);
 
+    /**
+     * @type {?PaginationData}
+     */
     this.paginationData = options.paginate !== false ? new PaginationData() : null;
 
-    if (!this.url)
-    {
-      this.url = this.model.prototype.urlRoot;
-    }
+    /**
+     * @type {(string|function(): string|null)}
+     */
+    this.url = this.url || this.model.prototype.urlRoot;
 
     Backbone.Collection.call(this, models, options);
 
@@ -39,8 +50,12 @@ define([
     }
   }
 
-  util.inherits(Collection, Backbone.Collection);
+  inherits(Collection, Backbone.Collection);
 
+  /**
+   * @param {*} res
+   * @returns {Array}
+   */
   Collection.prototype.parse = function(res)
   {
     if (this.paginationData)
@@ -51,6 +66,12 @@ define([
     return Array.isArray(res.collection) ? res.collection : [];
   };
 
+  /**
+   * @param {string} type
+   * @param {TModel} model
+   * @param {JQueryAjaxSettings} options
+   * @returns {JQueryXHR}
+   */
   Collection.prototype.sync = function(type, model, options)
   {
     if (type === 'read' && !options.data)
@@ -61,6 +82,11 @@ define([
     return Backbone.Collection.prototype.sync.call(this, type, model, options);
   };
 
+  /**
+   * @param {string} [action]
+   * @returns {string}
+   * @throws {Error} If the `clientUrlRoot` was not specified during definition.
+   */
   Collection.prototype.genClientUrl = function(action)
   {
     if (this.model.prototype.clientUrlRoot === null)
@@ -78,28 +104,81 @@ define([
     return url;
   };
 
+  /**
+   * @returns {?string}
+   */
   Collection.prototype.getTopicPrefix = function()
   {
     return this.topicPrefix || this.model.prototype.topicPrefix;
   };
 
+  /**
+   * @returns {?string}
+   */
   Collection.prototype.getPrivilegePrefix = function()
   {
     return this.privilegePrefix || this.model.prototype.privilegePrefix;
   };
 
+  /**
+   * @returns {?string}
+   */
   Collection.prototype.getNlsDomain = function()
   {
     return this.nlsDomain || this.model.prototype.nlsDomain;
   };
 
-  Collection.prototype.getLabel = function(id)
+  /**
+   * @param {string} modelId
+   * @returns {?string}
+   */
+  Collection.prototype.getLabel = function(modelId)
   {
-    var model = this.get(id);
+    var model = this.get(modelId);
 
     return model ? model.getLabel() : null;
   };
 
+  /**
+   * @param {{totalCount: number}} res
+   * @returns {{totalCount: number, urlTemplate: string, skip: number, limit: number}}
+   */
+  Collection.prototype.getPaginationData = function(res)
+  {
+    return {
+      totalCount: res.totalCount,
+      urlTemplate: this.genPaginationUrlTemplate(),
+      skip: this.rqlQuery.skip,
+      limit: this.rqlQuery.limit
+    };
+  };
+
+  /**
+   * @private
+   * @returns {string}
+   */
+  Collection.prototype.genPaginationUrlTemplate = function()
+  {
+    var rqlQuery = this.rqlQuery;
+    var skip = rqlQuery.skip;
+    var limit = rqlQuery.limit;
+
+    rqlQuery.skip = '${skip}';
+    rqlQuery.limit = '${limit}';
+
+    var urlTemplate = this.genClientUrl() + '?' + rqlQuery.toString();
+
+    rqlQuery.skip = skip;
+    rqlQuery.limit = limit;
+
+    return urlTemplate;
+  };
+
+  /**
+   * @private
+   * @param {*} rqlQuery
+   * @returns {h5.rql.Query}
+   */
   Collection.prototype.createRqlQuery = function(rqlQuery)
   {
     if (_.isString(rqlQuery))
@@ -138,33 +217,11 @@ define([
     return new rql.Query();
   };
 
-  Collection.prototype.getPaginationData = function(res)
-  {
-    return {
-      totalCount: res.totalCount,
-      urlTemplate: this.genPaginationUrlTemplate(),
-      skip: this.rqlQuery.skip,
-      limit: this.rqlQuery.limit
-    };
-  };
-
-  Collection.prototype.genPaginationUrlTemplate = function()
-  {
-    var rqlQuery = this.rqlQuery;
-    var skip = rqlQuery.skip;
-    var limit = rqlQuery.limit;
-
-    rqlQuery.skip = '${skip}';
-    rqlQuery.limit = '${limit}';
-
-    var urlTemplate = this.genClientUrl() + '?' + rqlQuery.toString();
-
-    rqlQuery.skip = skip;
-    rqlQuery.limit = limit;
-
-    return urlTemplate;
-  };
-
+  /**
+   * @private
+   * @param {Backbone.Model} model
+   * @param {number} newPage
+   */
   Collection.prototype.onPageChanged = function(model, newPage)
   {
     this.rqlQuery.skip = (newPage - 1) * this.rqlQuery.limit;

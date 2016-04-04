@@ -4,16 +4,14 @@ define([
   'require',
   'underscore',
   'jquery',
-  './View',
-  './util',
-  './views/MessagesView',
-  'app/core/templates/dialogContainer'
+  'app/core/View',
+  'app/core/views/MessagesView',
+  'ejs!app/core/templates/dialogContainer'
 ], function(
   require,
   _,
   $,
   View,
-  util,
   MessagesView,
   dialogContainerTemplate
 ) {
@@ -24,28 +22,63 @@ define([
     return new Page();
   };
 
+  /**
+   * @constructor
+   * @extends {View}
+   * @param {Object} options
+   */
   function Viewport(options)
   {
     View.call(this, options);
 
+    /**
+     * @type {MessagesView}
+     */
     this.msg = options.messagesView ? options.messagesView : new MessagesView({el: this.el});
 
+    /**
+     * @type {HTMLDocument}
+     */
     this.document = options.document || window.document;
 
+    /**
+     * @type {Object<string, typeof Backbone.Layout>}
+     */
     this.layouts = {};
 
+    /**
+     * @type {?Backbone.Layout}
+     */
     this.currentLayout = null;
 
+    /**
+     * @type {?string}
+     */
     this.currentLayoutName = null;
 
+    /**
+     * @type {?Backbone.View}
+     */
     this.currentPage = null;
 
+    /**
+     * @type {?jQuery}
+     */
     this.$dialog = null;
 
+    /**
+     * @type {Array<Backbone.View>}
+     */
     this.dialogQueue = [];
 
+    /**
+     * @type {?Backbone.View}
+     */
     this.currentDialog = null;
 
+    /**
+     * @type {number}
+     */
     this.pageCounter = 0;
 
     this.closeDialog = this.closeDialog.bind(this);
@@ -53,7 +86,7 @@ define([
     this.$el.on('click', '.viewport-dialog .cancel', this.closeDialog);
   }
 
-  util.inherits(Viewport, View);
+  inherits(Viewport, View);
 
   Viewport.prototype.cleanup = function()
   {
@@ -104,6 +137,11 @@ define([
     this.$dialog.on('hidden.bs.modal', this.onDialogHidden.bind(this));
   };
 
+  /**
+   * @param {string} name
+   * @param {function(): Backbone.Layout} layoutFactory
+   * @returns {Viewport}
+   */
   Viewport.prototype.registerLayout = function(name, layoutFactory)
   {
     this.layouts[name] = layoutFactory;
@@ -111,6 +149,10 @@ define([
     return this;
   };
 
+  /**
+   * @param {Array<string>} dependencies
+   * @param {function(...*): Backbone.View} createPage
+   */
   Viewport.prototype.loadPage = function(dependencies, createPage)
   {
     this.msg.loading();
@@ -134,13 +176,16 @@ define([
     });
   };
 
+  /**
+   * @param {Backbone.View} page
+   */
   Viewport.prototype.showPage = function(page)
   {
     var layoutName = _.result(page, 'layoutName');
 
     if (!_.isObject(this.layouts[layoutName]))
     {
-      throw new Error("Unknown layout: `" + layoutName + "`");
+      throw new Error('Unknown layout: `' + layoutName + '`');
     }
 
     ++this.pageCounter;
@@ -236,6 +281,11 @@ define([
     }
   };
 
+  /**
+   * @param {Backbone.View} dialogView
+   * @param {(string|{toString: function(): string})} [title]
+   * @returns {Viewport}
+   */
   Viewport.prototype.showDialog = function(dialogView, title)
   {
     if (this.currentDialog !== null)
@@ -289,6 +339,10 @@ define([
     return this;
   };
 
+  /**
+   * @param {{preventDefault: function}} [e]
+   * @returns {Viewport}
+   */
   Viewport.prototype.closeDialog = function(e)
   {
     if (this.currentDialog === null)
@@ -298,7 +352,7 @@ define([
 
     this.$dialog.modal('hide');
 
-    if (e)
+    if (e && e.preventDefault)
     {
       e.preventDefault();
     }
@@ -313,6 +367,11 @@ define([
     this.closeDialog();
   };
 
+  /**
+   * @private
+   * @param {string} layoutName
+   * @returns {Backbone.Layout}
+   */
   Viewport.prototype.setLayout = function(layoutName)
   {
     if (layoutName === this.currentLayoutName)
@@ -341,6 +400,9 @@ define([
     return this.currentLayout;
   };
 
+  /**
+   * @private
+   */
   Viewport.prototype.onDialogShown = function()
   {
     this.currentDialog.$('[autofocus]').focus();
@@ -353,6 +415,9 @@ define([
     this.broker.publish('viewport.dialog.shown', this.currentDialog);
   };
 
+  /**
+   * @private
+   */
   Viewport.prototype.onDialogHidden = function()
   {
     if (this.currentDialog.dialogClassName)

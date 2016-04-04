@@ -1,4 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="<%- width %>.5" height="<%- height %>.5">
-  <line x1="<%- width %>" y1="0" x2="<%- width %>" y2="<%- height %>" style="stroke: <%- color %>" />
-  <line x1="0" y1="<%- height %>" x2="<%- width %>" y2="<%- height %>" style="stroke: <%- color %>" />
+<svg xmlns="http://www.w3.org/2000/svg" width="<%- width * steps %>" height="<%- height * steps %>">
+  <defs>
+    <pattern id="grid" width="<%- width * steps %>" height="<%- height * steps %>" patternUnits="userSpaceOnUse">
+      <path fill="none" stroke="<%- color %>" opacity="0.2" stroke-width="1" d="
+        <% for (var step = 1; step < steps; ++step) { %>
+        M 0 <%- height * step %>
+        L <%- width * steps %> <%- height * step %>
+        M <%- width * step %> 0
+        L <%- width * step %> <%- height * steps %>
+        <% } %>
+      " />
+      <path fill="none" stroke="<%- color %>" stroke-width="1" d="
+        M <%- width * steps %> 0
+        L 0 0 0 <%- height * steps %>
+      " />
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#grid)" />
 </svg>

@@ -1,0 +1,35 @@
+<div class="btn-toolbar screenEditor-toolbar">
+  <div class="btn-group">
+    <button id="<%- idPrefix %>-toggleGrid" class="btn btn-default" data-action="toggleGrid" data-toggle="button" title="<%- t('screens', 'editor:toolbar:toggleGrid') %> (Ctrl+G)"><i class="fa fa-th"></i></button>
+  </div>
+  <div class="btn-group">
+    <div class="btn-group">
+      <button type="button" class="btn btn-default dropdown-toggle screenEditor-toolbar-zoom" data-toggle="dropdown">
+        <span id="<%- idPrefix %>-scale" class="screenEditor-toolbar-scale">100%</span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="#" data-action="zoom" data-scale="100"><%- t('screens', 'editor:toolbar:actualSize') %><kbd>Ctrl+0</kbd></a></li>
+        <li class="divider"></li>
+        <% [25, 50, 75, 100, 125, 150, 175, 200, 300, 400].forEach(function(scale) { %>
+        <li><a href="#" data-action="zoom" data-scale="<%- scale %>"><%- scale %>%</a></li>
+        <% }) %>
+      </ul>
+    </div>
+    <button class="btn btn-default" data-action="zoomIn" title="<%- t('screens', 'editor:toolbar:zoomIn') %> (Ctrl++)"><i class="fa fa-search-plus"></i></button>
+    <button class="btn btn-default" data-action="zoomOut" title="<%- t('screens', 'editor:toolbar:zoomOut') %> (Ctrl+-)"><i class="fa fa-search-minus"></i></button>
+  </div>
+  <div class="btn-group">
+    <button class="btn btn-default" data-action="undo" disabled title="<%- t('screens', 'editor:toolbar:undo') %> (Ctrl+Z)"><i class="fa fa-undo"></i></button>
+    <button class="btn btn-default" data-action="redo" disabled title="<%- t('screens', 'editor:toolbar:redo') %> (Ctrl+Shift+Z)"><i class="fa fa-repeat"></i></button>
+  </div>
+  <div class="btn-group">
+    <button class="btn btn-default" data-action="deleteSelection" data-selection title="<%- t('screens', 'editor:toolbar:deleteSelection') %> (Delete)"><i class="fa fa-trash"></i></button>
+  </div>
+  <div class="btn-group">
+    <button class="btn btn-default" data-action="sendSelectionToBack" data-selection title="<%- t('screens', 'editor:toolbar:sendSelectionToBack') %> (End)"><i class="fa fa-fast-backward"></i></button>
+    <button class="btn btn-default" data-action="sendSelectionBackward" data-selection title="<%- t('screens', 'editor:toolbar:sendSelectionBackward') %> (PageDown)"><i class="fa fa-step-backward"></i></button>
+    <button class="btn btn-default" data-action="bringSelectionForward" data-selection title="<%- t('screens', 'editor:toolbar:bringSelectionForward') %> (PageUp)"><i class="fa fa-step-forward"></i></button>
+    <button class="btn btn-default" data-action="bringSelectionToFront" data-selection title="<%- t('screens', 'editor:toolbar:bringSelectionToFront') %> (Home)"><i class="fa fa-fast-forward"></i></button>
+  </div>
+</div>

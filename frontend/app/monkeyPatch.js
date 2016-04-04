@@ -4,11 +4,15 @@ define([
   'jquery',
   'backbone',
   'bootstrap',
-  'select2'
+  'select2',
+  'app/core/util'
 ],
 function(
   $,
-  Backbone
+  Backbone,
+  Bootstrap,
+  Select2,
+  util
 ) {
   'use strict';
 

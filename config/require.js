@@ -27,7 +27,8 @@ exports.paths = {
   'select2-lang': 'vendor/select2-lang',
   'd3': 'vendor/d3/d3.v3',
   'highcharts': 'vendor/highcharts-custom',
-  'zeroclipboard': 'vendor/zeroclipboard/ZeroClipboard'
+  'zeroclipboard': 'vendor/zeroclipboard/ZeroClipboard',
+  'ejs': 'vendor/require/ejs'
 };
 
 exports.shim = {

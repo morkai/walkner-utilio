@@ -2,8 +2,8 @@
 
 define([
   'underscore',
-  '../View',
-  'app/core/templates/pagination'
+  'app/core/View',
+  'ejs!app/core/templates/pagination'
 ], function(
   _,
   View,
@@ -11,63 +11,53 @@ define([
 ) {
   'use strict';
 
+  /**
+   * @typedef {Object} PaginationViewOptions
+   * @property {boolean} [pageNumbers]
+   * @property {boolean} [firstLastLinksVisible]
+   * @property {boolean} [prevNextLinksVisible]
+   * @property {boolean} [dotsVisible]
+   * @property {boolean} [replaceUrl]
+   */
+
+  /**
+   * @private
+   * @type {PaginationViewOptions}
+   */
   var DEFAULT_OPTIONS = {
-    /**
-     * @type {number}
-     */
     pageNumbers: 3,
-    /**
-     * @type {boolean}
-     */
     firstLastLinksVisible: true,
-    /**
-     * @type {boolean}
-     */
     prevNextLinksVisible: true,
-    /**
-     * @type {boolean}
-     */
     dotsVisible: true,
-    /**
-     * @type {boolean}
-     */
     replaceUrl: false
   };
 
-  var PaginationView = View.extend({
+  /**
+   * @constructor
+   * @extends {View}
+   * @param {PaginationViewOptions} [options]
+   */
+  function PaginationView(options)
+  {
+    View.call(this, options);
+
+    /**
+     * @type {PaginationViewOptions}
+     */
+    this.options = _.defaults(this.options, DEFAULT_OPTIONS);
+
+    this.listenTo(this.model, 'change:urlTemplate', this.render);
+  }
+
+  inherits(PaginationView, View, {
 
     template: paginationTemplate,
 
     events: {
-      'click a': function onPageClick(e)
-      {
-        if (e.button !== 0)
-        {
-          return;
-        }
-
-        e.preventDefault();
-
-        var linkEl = e.currentTarget;
-
-        this.changePage(
-          +linkEl.getAttribute('data-page'),
-          linkEl.getAttribute('href')
-        );
-      }
+      'click a': 'onPageClick'
     }
 
   });
-
-  /**
-   * @protected
-   */
-  PaginationView.prototype.initialize = function()
-  {
-    _.defaults(this.options, DEFAULT_OPTIONS);
-
-    this.listenTo(this.model, 'change:urlTemplate', this.render);
-  };
 
   PaginationView.prototype.afterRender = function()
   {
@@ -98,12 +88,10 @@ define([
 
   /**
    * @protected
-   * @returns {object}
+   * @returns {Object}
    */
   PaginationView.prototype.serialize = function()
   {
-    /*jshint maxstatements:33*/
-
     var options = this.options;
     var model = this.model;
     var currentPage = model.get('page');
@@ -216,7 +204,7 @@ define([
    * @private
    * @param {number} firstPageNr
    * @param {number} lastPageNr
-   * @returns {Array.<object>}
+   * @returns {Array<Object>}
    */
   PaginationView.prototype.genPages = function(firstPageNr, lastPageNr)
   {
@@ -233,6 +221,27 @@ define([
     }
 
     return pages;
+  };
+
+  /**
+   * @private
+   * @param {JQueryMouseEventObject} e
+   */
+  PaginationView.prototype.onPageClick = function(e)
+  {
+    if (e.button !== 0)
+    {
+      return;
+    }
+
+    e.preventDefault();
+
+    var linkEl = e.currentTarget;
+
+    this.changePage(
+      +linkEl.getAttribute('data-page'),
+      linkEl.getAttribute('href')
+    );
   };
 
   return PaginationView;

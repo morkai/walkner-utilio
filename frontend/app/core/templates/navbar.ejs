@@ -6,7 +6,8 @@
       <li data-online data-privilege="EVENTS:VIEW" data-module><a href="#events"><%- t('core', 'NAVBAR:EVENTS') %></a>
       <li data-online data-privilege="ALARMS:VIEW" data-module="alarms/frontend"><a href="#alarms"><%- t('core', 'NAVBAR:ALARMS') %></a>
       <% include navbar/analytics.ejs %>
-      <% include navbar/dictionaries.ejs %>
+      <li data-online data-privilege="SCREENS:VIEW"><a href="#screens"><%- t('core', 'NAVBAR:SCREENS') %></a>
+      <li data-online data-privilege="USERS:VIEW" data-module><a href="#users"><%- t('core', 'NAVBAR:USERS') %></a>
     </ul>
     <% include navbar/right.ejs %>
   </div>

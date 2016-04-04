@@ -6,13 +6,18 @@
     <div class="screenEditor-toolbox-filter">
       <input id="<%- idPrefix %>-filter" class="screenEditor-toolbox-filter-value" type="text" value="" placeholder="Filtruj...">
     </div>
-    <div class="screenEditor-toolbox-groups">
+    <div class="screenEditor-toolbox-groups screenEditor-scrollbar">
       <div class="screenEditor-toolbox-group is-expanded">
         <div class="screenEditor-toolbox-group-hd">
           <i class="fa fa-chevron-down"></i><span class="screenEditor-toolbox-group-title">Ogólne</span>
         </div>
         <div class="screenEditor-toolbox-group-bd">
-          <div class="screenEditor-toolbox-component"></div>
+          <div class="screenEditor-toolbox-component" data-type="app/screens/components/Rect">
+            <%- t('screens', 'rect:type') %>
+          </div>
+          <div class="screenEditor-toolbox-component" data-type="app/screens/components/Ellipse">
+            <%- t('screens', 'ellipse:type') %>
+          </div>
         </div>
       </div>
     </div>

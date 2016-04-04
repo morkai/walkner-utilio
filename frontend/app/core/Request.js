@@ -2,7 +2,7 @@
 
 define([
   'h5.rql/index',
-  './util'
+  'app/core/util'
 ], function(
   rql,
   util
@@ -11,6 +11,10 @@ define([
 
   var urlPartsRegExp = /^\/(.*?)(?:\?(.*?))?(?:#(.*?))?$/;
 
+  /**
+   * @constructor
+   * @param {string} url
+   */
   function Request(url)
   {
     if (url[0] !== '/')
@@ -41,12 +45,12 @@ define([
     this.fragment = urlParts[3] || '';
 
     /**
-     * @type {object}
+     * @type {Object}
      */
     this.params = {};
 
     /**
-     * @type {object.<string, string>}
+     * @type {Object<string, string>}
      */
     this.query = {};
 
@@ -61,6 +65,9 @@ define([
     }
   }
 
+  /**
+   * @private
+   */
   Request.prototype.defineGetters = function()
   {
     Object.defineProperty(this, 'query', {
@@ -90,6 +97,10 @@ define([
     });
   };
 
+  /**
+   * @private
+   * @returns {Object}
+   */
   Request.prototype.parseQueryString = function()
   {
     delete this.query;
@@ -118,6 +129,10 @@ define([
     return query;
   };
 
+  /**
+   * @private
+   * @returns {h5.rql.Query}
+   */
   Request.prototype.parseRqlString = function()
   {
     delete this.rql;

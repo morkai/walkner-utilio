@@ -98,6 +98,49 @@
     }
   };
 
+  /**
+   * @param {function} ctor
+   * @param {function} superCtor
+   * @param {Object} [proto]
+   * @returns {function}
+   */
+  window.inherits = function(ctor, superCtor, proto)
+  {
+    function Surrogate()
+    {
+      this.constructor = ctor;
+    }
+
+    Surrogate.prototype = superCtor.prototype;
+    ctor.prototype = new Surrogate();
+    ctor.__super__ = superCtor.prototype; // eslint-disable-line no-underscore-dangle
+
+    var keys;
+    var key;
+    var i;
+
+    keys = Object.keys(superCtor);
+
+    for (i = 0; i < keys.length; ++i)
+    {
+      key = keys[i];
+      ctor[key] = superCtor[key];
+    }
+
+    if (proto)
+    {
+      keys = Object.keys(proto);
+
+      for (i = 0; i < keys.length; ++i)
+      {
+        key = keys[i];
+        ctor.prototype[key] = proto[key];
+      }
+    }
+
+    return ctor;
+  };
+
   if (!navigator.onLine || !document.getElementsByTagName('html')[0].hasAttribute('manifest'))
   {
     window.requireApp();
