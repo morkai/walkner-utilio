@@ -26,6 +26,11 @@ module.exports = function createErrorHandlerMiddleware(expressModule, options)
       res.statusCode = err.status;
     }
 
+    if (err.statusCode)
+    {
+      res.statusCode = err.statusCode;
+    }
+
     if (res.statusCode < 400)
     {
       res.statusCode = 500;
@@ -59,7 +64,7 @@ module.exports = function createErrorHandlerMiddleware(expressModule, options)
           login,
           req.ip,
           JSON.stringify(req.headers),
-          JSON.stringify(req.body)
+          JSON.stringify(_.omit(req.body, ['password']))
         );
       }
       catch (err)

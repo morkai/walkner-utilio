@@ -145,13 +145,21 @@ exports.addRoute = function(app, Model, req, res, next)
     {
       if (err.name === 'ValidationError')
       {
-        res.statusCode = 400;
+        err.status = 400;
       }
       else if (err.code === 11000)
       {
-        res.statusCode = 400;
+        err.status = 400;
         err.code = 'DUPLICATE_KEY';
-        err.index = err.message.match(/\.\$(.*?) /)[1];
+
+        var matches = err.message.match(/\.\$(.*?) /);
+
+        if (!matches)
+        {
+          matches = err.message.match(/ (.*?) dup key/);
+        }
+
+        err.index = matches ? matches[1] : '';
       }
 
       return next(err);
@@ -292,13 +300,21 @@ exports.editRoute = function(app, Model, req, res, next)
       {
         if (err.name === 'ValidationError')
         {
-          res.statusCode = 400;
+          err.status = 400;
         }
         else if (err.code === 11000)
         {
-          res.statusCode = 400;
+          err.status = 400;
           err.code = 'DUPLICATE_KEY';
-          err.index = err.message.match(/\.\$(.*?) /)[1];
+
+          var matches = err.message.match(/\.\$(.*?) /);
+
+          if (!matches)
+          {
+            matches = err.message.match(/ (.*?) dup key/);
+          }
+
+          err.index = matches ? matches[1] : '';
         }
 
         return next(err);
