@@ -25,7 +25,7 @@
   "bugs": "https://github.com/morkai/walkner-utilio/issues",
   "repository": {
     "type": "git",
-    "url": "http://github.com/morkai/walkner-utilio.git"
+    "url": "https://github.com/morkai/walkner-utilio.git"
   },
   "engine": [
     "node >=5.7.1"
@@ -54,6 +54,7 @@
     "h5.pubsub": "git+http://github.com/morkai/h5.pubsub.git#c1a899cb7e",
     "h5.rql": "git+http://github.com/morkai/h5.rql.git#5622189665",
     "h5.step": "~0.1.0",
+    "https-proxy-agent": "~1.0.0",
     "later": "~1.2.0",
     "lodash": "~4.5.1",
     "mail-listener2": "~0.1.8",
