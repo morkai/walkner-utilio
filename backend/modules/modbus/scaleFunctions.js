@@ -135,6 +135,21 @@ var SCALE_FUNCTIONS = {
       rawValueToValue: rawValue => rawValue === nullValue ? null : rawValue,
       valueToRawValue: value => value === null ? nullValue : value
     };
+  },
+
+  const: function(tag, args)
+  {
+    if (args.length === 0)
+    {
+      return NOOP_SCALE_FUNCTIONS;
+    }
+
+    const constValue = args[0];
+
+    return {
+      rawValueToValue: () => constValue,
+      valueToRawValue: () => constValue
+    };
   }
 
 };
