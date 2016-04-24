@@ -7,7 +7,7 @@ define([
   'app/core/Model',
   'app/core/View',
   'app/data/controller',
-  'app/dashboard/templates/dashboard'
+  'ejs!app/dashboard/templates/dashboard'
 ], function(
   _,
   t,

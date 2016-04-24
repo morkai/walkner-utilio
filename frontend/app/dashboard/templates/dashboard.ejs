@@ -5,11 +5,11 @@
     <div class="panel-body">
       <dl>
         <dt>Temperatura</dt>
-        <dd><span data-tag="cs3.<%- n %>.T">?</span>°C</dd>
+        <dd><a href="#analytics/charts?tag=cs3.<%- n %>.T" data-tag="cs3.<%- n %>.T">?</a>°C</dd>
         <dt>Wilgotność</dt>
-        <dd><span data-tag="cs3.<%- n %>.H">?</span>%</dd>
+        <dd><a href="#analytics/charts?tag=cs3.<%- n %>.H" data-tag="cs3.<%- n %>.H">?</a>%</dd>
         <dt>Ruch</dt>
-        <dd><span data-tag="cs3.<%- n %>.motion">?</span></dd>
+        <dd><a href="#analytics/changes/cs3.<%- n %>.motion" data-tag="cs3.<%- n %>.motion">?</a></dd>
       </dl>
     </div>
   </div>
@@ -20,9 +20,9 @@
     <div class="panel-body">
       <dl>
         <dt>Temperatura</dt>
-        <dd><span data-tag="csht.<%- n %>.T">?</span>°C</dd>
+        <dd><a href="#analytics/charts?tag=csht.<%- n %>.T" data-tag="csht.<%- n %>.T">?</a>°C</dd>
         <dt>Wilgotność</dt>
-        <dd><span data-tag="csht.<%- n %>.H">?</span>%</dd>
+        <dd><a href="#analytics/charts?tag=csht.<%- n %>.T" data-tag="csht.<%- n %>.H">?</a>%</dd>
       </dl>
     </div>
   </div>
@@ -33,15 +33,15 @@
     <div class="panel-body">
       <dl>
         <dt>Stała</dt>
-        <dd><span data-tag="em.<%- n %>.constant">?</span></dd>
+        <dd><a href="#analytics/changes/em.<%- n %>.constant" data-tag="em.<%- n %>.constant">?</a></dd>
         <dt>Suma</dt>
         <dd>
-          <span data-tag="em.<%- n %>.sum">?</span>
-          <span data-tag="em.<%- n %>.unit" data-select-value>
+          <a href="#analytics/charts?tag=em.<%- n %>.sum" data-tag="em.<%- n %>.sum">?</a>
+          <a href="#analytics/changes/em.<%- n %>.unit" data-tag="em.<%- n %>.unit" data-select-value>
             <span class="hidden" data-value="0">kW</span>
             <span class="hidden" data-value="1">m³</span>
             <span class="hidden" data-value="2">cnt</span>
-          </span>
+          </a>
         </dd>
         <!--
         <dt>Średnia z minuty</dt>
