@@ -29,5 +29,7 @@
   "rect:name": "Prostokąt",
 
   "ellipse:type": "Elipsa",
-  "ellipse:name": "Elipsa"
+  "ellipse:name": "Elipsa",
+
+  "B6:title": "Budynek 6"
 }

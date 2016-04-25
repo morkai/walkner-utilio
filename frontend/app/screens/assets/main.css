@@ -2,6 +2,8 @@
 @import "./editor/scrollbar.css";
 @import "./editor/toolbar.css";
 @import "./editor/toolbox.css";
+@import "./static.css";
+@import "./el.css";
 
 .screen-component {
   transform: translate(0.5, 0.5);

@@ -80,6 +80,13 @@ define([
       });
 
       return result;
+    },
+
+    getValue: function(tagName)
+    {
+      var tag = this.get(tagName);
+
+      return tag ? tag.get('value') : null;
     }
 
   });

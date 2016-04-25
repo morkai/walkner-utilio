@@ -1,6 +1,7 @@
 // Part of <https://miracle.systems/p/walkner-utilio> licensed under <CC BY-NC-SA 4.0>
 
 define([
+  'app/i18n',
   'app/broker',
   'app/router',
   'app/viewport',
@@ -9,6 +10,7 @@ define([
   'app/screens/Screen',
   'i18n!app/nls/screens'
 ], function(
+  t,
   broker,
   router,
   viewport,
@@ -25,6 +27,22 @@ define([
       replace: true,
       trigger: true
     });
+  });
+
+  router.map('/screens/:id', function(req)
+  {
+    viewport.loadPage(
+      [
+        'app/screens/pages/StaticScreenPage',
+        'app/screens/views/static/' + req.params.id + 'View'
+      ],
+      function(StaticScreenPage, ScreenView)
+      {
+        return new StaticScreenPage({
+          breadcrumbs: [t.bound('screens', req.params.id + ':title')],
+          view: new ScreenView()
+        });
+      });
   });
 
   router.map('/screens/:id;edit', function(req)

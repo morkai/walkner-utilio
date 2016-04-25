@@ -1,0 +1,134 @@
+<div>
+  <svg class="screens-reservoir" width="100%" height="100%" viewBox="0 25 717 436" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="<%- idPrefix %>-fill" x1="0" x2="1" y1="0" y2="0">
+        <stop offset="0" stop-color="#acf"></stop>
+        <stop offset="0.5" stop-color="#aef"></stop>
+        <stop offset="1" stop-color="#acf"></stop>
+      </linearGradient>
+      <%- renderPathEnding({dir: 'lr', type: null}) %>
+      <%- renderPathEnding({dir: 'lr', type: 'cleanWater'}) %>
+      <%- renderPathEnding({dir: 'bt', type: null}) %>
+    </defs>
+
+    <path id="<%- idPrefix %>-path-green" class="el-path el-path-on" d="
+      M 690 160 h -274 v -110 m 0, 110 h -196 v 300 m 0, -300 h -130 v 40
+      " />
+
+    <g id="<%- idPrefix %>-triangle-green-b" class="el-triangle el-path-on" transform="translate(212, 320)">
+      <path d="M 8 0 L 16 16 L 0 16 Z" />
+    </g>
+
+    <g id="<%- idPrefix %>-triangle-green-r" class="el-triangle el-path-on" transform="translate(680, 168) rotate(-90)">
+      <path d="M 8 0 L 16 16 L 0 16 Z" />
+    </g>
+
+    <path id="<%- idPrefix %>-path-green" class="el-path el-path-on" d="
+      M 160, 438 h 50
+      " />
+
+    <g id="<%- idPrefix %>-triangle-zw" class="el-triangle el-path-on" transform="translate(216, 430) rotate(90)">
+      <path d="M 8 0 L 16 16 L 0 16 Z" />
+    </g>
+
+    <path id="<%- idPrefix %>-path-red" class="el-path el-path-off" d="
+      M 30 200 v -150 h 660 m -380, 0 v 103 m 0, 14 v 280
+      " />
+
+    <g id="<%- idPrefix %>-triangle-red-b" class="el-triangle el-path-off" transform="translate(318, 459) rotate(180)">
+      <path d="M 8 0 L 16 16 L 0 16 Z" />
+    </g>
+
+    <g id="<%- idPrefix %>-triangle-red-r" class="el-triangle el-path-off" transform="translate(696, 42) rotate(90)">
+      <path d="M 8 0 L 16 16 L 0 16 Z" />
+    </g>
+
+    <g id="<%- idPrefix %>-boiler-1" class="el-boiler" transform="translate(10, 200)">
+      <rect class="el-boiler-outerContainer" x="0" y="0" width="100" height="150" />
+      <rect class="el-boiler-innerContainer" x="1" y="1" width="98" height="148" fill="url(#<%- idPrefix %>-fill)" />
+      <rect class="el-boiler-bottom" x="33" y="150" width="34" height="50" fill="url(#<%- idPrefix %>-fill)" />
+    </g>
+
+    <g id="<%- idPrefix %>-exchanger-1" class="el-exchanger" transform="translate(200, 200)">
+      <rect class="el-exchanger-outerContainer" x="0" y="0" width="130" height="120" />
+      <rect class="el-exchanger-innerContainer" x="1" y="1" width="128" height="118" fill="url(#<%- idPrefix %>-fill)" />
+    </g>
+
+    <g class="el-pump el-active" transform="translate(520, 50) rotate(90)">
+      <circle r="16" cx="0" cy="0"></circle>
+      <path d="M 0 -16 l 14 24 h -28 z"></path>
+    </g>
+
+    <g id="<%- idPrefix %>-valve" class="el-valve" transform="translate(400, 42)">
+      <path d="M 0 0 L 0 16 L 16 8 Z" />
+      <path d="M 32 0 L 32 16 L 16 8 Z" />
+    </g>
+
+    <text x="60" y="260" text-anchor="middle">Kocioł nr 1</text>
+    <text x="265" y="260" text-anchor="middle">Wymiennik CW</text>
+    <text x="150" y="422" text-anchor="middle">ZW</text>
+    <text x="265" y="460" text-anchor="middle">CW</text>
+
+    <g class="el-tag" transform="translate(0, 90)" data-tag="b6.unknown.1">
+      <rect x="0" y="0" width="1" height="20"></rect>
+      <text x="3" y="15">000.0 °C</text>
+    </g>
+
+    <g class="el-tag" transform="translate(85, 428)" data-tag="b6.unknown.2">
+      <rect x="0" y="0" width="1" height="20"></rect>
+      <text x="3" y="15">0.000 MPa</text>
+    </g>
+
+    <g class="el-tag" transform="translate(276, 370)" data-tag="b6.unknown.3">
+      <rect x="0" y="0" width="1" height="20"></rect>
+      <text x="3" y="15">000.0 °C</text>
+    </g>
+
+    <g class="el-tag" transform="translate(570, 150)" data-tag="b6.unknown.4">
+      <rect x="0" y="0" width="1" height="20"></rect>
+      <text x="3" y="15">000.0 °C</text>
+    </g>
+
+    <g class="el-tag" transform="translate(570, 25)" data-tag="b6.unknown.5">
+      <rect x="0" y="0" width="1" height="20"></rect>
+      <text x="3" y="15">000.0 °C&nbsp;</text>
+    </g>
+
+    <g class="el-tag" transform="translate(570, 55)" data-tag="b6.unknown.6">
+      <rect x="0" y="0" width="1" height="20"></rect>
+      <text x="3" y="15">0.000 MPa</text>
+    </g>
+
+    <text x="500" y="230" text-anchor="start">Liczniki</text>
+    <text x="595" y="230" text-anchor="start">10 min</text>
+    <text x="490" y="255" text-anchor="end">Gaz</text>
+    <text x="490" y="280" text-anchor="end">Woda</text>
+    <text x="490" y="305" text-anchor="end">Energia</text>
+
+    <g class="el-tag" transform="translate(500, 240)" data-tag="b6.unknown.7">
+      <rect x="0" y="0" width="1" height="20"></rect>
+      <text x="3" y="15">00000000.00</text>
+    </g>
+    <g class="el-tag" transform="translate(500, 265)" data-tag="b6.unknown.8">
+      <rect x="0" y="0" width="1" height="20"></rect>
+      <text x="3" y="15">00000000.00</text>
+    </g>
+    <g class="el-tag el-clickable" transform="translate(500, 290)" data-tag="em.5.sum">
+      <rect x="0" y="0" width="1" height="20"></rect>
+      <text x="3" y="15">00000000.00</text>
+    </g>
+    <g class="el-tag" transform="translate(595, 240)" data-tag="b6.unknown.9">
+      <rect x="0" y="0" width="1" height="20"></rect>
+      <text x="3" y="15">0000.00</text>
+    </g>
+    <g class="el-tag" transform="translate(595, 265)" data-tag="b6.unknown.10">
+      <rect x="0" y="0" width="1" height="20"></rect>
+      <text x="3" y="15">0000.00</text>
+    </g>
+    <g class="el-tag" transform="translate(595, 290)" data-tag="em.5.sum.recent">
+      <rect x="0" y="0" width="1" height="20"></rect>
+      <text x="3" y="15">0000.00</text>
+    </g>
+
+  </svg>
+</div>
