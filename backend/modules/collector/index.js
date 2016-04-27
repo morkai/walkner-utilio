@@ -7,6 +7,7 @@ const ObjectID = require('mongodb').ObjectID;
 const averageFunctions = require('./averageFunctions');
 const setUpAggregator = require('./aggregator');
 const setUpCleaner = require('./cleaner');
+const round = require('./round');
 
 exports.DEFAULT_CONFIG = {
   modbusId: 'modbus',
@@ -131,7 +132,14 @@ exports.start = function(app, module)
     if (!_.isObject(avgData[tag.name]))
     {
       avgData[tag.name] = {
-        lastValue: null,
+        lastMinuteData: {
+          min: null,
+          max: null,
+          avg: null,
+          dMin: null,
+          dMax: null,
+          dAvg: null
+        },
         values: []
       };
     }
@@ -157,28 +165,32 @@ exports.start = function(app, module)
   {
     avgDataSaveTimer = null;
 
+    const tagValues = app[module.config.modbusId].values;
     const saveData = [];
 
     _.forEach(avgData, function(tagAvgData, tagName)
     {
-      const currentValue = app[module.config.modbusId].values[tagName];
+      const currentValue = tagValues[tagName];
 
       tagAvgData.values.push(new Date(), currentValue);
 
       var minuteData = averageFunctions.calculateMinuteData(
         tagAvgData.values,
-        tagAvgData.lastValue,
+        tagAvgData.lastMinuteData,
         averageFunctions.arithmeticMean
       );
 
-      tagAvgData.lastValue = currentValue;
-
       if (minuteData.length === 0)
       {
+        tagAvgData.lastMinuteData = null;
+
         return;
       }
 
+      tagAvgData.lastMinuteData = _.last(minuteData);
+
       saveData.push({
+        tagName: tagName,
         collection: module.config.collection('tags.' + tagName + '.avg'),
         minuteData: minuteData
       });
@@ -189,7 +201,7 @@ exports.start = function(app, module)
       setTimeout(
         saveTagAvgData,
         _.random(10, 10 + 10 * saveData.length),
-        tagSaveData.collection, tagSaveData.minuteData
+        tagSaveData.tagName, tagSaveData.collection, tagSaveData.minuteData
       );
     });
 
@@ -198,12 +210,13 @@ exports.start = function(app, module)
 
   /**
    * @private
+   * @param {string} tagName
    * @param {Collection} collection
    * @param {Array<Object>} minuteData
    */
-  function saveTagAvgData(collection, minuteData)
+  function saveTagAvgData(tagName, collection, minuteData)
   {
-    var documents = _.map(minuteData, function(data)
+    const documents = _.map(minuteData, function(data)
     {
       return {
         _id: new ObjectID(data.time / 1000),
@@ -211,7 +224,10 @@ exports.start = function(app, module)
         s: data.sum,
         n: round(data.min),
         x: round(data.max),
-        v: round(data.avg)
+        v: round(data.avg),
+        dn: round(data.dMin),
+        dx: round(data.dMax),
+        dv: round(data.dAvg)
       };
     });
 
@@ -222,19 +238,10 @@ exports.start = function(app, module)
         app.broker.publish('collector.saveFailed', {
           severity: 'debug',
           message: err.message,
-          code: err.code
+          code: err.code,
+          tagName: tagName
         });
       }
     });
-  }
-
-  /**
-   * @private
-   * @param {number} number
-   * @returns {number}
-   */
-  function round(number)
-  {
-    return Math.round(number * 10000) / 10000;
   }
 };

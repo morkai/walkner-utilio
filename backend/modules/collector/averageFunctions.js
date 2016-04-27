@@ -2,6 +2,8 @@
 
 'use strict';
 
+const round = require('./round');
+
 module.exports = {
   calculateMinuteData: calculateMinuteData,
   arithmeticMean: arithmeticMean
@@ -9,11 +11,11 @@ module.exports = {
 
 /**
  * @param {Array<number>} input
- * @param {number} currentValue
- * @param {function(number, Array.<(number OR Array.<number>)>): object} aggregate
+ * @param {{min: ?number, max: ?number, avg: ?number}} prevMinuteData
+ * @param {function(number, Array.<(number|Array.<number>)>): object} aggregate
  * @returns {Array<Object>}
  */
-function calculateMinuteData(input, currentValue, aggregate)
+function calculateMinuteData(input, prevMinuteData, aggregate)
 {
   const results = [];
 
@@ -31,6 +33,7 @@ function calculateMinuteData(input, currentValue, aggregate)
     return results;
   }
 
+  let currentValue = prevMinuteData.avg;
   let minuteData = [];
   let i;
   let l;
@@ -73,7 +76,10 @@ function calculateMinuteData(input, currentValue, aggregate)
           sum: currentValue * 60,
           max: currentValue,
           min: currentValue,
-          avg: currentValue
+          avg: currentValue,
+          dMax: 0,
+          dMin: 0,
+          dAvg: 0
         });
       }
 
@@ -131,12 +137,46 @@ function calculateMinuteData(input, currentValue, aggregate)
 
   input.splice(0, i);
 
+  calculateDeltas(prevMinuteData, results);
+
   return results;
 }
 
 /**
+ * @param {Object} prevMinuteData
+ * @param {Array<Object>} minuteDataList
+ */
+function calculateDeltas(prevMinuteData, minuteDataList)
+{
+  for (let i = 0; i < minuteDataList.length; ++i)
+  {
+    const minuteData = minuteDataList[i];
+
+    calculateDelta(prevMinuteData, minuteData, 'min', 'dMin');
+    calculateDelta(prevMinuteData, minuteData, 'max', 'dMax');
+    calculateDelta(prevMinuteData, minuteData, 'avg', 'dAvg');
+
+    prevMinuteData = minuteData;
+  }
+}
+
+/**
+ * @param {Object} prevMinuteData
+ * @param {Object} minuteData
+ * @param {string} prop
+ * @param {string} dProp
+ */
+function calculateDelta(prevMinuteData, minuteData, prop, dProp)
+{
+  const oldValue = prevMinuteData[prop];
+  const newValue = minuteData[prop];
+
+  minuteData[dProp] = oldValue === null || newValue === null ? null : round(newValue - oldValue);
+}
+
+/**
  * @param {number} fromTime
- * @param {Array<number OR Array<number>>} minuteData
+ * @param {Array<(number|Array<number>)>} minuteData
  * @returns {Object}
  */
 function arithmeticMean(fromTime, minuteData)
@@ -147,7 +187,10 @@ function arithmeticMean(fromTime, minuteData)
     sum: 0,
     max: -Infinity,
     min: +Infinity,
-    avg: 0
+    avg: 0,
+    dMax: 0,
+    dMin: 0,
+    dAvg: 0
   };
 
   for (let i = 0, l = result.count; i < l; ++i)
@@ -164,13 +207,27 @@ function arithmeticMean(fromTime, minuteData)
     if (Array.isArray(value))
     {
       let secondSum = 0;
+      let secondCnt = 0;
 
       for (var ii = 0, ll = value.length; ii < ll; ++ii)
       {
-        secondSum += value[ii];
+        const secondVal = value[ii];
+
+        if (secondVal !== null)
+        {
+          secondSum += secondVal;
+          secondCnt += 1;
+        }
       }
 
-      value = secondSum / value.length;
+      if (secondCnt === 0)
+      {
+        result.count -= 1;
+
+        continue;
+      }
+
+      value = round(secondSum / secondCnt);
     }
 
     result.sum += value;
@@ -186,7 +243,22 @@ function arithmeticMean(fromTime, minuteData)
     }
   }
 
-  result.avg = result.sum / result.count;
+  result.avg = round(result.sum / result.count);
+
+  if (isNaN(result.avg))
+  {
+    result.avg = null;
+  }
+
+  if (!isFinite(result.max))
+  {
+    result.max = null;
+  }
+
+  if (!isFinite(result.min))
+  {
+    result.min = null;
+  }
 
   return result;
 }
