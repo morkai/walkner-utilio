@@ -445,12 +445,12 @@ module.exports = function setUpAggregator(app, module)
         return done(err);
       }
 
-      if (!prevDoc)
+      if (!prevDoc.length)
       {
         return done();
       }
 
-      return calculateDelta(tagName, timeDiff, interval, prevDoc, doc, done);
+      return calculateDelta(tagName, timeDiff, interval, prevDoc[0], doc, done);
     });
   }
 

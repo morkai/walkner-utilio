@@ -8,5 +8,5 @@
  */
 module.exports = function round(number)
 {
-  return number === null ? null : (Math.round(number * 10000) / 10000);
+  return number === null || isNaN(number) || !isFinite(number) ? null : (Math.round(number * 10000) / 10000);
 };

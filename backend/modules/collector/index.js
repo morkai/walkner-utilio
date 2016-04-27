@@ -132,19 +132,28 @@ exports.start = function(app, module)
     if (!_.isObject(avgData[tag.name]))
     {
       avgData[tag.name] = {
-        lastMinuteData: {
-          min: null,
-          max: null,
-          avg: null,
-          dMin: null,
-          dMax: null,
-          dAvg: null
-        },
+        lastMinuteData: createEmptyLastMinuteData(),
         values: []
       };
     }
 
     avgData[tag.name].values.push(new Date(data.time), data.newValue);
+  }
+
+  /**
+   * @private
+   * @returns {AveragedDoc}
+   */
+  function createEmptyLastMinuteData()
+  {
+    return {
+      min: null,
+      max: null,
+      avg: null,
+      dMin: null,
+      dMax: null,
+      dAvg: null
+    };
   }
 
   /**
@@ -182,7 +191,7 @@ exports.start = function(app, module)
 
       if (minuteData.length === 0)
       {
-        tagAvgData.lastMinuteData = null;
+        tagAvgData.lastMinuteData = createEmptyLastMinuteData();
 
         return;
       }
