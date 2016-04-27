@@ -49,7 +49,8 @@ define([
           return '/tags/' + this.get('tag') + '/metric'
             + '?start=' + this.get('from')
             + '&stop=' + (this.get('to') || 0)
-            + '&valueField=' + (this.get('valueField') || '');
+            + '&valueField=' + (this.get('valueField') || '')
+            + '&deltaField=' + (this.get('deltaField') || '');
         }
       });
 
@@ -85,8 +86,10 @@ define([
     {
       var attrs = {
         values: [],
+        deltas: [],
         to: null,
-        valueField: 'avg'
+        valueField: 'avg',
+        deltaField: ''
       };
 
       _.forEach(this.rqlQuery.selector.args, function(term)
@@ -124,7 +127,12 @@ define([
         attrs.to = to;
       }
 
-      if (/sum$/.test(attrs.tag) || /websockets$/.test(attrs.tag))
+      if (/sum$/.test(attrs.tag))
+      {
+        attrs.valueField = 'max';
+        attrs.deltaField = 'max';
+      }
+      else if (/websockets$/.test(attrs.tag))
       {
         attrs.valueField = 'max';
       }

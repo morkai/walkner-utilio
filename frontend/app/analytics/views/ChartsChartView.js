@@ -51,13 +51,6 @@ define([
     afterRender: function()
     {
       this.resizeChart();
-
-      if (this.timers.createOrUpdateChart)
-      {
-        clearTimeout(this.timers.createOrUpdateChart);
-      }
-
-      this.timers.createOrUpdateChart = setTimeout(this.createOrUpdateChart.bind(this), 1);
     },
 
     createOrUpdateChart: function()
@@ -102,8 +95,6 @@ define([
         yAxis: yAxis,
         tooltip: {
           shared: true,
-          valueSuffix: yAxis.suffix,
-          valueDecimals: yAxis.decimals,
           headerFormatter: function(ctx)
           {
             return time.format(typeof ctx === 'number' ? ctx : ctx.x, 'LL, HH:mm');
@@ -127,6 +118,11 @@ define([
                 lineWidthPlus: 0
               }
             }
+          },
+          column: {
+            borderWidth: 0,
+            groupPadding: 0,
+            pointPadding: series[0].data.length > 31 ? 0 : 0.1
           }
         },
         series: series
@@ -147,7 +143,7 @@ define([
     serializeYAxis: function()
     {
       var tag = controller.get(this.model.get('tag'));
-      var yAxis = {
+      var valueAxis = {
         title: false,
         decimals: 0,
         opposite: false,
@@ -159,12 +155,22 @@ define([
 
       if (!tag)
       {
-        return yAxis;
+        return valueAxis;
       }
 
-      yAxis.decimals = 2;
-      yAxis.suffix = tag.get('scaleUnit') || '';
-      yAxis.labels.format += yAxis.suffix;
+      valueAxis.labels.format += tag.get('scaleUnit') || '';
+
+      var yAxis = [valueAxis];
+      var deltas = this.model.get('deltas');
+
+      if (deltas.length)
+      {
+        yAxis.push({
+          title: false,
+          decimals: 3,
+          opposite: true
+        });
+      }
 
       return yAxis;
     },
@@ -174,15 +180,40 @@ define([
       var tag = controller.get(this.model.get('tag'));
       var from = this.model.get('firstTime') || this.model.get('from');
       var step = this.model.get('step') || 60000;
-
-      return [{
+      var series = [{
         type: 'line',
         name: tag ? tag.id : '?',
         data: this.model.get('values').map(function(v, i)
         {
           return [from + i * step, v];
-        })
+        }),
+        zIndex: 2,
+        color: '#E00',
+        tooltipOptions: {
+          valueDecimals: 2,
+          valueSuffix: tag.get('scaleUnit') || ''
+        }
       }];
+
+      var deltas = this.model.get('deltas');
+
+      if (deltas.length)
+      {
+        series.push({
+          yAxis: 1,
+          type: 'column',
+          name: tag ? tag.id : '?',
+          data: deltas.map(function(v, i)
+          {
+            return [from + i * step, v < 0 ? 0 : v];
+          }),
+          tooltip: {
+            valueDecimals: 3
+          }
+        });
+      }
+
+      return series;
     },
 
     onModelLoading: function()

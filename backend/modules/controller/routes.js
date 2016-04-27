@@ -13,6 +13,41 @@ module.exports = function startControllerRoutes(app, module)
   var mongoose = app[module.config.mongooseId];
   var user = app[module.config.userId];
 
+  const fieldMaps = {
+    valueMinutely: {
+      min: 'n',
+      n: 'n',
+      max: 'x',
+      x: 'x',
+      avg: 'v',
+      v: 'v'
+    },
+    value: {
+      min: 'min',
+      n: 'min',
+      max: 'max',
+      x: 'max',
+      avg: 'avg',
+      v: 'avg'
+    },
+    deltaMinutely: {
+      min: 'dn',
+      n: 'dn',
+      max: 'dx',
+      x: 'dx',
+      avg: 'dv',
+      v: 'dv'
+    },
+    delta: {
+      min: 'dMin',
+      n: 'dMin',
+      max: 'dMax',
+      x: 'dMax',
+      avg: 'dAvg',
+      v: 'dAvg'
+    }
+  };
+
   var canView = user.auth();
 
   express.get('/tags', canView, browseRoute);
@@ -107,9 +142,15 @@ module.exports = function startControllerRoutes(app, module)
       }
     };
     const valueField = mapValueField(req.query.valueField, minutely);
+    const deltaField = mapDeltaField(req.query.deltaField || '', minutely);
     const fields = {
       [valueField]: 1
     };
+
+    if (deltaField)
+    {
+      fields[deltaField] = 1;
+    }
 
     if (!minutely)
     {
@@ -125,7 +166,7 @@ module.exports = function startControllerRoutes(app, module)
         return;
       }
 
-      res.send(prepareMetrics(docs, valueField, start, stop, step, interval));
+      res.send(prepareMetrics(docs, valueField, deltaField, start, stop, step, interval));
     });
   }
 
@@ -217,58 +258,48 @@ module.exports = function startControllerRoutes(app, module)
    */
   function mapValueField(valueField, minutely)
   {
-    if (minutely)
-    {
-      switch (valueField)
-      {
-        case 'min':
-        case 'n':
-          return 'n';
+    return minutely
+      ? (fieldMaps.valueMinutely[valueField.toLowerCase()] || 'v')
+      : (fieldMaps.value[valueField.toLowerCase()] || 'avg');
+  }
 
-        case 'max':
-        case 'x':
-          return 'x';
-
-        default:
-          return 'v';
-      }
-    }
-
-    switch (valueField)
-    {
-      case 'min':
-      case 'n':
-        return 'min';
-
-      case 'max':
-      case 'x':
-        return 'max';
-
-      default:
-        return 'avg';
-    }
+  /**
+   * @private
+   * @param {string} deltaField
+   * @param {boolean} minutely
+   * @returns {?string}
+   */
+  function mapDeltaField(deltaField, minutely)
+  {
+    return minutely
+      ? (fieldMaps.deltaMinutely[deltaField.toLowerCase()] || null)
+      : (fieldMaps.delta[deltaField.toLowerCase()] || null);
   }
 
   /**
    * @private
    * @param {Array<Object>} docs
    * @param {string} valueField
+   * @param {?string} deltaField
    * @param {number} start
    * @param {number} stop
    * @param {number} step
    * @param {string} interval
    * @returns {Object}
    */
-  function prepareMetrics(docs, valueField, start, stop, step, interval)
+  function prepareMetrics(docs, valueField, deltaField, start, stop, step, interval)
   {
     const getMetricTime = interval === 'minutely' ? getMetricTimeFromId : getMetricTimeFromTime;
     const metrics = [];
+    const deltas = [];
+    const withDelta = deltaField !== null;
     const result = {
       start: start,
       stop: stop,
       step: step,
       interval: interval,
       valueField: valueField,
+      deltaField: deltaField,
       firstTime: docs.length ? getMetricTime(docs[0]) : -1,
       lastTime: docs.length ? getMetricTime(docs[docs.length - 1]) : -1,
       totalCount: Math.ceil((stop - start) / step),
@@ -276,7 +307,10 @@ module.exports = function startControllerRoutes(app, module)
       missingLeft: 0,
       minValue: Number.MAX_SAFE_INTEGER,
       maxValue: Number.MIN_SAFE_INTEGER,
-      values: metrics
+      values: metrics,
+      dMinValue: Number.MAX_SAFE_INTEGER,
+      dMaxValue: Number.MIN_SAFE_INTEGER,
+      deltas: deltas
     };
 
     if (docs.length === 0)
@@ -286,6 +320,7 @@ module.exports = function startControllerRoutes(app, module)
 
     let prevDocTime = null;
     let prevValue = null;
+    let dPrevValue = null;
 
     for (var i = 0, l = docs.length; i < l; ++i)
     {
@@ -301,6 +336,11 @@ module.exports = function startControllerRoutes(app, module)
           while (missingMiddleMetrics--)
           {
             metrics.push(null);
+
+            if (withDelta)
+            {
+              deltas.push(null);
+            }
           }
         }
       }
@@ -319,6 +359,23 @@ module.exports = function startControllerRoutes(app, module)
       }
 
       metrics.push(prevValue);
+
+      if (withDelta)
+      {
+        dPrevValue = doc[deltaField];
+
+        if (dPrevValue > result.dMaxValue)
+        {
+          result.dMaxValue = dPrevValue;
+        }
+
+        if (dPrevValue < result.dMinValue)
+        {
+          result.dMinValue = dPrevValue;
+        }
+
+        deltas.push(dPrevValue);
+      }
     }
 
     const missingRightMetrics = Math.ceil((stop - result.lastTime) / step) - 1;
