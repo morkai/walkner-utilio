@@ -19,6 +19,13 @@ define([
 ) {
   'use strict';
 
+  var INTERVALS = {
+    minutely: 'minutes',
+    hourly: 'hours',
+    daily: 'days',
+    monthly: 'months'
+  };
+
   return View.extend({
 
     className: 'analytics-charts-chart',
@@ -179,14 +186,20 @@ define([
     {
       var tag = controller.get(this.model.get('tag'));
       var from = this.model.get('firstTime') || this.model.get('from');
-      var step = this.model.get('step') || 60000;
+      var interval = INTERVALS[this.model.get('interval')];
+      var moment = time.getMoment(from);
+      var values = this.model.get('values').map(function(v, i)
+      {
+        var x = moment.valueOf();
+
+        moment.add(1, interval);
+
+        return [x, v];
+      });
       var series = [{
         type: 'line',
         name: tag ? tag.id : '?',
-        data: this.model.get('values').map(function(v, i)
-        {
-          return [from + i * step, v];
-        }),
+        data: values,
         zIndex: 2,
         color: '#E00',
         tooltipOptions: {
@@ -205,7 +218,7 @@ define([
           name: tag ? tag.id : '?',
           data: deltas.map(function(v, i)
           {
-            return [from + i * step, v < 0 ? 0 : v];
+            return [values[i][0], v < 0 ? 0 : v];
           }),
           tooltip: {
             valueDecimals: 3
