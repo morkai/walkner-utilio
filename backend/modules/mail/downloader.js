@@ -8,7 +8,7 @@ var _ = require('lodash');
 
 exports.DEFAULT_CONFIG = {
   savePath: '/var/tmp',
-  matcher: function(email) { /*jshint unused:false*/ return true; },
+  matcher: email => /* eslint no-unused-vars:0 */ true,
   timestamp: false
 };
 

@@ -333,7 +333,7 @@ exports.start = function startModbusModule(app, module, done)
         && tagConfig.kind !== 'virtual'
         && tagConfig.kind !== 'setting')
       {
-        _.merge(tagConfig, {
+        _.assign(tagConfig, {
           kind: 'register',
           address: address,
           master: config.writeAllTheThings,

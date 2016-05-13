@@ -39,7 +39,7 @@ module.exports = function setUpNoEventCheck(app, watchdogModule)
   {
     watchdogModule.debug("[noEvent] [%s] Checking...", event.id);
 
-    var conditions = _.merge({type: event.type}, event.conditions);
+    var conditions = _.assign({type: event.type}, event.conditions);
 
     Event.find(conditions, {time: 1}).sort({time: -1}).limit(1).exec(function(err, docs)
     {

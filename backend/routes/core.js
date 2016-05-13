@@ -13,7 +13,7 @@ module.exports = function startCoreRoutes(app, express)
   var requirejsPaths;
   var requirejsShim;
 
-  var ROOT_USER = JSON.stringify(_.omit(userModule.root, 'password'));
+  var ROOT_USER = JSON.stringify(_.omit(userModule.root, ['password']));
   var GUEST_USER = JSON.stringify(userModule.guest);
   var PRIVILEGES = JSON.stringify(userModule.config.privileges);
   var MODULES = JSON.stringify(app.options.modules.map(function(module)

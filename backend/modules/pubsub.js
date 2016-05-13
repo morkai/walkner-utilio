@@ -8,6 +8,7 @@ var pubsub = require('h5.pubsub');
 exports.DEFAULT_CONFIG = {
   sioId: 'sio',
   statsPublishInterval: 1000,
+  republishMaxDelay: 3,
   republishTopics: []
 };
 
@@ -30,19 +31,14 @@ exports.start = function startPubsubModule(app, module)
   var nextMessageId = 0;
 
   /**
-   * @type {Object<string, Array>}
+   * @type {object.<string, Array>}
    */
   var idToMessageMap = {};
 
   /**
-   * @type {Object<string, object.<string, boolean>>}
+   * @type {object.<string, object.<string, boolean>>}
    */
   var socketIdToMessagesMap = {};
-
-  /**
-   * @type {boolean}
-   */
-  var sendingScheduled = false;
 
   /**
    * @type {RegExp}
@@ -50,9 +46,17 @@ exports.start = function startPubsubModule(app, module)
   var invalidTopicRegExp = /^(\s*|\s*\.\s*)+$/;
 
   /**
+   * @type {function()}
+   */
+  var scheduleSendMessages = _.debounce(sendMessages, module.config.republishMaxDelay, {
+    trailing: true,
+    leading: false
+  });
+
+  /**
    * @type {MessageBroker}
    */
-  module = app[module.name] = _.merge(new pubsub.MessageBroker(), module);
+  module = app[module.name] = _.assign(new pubsub.MessageBroker(), module);
 
   _.forEach(module.config.republishTopics, function(topic)
   {
@@ -64,6 +68,11 @@ exports.start = function startPubsubModule(app, module)
 
   module.on('message', function(topic, message, meta)
   {
+    if (stats.currentSubscriptions === 0)
+    {
+      return;
+    }
+
     ++stats.publishedMessages;
 
     if (typeof meta.messageId === 'undefined')
@@ -71,15 +80,14 @@ exports.start = function startPubsubModule(app, module)
       meta.messageId = getNextMessageId();
     }
 
-    var messageJson = message;
-
-    if (!meta.json)
+    if (typeof meta.json === 'undefined')
     {
-      messageJson = JSON.stringify(message);
-      meta.json = true;
+      meta.json = false;
     }
 
-    idToMessageMap[meta.messageId] = [topic, messageJson, meta];
+    idToMessageMap[meta.messageId] = [topic, message, meta];
+
+    scheduleSendMessages();
   });
 
   module.on('subscribe', function()
@@ -126,29 +134,28 @@ exports.start = function startPubsubModule(app, module)
 
   function onSocketDisconnect()
   {
-    /*jshint validthis:true*/
-
     var socket = this;
 
+    delete socketIdToMessagesMap[socket.id];
+
     socket.pubsub.destroy();
+    socket.pubsub.onSubscriptionMessage = null;
     socket.pubsub = null;
   }
 
   /**
-   * @param {Array<string>} topics
+   * @param {Array.<string>} topics
    * @param {function} [cb]
    */
   function onSocketSubscribe(topics, cb)
   {
-    /*jshint validthis:true*/
-
     var hasCb = typeof cb === 'function';
 
     if (!Array.isArray(topics))
     {
       if (hasCb)
       {
-        cb("First argument must be an array of topics.");
+        cb('First argument must be an array of topics.');
       }
 
       return;
@@ -179,12 +186,10 @@ exports.start = function startPubsubModule(app, module)
   }
 
   /**
-   * @param {Array<string>} topics
+   * @param {Array.<string>} topics
    */
   function onSocketUnsubscribe(topics)
   {
-    /*jshint validthis:true*/
-
     if (!Array.isArray(topics))
     {
       return;
@@ -212,8 +217,6 @@ exports.start = function startPubsubModule(app, module)
    */
   function onSocketPublish(topic, message, meta, cb)
   {
-    /*jshint validthis:true*/
-
     var socket = this;
 
     ++stats.receivedMessages;
@@ -245,12 +248,12 @@ exports.start = function startPubsubModule(app, module)
 
     var socketMessagesMap = socketIdToMessagesMap[socket.id];
 
-    if (typeof socketMessagesMap === 'undefined')
+    if (!socketMessagesMap)
     {
       socketMessagesMap = socketIdToMessagesMap[socket.id] = {};
     }
 
-    if (meta.messageId in socketMessagesMap)
+    if (socketMessagesMap[meta.messageId])
     {
       ++stats.ignoredDuplications;
 
@@ -258,25 +261,11 @@ exports.start = function startPubsubModule(app, module)
     }
 
     socketMessagesMap[meta.messageId] = true;
-
-    scheduleSendMessages();
-  }
-
-  function scheduleSendMessages()
-  {
-    if (!sendingScheduled)
-    {
-      sendingScheduled = true;
-
-      process.nextTick(sendMessages);
-    }
   }
 
   function sendMessages()
   {
-    /*jshint forin:false*/
-
-    var sockets =  app[module.config.sioId].sockets.connected;
+    var sockets = app[module.config.sioId].sockets.connected;
     var socketIds = Object.keys(socketIdToMessagesMap);
 
     for (var i = 0, l = socketIds.length; i < l; ++i)
@@ -284,7 +273,7 @@ exports.start = function startPubsubModule(app, module)
       var socketId = socketIds[i];
       var socket = sockets[socketId];
 
-      if (socket === undefined)
+      if (!socket)
       {
         continue;
       }
@@ -295,14 +284,22 @@ exports.start = function startPubsubModule(app, module)
       for (var j = 0, m = messageIds.length; j < m; ++j)
       {
         var message = idToMessageMap[messageIds[j]];
+        var topic = message[0];
+        var payload = message[1];
+        var meta = message[2];
 
-        socket.emit('pubsub.message', message[0], message[1], message[2]);
+        if (!meta.json)
+        {
+          meta.payload = JSON.stringify(meta.payload);
+          meta.json = true;
+        }
+
+        socket.emit('pubsub.message', topic, payload, meta);
 
         ++stats.sentMessages;
       }
     }
 
-    sendingScheduled = false;
     socketIdToMessagesMap = {};
     idToMessageMap = {};
   }
@@ -325,7 +322,9 @@ exports.start = function startPubsubModule(app, module)
    */
   function isSocketAllowedToSubscribe(socket, topic)
   {
-    return socket && topic;
+    /* eslint no-unused-vars:0 */
+
+    return true;
   }
 
   /**

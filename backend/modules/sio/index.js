@@ -49,15 +49,15 @@ exports.start = function startIoModule(app, sioModule)
     });
   });
 
-  sioModule.config.socketIo = _.merge({}, sioModule.config.socketIo, {
+  sioModule.config.socketIo = _.assign({}, sioModule.config.socketIo, {
     path: sioModule.config.path,
-    transports: ['websocket'],
+    transports: ['websocket', 'xhr-polling'],
     serveClient: true
   });
 
   var sio = socketIo(multiServer, sioModule.config.socketIo);
 
-  sioModule = app[sioModule.name] = _.merge(sio, sioModule);
+  sioModule = app[sioModule.name] = _.assign(sio, sioModule);
 
   sio.sockets.setMaxListeners(25);
 

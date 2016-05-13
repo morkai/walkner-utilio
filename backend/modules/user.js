@@ -27,7 +27,7 @@ exports.start = function startUserModule(app, module)
 {
   var localAddresses = module.config.localAddresses || getLocalAddresses();
 
-  module.root = _.merge(module.config.root, {
+  module.root = _.assign(module.config.root, {
     loggedIn: true,
     super: true,
     _id: '52a33b8bfb955dac8a92261b',
@@ -35,7 +35,7 @@ exports.start = function startUserModule(app, module)
     privileges: []
   });
 
-  module.guest = _.merge({privileges: []}, module.config.guest, {
+  module.guest = _.assign({privileges: []}, module.config.guest, {
     loggedIn: false,
     super: false,
     _id: '52a33b9cfb955dac8a92261c',
@@ -62,7 +62,7 @@ exports.start = function startUserModule(app, module)
 
   /**
    * @private
-   * @returns {Array<string>}
+   * @returns {Array.<string>}
    */
   function getLocalAddresses()
   {
@@ -116,7 +116,7 @@ exports.start = function startUserModule(app, module)
   /**
    * @private
    * @param {string} ipAddress
-   * @returns {Object}
+   * @returns {object}
    */
   function createGuestData(ipAddress)
   {
@@ -164,7 +164,16 @@ exports.start = function startUserModule(app, module)
 
       for (var ii = 0, ll = allPrivileges.length; ii < ll; ++ii)
       {
-        matches += hasPrivilege(user, allPrivileges[ii]) ? 1 : 0;
+        var privilege = allPrivileges[ii];
+
+        if (privilege === 'USER')
+        {
+          matches += user.loggedIn ? 1 : 0;
+        }
+        else
+        {
+          matches += hasPrivilege(user, allPrivileges[ii]) ? 1 : 0;
+        }
       }
 
       if (matches === ll)
@@ -284,7 +293,7 @@ exports.start = function startUserModule(app, module)
 
         if (credentials.login === module.root.login)
         {
-          next(null, _.merge({}, module.root));
+          next(null, _.assign({}, module.root));
         }
         else
         {
@@ -701,7 +710,7 @@ exports.start = function startUserModule(app, module)
 
         if (socket)
         {
-          _.merge(socket.handshake.user, userData);
+          _.assign(socket.handshake.user, userData);
 
           socket.emit('user.reload', socket.handshake.user);
         }
@@ -729,7 +738,7 @@ exports.start = function startUserModule(app, module)
         update.$set['data.user.' + k] = v;
       });
 
-      collection.update(conditions, update, function(err)
+      collection.update(conditions, update, {multi: true}, function(err)
       {
         if (err)
         {

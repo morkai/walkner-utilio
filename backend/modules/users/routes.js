@@ -16,9 +16,10 @@ module.exports = function setUpUsersRoutes(app, usersModule)
   var PasswordResetRequest = mongoose.model('PasswordResetRequest');
 
   var canView = userModule.auth('USERS:VIEW');
+  var canBrowse = userModule.auth('LOCAL', 'USERS:VIEW');
   var canManage = userModule.auth('USERS:MANAGE');
 
-  express.get('/users', express.crud.browseRoute.bind(null, app, User));
+  express.get('/users', canBrowse, express.crud.browseRoute.bind(null, app, User));
   express.post('/users', canManage, hashPassword, express.crud.addRoute.bind(null, app, User));
   express.get('/users/:id', canViewDetails, express.crud.readRoute.bind(null, app, User));
   express.put('/users/:id', canEdit, restrictSpecial, hashPassword, express.crud.editRoute.bind(null, app, User));
@@ -94,7 +95,7 @@ module.exports = function setUpUsersRoutes(app, usersModule)
 
       var oldSessionId = req.sessionID;
 
-      req.session.regenerate(function (err)
+      req.session.regenerate(function(err)
       {
         if (err)
         {
@@ -111,11 +112,11 @@ module.exports = function setUpUsersRoutes(app, usersModule)
         req.session.user = user;
 
         res.format({
-          json: function ()
+          json: function()
           {
             res.send(req.session.user);
           },
-          default: function ()
+          default: function()
           {
             res.redirect('/');
           }
@@ -146,7 +147,7 @@ module.exports = function setUpUsersRoutes(app, usersModule)
         return next(err);
       }
 
-      var guestUser = _.merge({}, userModule.guest);
+      var guestUser = _.assign({}, userModule.guest);
       guestUser.loggedIn = false;
       guestUser.ipAddress = userModule.getRealIp({}, req);
       guestUser.local = userModule.isLocalIpAddress(guestUser.ipAddress);
@@ -344,7 +345,7 @@ module.exports = function setUpUsersRoutes(app, usersModule)
         {
           var passwordResetRequest = this.passwordResetRequest;
 
-          passwordResetRequest.remove(function (err)
+          passwordResetRequest.remove(function(err)
           {
             if (err)
             {
