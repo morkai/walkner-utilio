@@ -38,7 +38,7 @@ module.exports = function setupAlarmModel(app, mongoose)
   const actionSchema = new mongoose.Schema({
     type: {
       type: String,
-      enum: ['sms', 'email', 'severity'],
+      enum: ['sms', 'email', 'call', 'severity'],
       required: true
     },
     parameters: {

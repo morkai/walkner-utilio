@@ -10,7 +10,8 @@ exports.DEFAULT_CONFIG = {
   messengerServerId: 'messenger/server',
   mongooseId: 'mongoose',
   mailSenderId: 'mail/sender',
-  smsSenderId: 'sms/sender'
+  smsSenderId: 'sms/sender',
+  twilioId: 'twilio'
 };
 
 exports.start = function startAlarmsBackendModule(app, module)

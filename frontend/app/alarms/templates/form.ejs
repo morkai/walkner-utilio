@@ -26,7 +26,7 @@
         <div class="alarms-form-actions"></div>
         <div class="form-group alarms-form-actions-controls">
           <select id="<%- idPrefix %>-actions-type" class="form-control alarms-form-actions-type">
-            <% ['severity', 'sms', 'email'].forEach(function(actionType) { %>
+            <% ['severity', 'sms', 'email', 'call'].forEach(function(actionType) { %>
             <option value="<%- actionType %>"><%- t('alarms', 'ACTION_TYPE:' + actionType) %></option>
             <% }) %>
           </select>

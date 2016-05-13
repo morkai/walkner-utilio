@@ -1,0 +1,16 @@
+<div class="form-group alarms-form-action alarms-form-action-call">
+  <input type="hidden" name="<%- fieldNamePrefix %>.type" value="<%- actionType %>">
+  <input class="alarms-form-action-severity" type="hidden" name="<%- fieldNamePrefix %>.severity" value="warning">
+  <h5 class="alarms-form-action-header"><%- t('alarms', 'ACTION:call:HEADER') %></h5>
+  <%- t('alarms', 'ACTION:call:DELAY') %>
+  <div class="form-group alarms-form-action-delay-group">
+    <div class="input-group">
+      <input class="form-control alarms-form-action-delay" name="<%- fieldNamePrefix %>.delay" type="number" min="0" max="3600" step="0.1">
+      <span class="input-group-addon">s</span>
+    </div>
+  </div>
+  <%- t('alarms', 'ACTION:call:TEXT') %>
+  <textarea class="form-control alarms-form-action-text" name="<%- fieldNamePrefix %>.parameters.text" rows="3"></textarea>
+  <%- t('alarms', 'ACTION:call:USERS') %>
+  <input id="<%- idPrefix %>-users" class="alarms-form-action-users-input" type="text">
+</div>

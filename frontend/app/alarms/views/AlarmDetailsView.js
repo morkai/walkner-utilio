@@ -8,7 +8,8 @@ define([
   '../Alarm',
   'app/alarms/templates/details',
   'app/alarms/templates/messageActionDetails',
-  'app/alarms/templates/severityActionDetails'
+  'app/alarms/templates/severityActionDetails',
+  'app/alarms/templates/callActionDetails'
 ], function(
   _,
   t,
@@ -17,7 +18,8 @@ define([
   Alarm,
   detailsTemplate,
   messageActionDetailsTemplate,
-  severityActionDetailsTemplate
+  severityActionDetailsTemplate,
+  callActionDetailsTemplate
 ) {
   'use strict';
 
@@ -111,6 +113,18 @@ define([
             }
 
             action.render = messageActionDetailsTemplate.bind(null, action);
+
+            return action;
+
+          case 'call':
+            if (_.isArray(action.parameters.users))
+            {
+              action.parameters.users = action.parameters.users
+                .map(function(user) { return '<a href="#users/' + user.id + '">' + user.label + '</a>'; })
+                .join(', ');
+            }
+
+            action.render = callActionDetailsTemplate.bind(null, action);
 
             return action;
 

@@ -7,6 +7,7 @@ define([
   'app/core/views/FormView',
   './MessageActionFormView',
   './SeverityActionFormView',
+  './CallActionFormView',
   'app/alarms/templates/form',
   'app/alarms/templates/actionControls'
 ], function(
@@ -16,6 +17,7 @@ define([
   FormView,
   MessageActionFormView,
   SeverityActionFormView,
+  CallActionFormView,
   formTemplate,
   actionControlsTemplate
 ) {
@@ -126,6 +128,14 @@ define([
           actionView = new MessageActionFormView({
             actionType: actionType,
             extraUserProperty: actionType === 'sms' ? 'mobile' : 'email',
+            index: actionIndex,
+            model: actionModel
+          });
+          break;
+
+        case 'call':
+          actionView = new CallActionFormView({
+            actionType: actionType,
             index: actionIndex,
             model: actionModel
           });

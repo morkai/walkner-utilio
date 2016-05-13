@@ -75,9 +75,10 @@
   "ACTION_FORM:MESSAGE_SPECIFIC:ack": "Czy na pewno chcesz dezaktywować alarm <em>{label}</em>?<br><br>Alarmu nie uda się dezaktywować, jeżeli warunek początkowy nadal jest spełniony.",
   "ACTION_FORM:MESSAGE_FAILURE:ack": "Nie udało się dezaktywować alarmu :-(",
 
-  "ACTION_TYPE:email": "Wysłanie e-maila",
-  "ACTION_TYPE:sms": "Wysłanie SMS",
-  "ACTION_TYPE:severity": "Zmiana priorytetu",
+  "ACTION_TYPE:email": "E-mail",
+  "ACTION_TYPE:sms": "SMS",
+  "ACTION_TYPE:call": "Telefon",
+  "ACTION_TYPE:severity": "Priorytet",
 
   "ACTION:message:HEADER:email": "Wysłanie e-maila",
   "ACTION:message:HEADER:sms": "Wysłanie SMS",
@@ -85,6 +86,12 @@
   "ACTION:message:TEXT": "wyślij wiadomość o treści: ",
   "ACTION:message:USERS": "do następujących użytkowników: ",
   "ACTION:message:DETAILS": "Po {delay}s wyślij do: {users} wiadomość o treści:",
+
+  "ACTION:call:HEADER": "Telefonowanie",
+  "ACTION:call:DELAY": "Po: ",
+  "ACTION:call:TEXT": "zadzwoń z komunikatem o treści: ",
+  "ACTION:call:USERS": "do następujących użytkowników: ",
+  "ACTION:call:DETAILS": "Po {delay}s zadzwoń do: {users} z komunikatem o treści:",
 
   "ACTION:severity:HEADER": "Zmiana priorytetu",
   "ACTION:severity:DELAY": "Po: ",

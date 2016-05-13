@@ -14,6 +14,7 @@ exports.modules = [
   'messenger/server',
   'mail/sender',
   'sms/sender',
+  'twilio',
   {id: 'messenger/client', name: 'messenger/client:utilio-controller'},
   'controller',
   'alarms/backend'
