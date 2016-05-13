@@ -127,14 +127,14 @@ define([
         attrs.to = to;
       }
 
-      if (/sum$/.test(attrs.tag))
+      if (/(sum|websockets)$/.test(attrs.tag))
       {
         attrs.valueField = 'max';
         attrs.deltaField = 'max';
       }
-      else if (/websockets$/.test(attrs.tag))
+      else
       {
-        attrs.valueField = 'max';
+        attrs.deltaField = 'avg';
       }
 
       return attrs;

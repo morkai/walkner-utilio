@@ -216,10 +216,10 @@ define([
           yAxis: 1,
           type: 'column',
           name: tag ? tag.id : '?',
-          data: deltas.map(function(v, i)
-          {
-            return [values[i][0], v < 0 ? 0 : v];
-          }),
+          data: deltas.map(this.model.get('deltaField') === 'dMax'
+            ? function(v, i) { return [values[i][0], v < 0 ? 0 : v]; }
+            : function(v, i) { return [values[i][0], v]; }
+          ),
           tooltip: {
             valueDecimals: 3
           }
