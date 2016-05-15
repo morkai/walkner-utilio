@@ -28,7 +28,7 @@ csht.2.H,CSHT-2: Wilgotność,inodeLan,register,52,18,1,0,uint16,-,-,%,nil(25500
 ,EM-1,,,,,,,,,,,,,,
 em.1.constant,EM-1: Stała,walkner,register,101,16,1,0,uint16,-,-,-,const(500),-,-,all
 em.1.unit,EM-1: Jednostka,walkner,register,101,17,1,0,uint16,-,-,-,const(0),-,-,all
-em.1.sum,EM-1: Suma,walkner,register,101,18,1,0,uint32,-,-,-,div(500); offset(3488.156),-,-,avg
+em.1.sum,EM-1: Suma,walkner,register,101,18,1,0,uint32,-,-,kWh,div(500); offset(3488.156),-,-,avg
 ,EM-2,,,,,,,,,,,,,,
 em.2.constant,EM-2: Stała,vps,register,102,16,1,0,uint16,-,-,-,-,-,-,all
 em.2.unit,EM-2: Jednostka,vps,register,102,17,1,0,uint16,-,-,-,-,-,-,all
@@ -40,11 +40,11 @@ em.3.sum,EM-3: Suma,walkner,register,103,18,1,0,uint32,-,-,-,-,-,-,avg
 ,EM-4,,,,,,,,,,,,,,
 em.4.constant,EM-4: Stała,vps,register,104,16,1,0,uint16,-,-,-,const(800),-,-,all
 em.4.unit,EM-4: Jednostka,vps,register,104,17,1,0,uint16,-,-,-,const(0),-,-,all
-em.4.sum,EM-4: Suma,vps,register,104,18,1,0,uint32,-,-,-,div(800),-,-,avg
+em.4.sum,EM-4: Suma,vps,register,104,18,1,0,uint32,-,-,kWh,div(800),-,-,avg
 ,EM-5,,,,,,,,,,,,,,
 em.5.constant,EM-5: Stała,vps,register,105,16,1,0,uint16,-,-,-,const(10000),-,-,all
 em.5.unit,EM-5: Jednostka,vps,register,105,17,1,0,uint16,-,-,-,-,-,-,all
-em.5.sum,EM-5: Suma,vps,register,105,18,1,0,uint32,-,-,-,div(0.01); offset(820197700); div(10000),-,-,avg
+em.5.sum,EM-5: Suma,vps,register,105,18,1,0,uint32,-,-,kWh,div(0.01); offset(820197700); div(10000),-,-,avg
 ,EM-6,,,,,,,,,,,,,,
 em.6.constant,EM-6: Stała,vps,register,106,16,1,0,uint16,-,-,-,-,-,-,all
 em.6.unit,EM-6: Jednostka,vps,register,106,17,1,0,uint16,-,-,-,-,-,-,all
