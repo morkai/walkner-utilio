@@ -212,6 +212,7 @@ define([
 
       if (deltas.length)
       {
+        console.log(this.model.get('deltaField'));
         series.push({
           yAxis: 1,
           type: 'column',

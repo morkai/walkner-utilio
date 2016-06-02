@@ -41,10 +41,16 @@ module.exports = function startControllerRoutes(app, module)
     delta: {
       min: 'dMin',
       n: 'dMin',
+      dmin: 'dMin',
+      dn: 'dMin',
       max: 'dMax',
       x: 'dMax',
+      dmax: 'dMax',
+      dx: 'dMax',
       avg: 'dAvg',
-      v: 'dAvg'
+      v: 'dAvg',
+      davg: 'dAvg',
+      dV: 'dAvg'
     }
   };
 
@@ -298,8 +304,8 @@ module.exports = function startControllerRoutes(app, module)
       stop: stop,
       step: step,
       interval: interval,
-      valueField: valueField,
-      deltaField: deltaField,
+      valueField: mapValueField(valueField, false),
+      deltaField: mapDeltaField(deltaField, false),
       firstTime: docs.length ? getMetricTime(docs[0]) : -1,
       lastTime: docs.length ? getMetricTime(docs[docs.length - 1]) : -1,
       totalCount: Math.ceil((stop - start) / step),
