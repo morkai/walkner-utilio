@@ -46,9 +46,9 @@ em.5.constant,EM-5: Stała,vps,register,105,16,1,0,uint16,-,-,-,const(10000),-,-
 em.5.unit,EM-5: Jednostka,vps,register,105,17,1,0,uint16,-,-,-,-,-,-,all
 em.5.sum,EM-5: Suma,vps,register,105,18,1,0,uint32,-,-,kWh,div(0.01); offset(820197700); div(10000),-,-,avg
 ,EM-6,,,,,,,,,,,,,,
-em.6.constant,EM-6: Stała,vps,register,106,16,1,0,uint16,-,-,-,-,-,-,all
-em.6.unit,EM-6: Jednostka,vps,register,106,17,1,0,uint16,-,-,-,-,-,-,all
-em.6.sum,EM-6: Suma,vps,register,106,18,1,0,uint32,-,-,-,-,-,-,avg
+em.6.constant,EM-6: Stała,vps,register,106,16,1,0,uint16,-,-,-,const(10),-,-,all
+em.6.unit,EM-6: Jednostka,vps,register,106,17,1,0,uint16,-,-,-,const(1),-,-,all
+em.6.sum,EM-6: Suma,vps,register,106,18,1,0,uint32,-,-,-,offset(881806); div(10),-,-,avg
 ,EM-7,,,,,,,,,,,,,,
 em.7.constant,EM-7: Stała,vps,register,107,16,1,0,uint16,-,-,-,-,-,-,all
 em.7.unit,EM-7: Jednostka,vps,register,107,17,1,0,uint16,-,-,-,-,-,-,all
