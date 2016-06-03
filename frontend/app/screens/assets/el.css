@@ -334,7 +334,7 @@
 }
 
 .el-tag {
-  stroke: 0;
+  stroke: none;
 }
 .el-tag path {
   stroke: #000;
@@ -348,17 +348,39 @@
   cursor: pointer;
 }
 .el-tag text {
-  font-family: monospace;
-}
-.el-tag text {
+  font-family: Consolas, monospace;
   font-size: 14px;
   stroke: none;
   stroke-width: 0;
   fill: #fff;
-  text-shadow: 1px 1px 3px #000;
 }
 .el-tag.el-clickable text {
   cursor: pointer;
+}
+
+.el-tag-flag {
+  stroke: none;
+}
+.el-tag-flag > rect {
+  fill: #333;
+  stroke-width: 0;
+}
+.el-tag-flag > text {
+  font-family: Consolas, monospace;
+  font-size: 14px;
+  stroke: none;
+  stroke-width: 0;
+  fill: #fff;
+}
+.el-tag-flag[data-state="on"] > rect {
+  fill: #00af00;
+}
+.el-tag-flag[data-state="off"] > rect {
+  fill: #d9534f;
+}
+
+.el-box {
+  fill: #ddd;
 }
 
 .el-path {
@@ -369,6 +391,9 @@
 }
 .el-path-air {
   stroke: #0cf;
+}
+.el-triangle.el-path-air {
+  fill: #0cf;
 }
 .el-path-rawWater {
   stroke: #060;

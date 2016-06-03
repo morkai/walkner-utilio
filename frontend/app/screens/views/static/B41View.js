@@ -5,7 +5,7 @@ define([
   'jquery',
   'app/data/controller',
   './StaticView',
-  'ejs!app/screens/templates/static/b6'
+  'ejs!app/screens/templates/static/b41'
 ], function(
   _,
   $,
@@ -19,32 +19,32 @@ define([
    * @constructor
    * @extends {StaticView}
    */
-  function B6View()
+  function B41View()
   {
     StaticView.apply(this, arguments);
   }
 
-  inherits(B6View, StaticView, {
+  inherits(B41View, StaticView, {
 
     template: template
 
   });
+
   /**
    * @private
    * @param {*} newValue
    * @param {string} tagName
    */
-  B6View.prototype.updateState = function(newValue, tagName)
+  B41View.prototype.updateState = function(newValue, tagName)
   {
     switch (tagName)
     {
-      case 'em.5.sum':
-      case 'em.6.sum':
+      case 'em.x.sum':
         this.setTagValue(tagName, newValue);
         this.updateRecentTagValue(tagName, newValue);
         break;
     }
   };
 
-  return B6View;
+  return B41View;
 });

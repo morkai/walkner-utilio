@@ -1,0 +1,275 @@
+<div>
+  <% var unknownI = 0; %>
+  <svg class="screens-b41" width="100%" height="100%" viewBox="0 25 1373 746" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="<%- idPrefix %>-fill" x1="0" x2="1" y1="0" y2="0">
+        <stop offset="0" stop-color="#acf"></stop>
+        <stop offset="0.5" stop-color="#aef"></stop>
+        <stop offset="1" stop-color="#acf"></stop>
+      </linearGradient>
+      <%- renderPathEnding({dir: 'lr', type: null}) %>
+      <%- renderPathEnding({dir: 'lr', type: 'cleanWater'}) %>
+      <%- renderPathEnding({dir: 'bt', type: null}) %>
+    </defs>
+
+    <g id="<%- idPrefix %>-boilerRoom" transform="translate(0, 0)">
+
+      <path id="<%- idPrefix %>-path-green" class="el-path el-path-on" d="
+        M 970 160 h -274 v -110 m 0, 110 h -196 v 300 m 0, -300 h -130 v 40 m 0, -40 h -140 v 40 m 0, -40 h -140 v 40
+        " />
+
+      <g id="<%- idPrefix %>-triangle-green-b" class="el-triangle el-path-on" transform="translate(492, 320)">
+        <path d="M 8 0 L 16 16 L 0 16 Z" />
+      </g>
+
+      <g id="<%- idPrefix %>-triangle-green-r" class="el-triangle el-path-on" transform="translate(960, 168) rotate(-90)">
+        <path d="M 8 0 L 16 16 L 0 16 Z" />
+      </g>
+
+      <path id="<%- idPrefix %>-path-zw" class="el-path el-path-on" d="
+        M 410, 438 h 80
+        " />
+
+      <g id="<%- idPrefix %>-triangle-zw" class="el-triangle el-path-on" transform="translate(496, 430) rotate(90)">
+        <path d="M 8 0 L 16 16 L 0 16 Z" />
+      </g>
+
+      <path id="<%- idPrefix %>-path-red" class="el-path el-path-off" d="
+        M 30 200
+        v -150 h 140
+        v 103 m 0, 14 v 33
+        m 0, -150 h 140
+        v 103 m 0, 14 v 33
+        m 0, -150 h 660 m -380, 0
+        v 103 m 0, 14 v 280
+        " />
+
+      <g id="<%- idPrefix %>-triangle-red-b" class="el-triangle el-path-off" transform="translate(598, 459) rotate(180)">
+        <path d="M 8 0 L 16 16 L 0 16 Z" />
+      </g>
+
+      <g id="<%- idPrefix %>-triangle-red-r" class="el-triangle el-path-off" transform="translate(976, 42) rotate(90)">
+        <path d="M 8 0 L 16 16 L 0 16 Z" />
+      </g>
+
+      <g id="<%- idPrefix %>-boiler-1" class="el-boiler" transform="translate(10, 200)">
+        <rect class="el-boiler-outerContainer" x="0" y="0" width="100" height="150" />
+        <rect class="el-boiler-innerContainer" x="1" y="1" width="98" height="148" fill="url(#<%- idPrefix %>-fill)" />
+        <rect class="el-boiler-bottom" x="33" y="150" width="34" height="50" fill="url(#<%- idPrefix %>-fill)" />
+      </g>
+
+      <g id="<%- idPrefix %>-boiler-2" class="el-boiler" transform="translate(150, 200)">
+        <rect class="el-boiler-outerContainer" x="0" y="0" width="100" height="150" />
+        <rect class="el-boiler-innerContainer" x="1" y="1" width="98" height="148" fill="url(#<%- idPrefix %>-fill)" />
+        <rect class="el-boiler-bottom" x="33" y="150" width="34" height="50" fill="url(#<%- idPrefix %>-fill)" />
+      </g>
+
+      <g id="<%- idPrefix %>-boiler-3" class="el-boiler" transform="translate(290, 200)">
+        <rect class="el-boiler-outerContainer" x="0" y="0" width="100" height="150" />
+        <rect class="el-boiler-innerContainer" x="1" y="1" width="98" height="148" fill="url(#<%- idPrefix %>-fill)" />
+        <rect class="el-boiler-bottom" x="33" y="150" width="34" height="50" fill="url(#<%- idPrefix %>-fill)" />
+      </g>
+
+      <g id="<%- idPrefix %>-exchanger-1" class="el-exchanger" transform="translate(480, 200)">
+        <rect class="el-exchanger-outerContainer" x="0" y="0" width="130" height="120" />
+        <rect class="el-exchanger-innerContainer" x="1" y="1" width="128" height="118" fill="url(#<%- idPrefix %>-fill)" />
+      </g>
+
+      <g class="el-pump el-active" transform="translate(800, 50) rotate(90)">
+        <circle r="16" cx="0" cy="0"></circle>
+        <path d="M 0 -16 l 14 24 h -28 z"></path>
+      </g>
+
+      <g id="<%- idPrefix %>-valve" class="el-valve" transform="translate(680, 42)">
+        <path d="M 0 0 L 0 16 L 16 8 Z" />
+        <path d="M 32 0 L 32 16 L 16 8 Z" />
+      </g>
+
+      <text x="60" y="260" text-anchor="middle">Kocioł nr 1</text>
+      <text x="200" y="260" text-anchor="middle">Kocioł nr 2</text>
+      <text x="340" y="260" text-anchor="middle">Kocioł nr 3</text>
+      <text x="545" y="260" text-anchor="middle">Wymiennik CW</text>
+      <text x="430" y="432" text-anchor="middle">ZW</text>
+      <text x="545" y="460" text-anchor="middle">CW</text>
+
+      <g class="el-tag" transform="translate(0, 90)" data-tag="b41.unknown.<%- unknownI++ %>">
+        <rect x="0" y="0" width="1" height="20"></rect>
+        <text x="3" y="15">000.0 °C</text>
+      </g>
+
+      <g class="el-tag" transform="translate(140, 90)" data-tag="b41.unknown.<%- unknownI++ %>">
+        <rect x="0" y="0" width="1" height="20"></rect>
+        <text x="3" y="15">000.0 °C</text>
+      </g>
+
+      <g class="el-tag" transform="translate(280, 90)" data-tag="b41.unknown.<%- unknownI++ %>">
+        <rect x="0" y="0" width="1" height="20"></rect>
+        <text x="3" y="15">000.0 °C</text>
+      </g>
+
+      <g class="el-tag" transform="translate(556, 370)" data-tag="b41.unknown.<%- unknownI++ %>">
+        <rect x="0" y="0" width="1" height="20"></rect>
+        <text x="3" y="15">000.0 °C</text>
+      </g>
+
+      <g class="el-tag" transform="translate(850, 150)" data-tag="b41.unknown.<%- unknownI++ %>">
+        <rect x="0" y="0" width="1" height="20"></rect>
+        <text x="3" y="15">000.0 °C</text>
+      </g>
+
+      <g class="el-tag" transform="translate(850, 25)" data-tag="b41.unknown.<%- unknownI++ %>">
+        <rect x="0" y="0" width="1" height="20"></rect>
+        <text x="3" y="15">000.0 °C&nbsp;</text>
+      </g>
+
+      <g class="el-tag" transform="translate(850, 55)" data-tag="b41.unknown.<%- unknownI++ %>">
+        <rect x="0" y="0" width="1" height="20"></rect>
+        <text x="3" y="15">0.000 MPa</text>
+      </g>
+
+      <text x="650" y="230" text-anchor="start" font-size="32" font-style="italic">KOTŁOWNIA</text>
+
+    </g>
+
+    <g id="<%- idPrefix %>-compressors" transform="translate(0, 500)">
+
+      <path id="<%- idPrefix %>-path-air" class="el-path el-path-air" d="
+        M 60 95 v -33 h 140 v 33 m 0, -33 h 140 v 33 m 0, -33 h 140 m 130 38 h 50
+        " />
+
+      <g id="<%- idPrefix %>-triangle-air" class="el-triangle el-path-air" transform="translate(675, 92) rotate(90)">
+        <path d="M 8 0 L 16 16 L 0 16 Z"></path>
+      </g>
+
+      <g id="<%- idPrefix %>-compressor-1" class="el-exchanger" transform="translate(10, 95)">
+        <rect class="el-exchanger-outerContainer" x="0" y="0" width="100" height="90" />
+        <rect class="el-exchanger-innerContainer" x="1" y="1" width="98" height="88" fill="url(#<%- idPrefix %>-fill)" />
+      </g>
+      <g id="<%- idPrefix %>-compressor-2" class="el-exchanger" transform="translate(150, 95)">
+        <rect class="el-exchanger-outerContainer" x="0" y="0" width="100" height="90" />
+        <rect class="el-exchanger-innerContainer" x="1" y="1" width="98" height="88" fill="url(#<%- idPrefix %>-fill)" />
+      </g>
+      <g id="<%- idPrefix %>-compressor-3" class="el-exchanger" transform="translate(290, 95)">
+        <rect class="el-exchanger-outerContainer" x="0" y="0" width="100" height="90" />
+        <rect class="el-exchanger-innerContainer" x="1" y="1" width="98" height="88" fill="url(#<%- idPrefix %>-fill)" />
+      </g>
+
+      <g id="<%- idPrefix %>-airTank-3" class="el-exchanger" transform="translate(480, 0)">
+        <rect class="el-exchanger-outerContainer" x="0" y="30" width="130" height="140" />
+        <rect class="el-exchanger-innerContainer" x="1" y="31" width="128" height="138" fill="url(#<%- idPrefix %>-fill)" />
+        <path d="M 0 30 Q 65 0, 130 30" fill="url(#<%- idPrefix %>-fill)"></path>
+        <path d="M 0 170 Q 65 200, 130 170" fill="url(#<%- idPrefix %>-fill)"></path>
+      </g>
+
+      <text x="200" y="40" text-anchor="start" font-size="32" font-style="italic">SPRĘŻARKI</text>
+
+      <foreignObject x="10" y="125" width="100" height="40">
+        <p style="text-align: center">Sprężarka<br>nr 1</p>
+      </foreignObject>
+      <foreignObject x="150" y="125" width="100" height="40">
+        <p style="text-align: center">Sprężarka<br>nr 1</p>
+      </foreignObject>
+      <foreignObject x="290" y="125" width="100" height="40">
+        <p style="text-align: center">Sprężarka<br>nr 1</p>
+      </foreignObject>
+      <foreignObject x="480" y="100" width="130" height="40">
+        <p style="text-align: center">Zbiornik<br>powietrza</p>
+      </foreignObject>
+
+      <g class="el-tag" transform="translate(507, 40)" data-tag="b41.unknown.<%- unknownI++ %>">
+        <rect x="0" y="0" width="1" height="20"></rect>
+        <text x="3" y="15">000.0 MPa</text>
+      </g>
+      <g class="el-tag" transform="translate(507, 65)" data-tag="b41.unknown.<%- unknownI++ %>">
+        <rect x="0" y="0" width="1" height="20"></rect>
+        <text x="3" y="15">000.0 °C&nbsp;</text>
+      </g>
+
+    </g>
+
+    <g id="<%- idPrefix %>-outsideT" transform="translate(833,280)">
+      <rect x="-5" y="-5" width="242" height="30" class="el-box"></rect>
+      <text x="0" y="15" text-anchor="start">Temperatura zewnętrzna</text>
+      <g class="el-tag" transform="translate(164, 0)" data-tag="b41.unknown.<%- unknownI++ %>">
+        <rect x="0" y="0" width="1" height="20"></rect>
+        <text x="3" y="15">000.0 °C</text>
+      </g>
+    </g>
+
+    <g id="<%- idPrefix %>-meters" transform="translate(800,315)">
+      <rect x="28" y="-5" width="242" height="130" class="el-box"></rect>
+      <text x="110" y="15" text-anchor="start">Liczniki</text>
+      <text x="205" y="15" text-anchor="start">10 min</text>
+      <text x="100" y="40" text-anchor="end">OPT-3/Tr1</text>
+      <text x="100" y="65" text-anchor="end">OPT-3/Tr2</text>
+      <text x="100" y="90" text-anchor="end">OPT-3/Tr3</text>
+      <text x="100" y="115" text-anchor="end">Gaz</text>
+
+      <g class="el-tag" transform="translate(110, 25)" data-tag="b41.unknown.<%- unknownI++ %>">
+        <rect x="0" y="0" width="1" height="20"></rect>
+        <text x="3" y="15">00000000000</text>
+      </g>
+      <g class="el-tag" transform="translate(110, 50)" data-tag="b41.unknown.<%- unknownI++ %>">
+        <rect x="0" y="0" width="1" height="20"></rect>
+        <text x="3" y="15">00000000000</text>
+      </g>
+      <g class="el-tag" transform="translate(110, 75)" data-tag="b41.unknown.<%- unknownI++ %>">
+        <rect x="0" y="0" width="1" height="20"></rect>
+        <text x="3" y="15">00000000000</text>
+      </g>
+      <g class="el-tag" transform="translate(110, 100)" data-tag="b41.unknown.<%- unknownI++ %>">
+        <rect x="0" y="0" width="1" height="20"></rect>
+        <text x="3" y="15">00000000000</text>
+      </g>
+
+      <g class="el-tag" transform="translate(205, 25)" data-tag="b41.unknown.<%- unknownI++ %>">
+        <rect x="0" y="0" width="1" height="20"></rect>
+        <text x="3" y="15">0000000</text>
+      </g>
+      <g class="el-tag" transform="translate(205, 50)" data-tag="b41.unknown.<%- unknownI++ %>">
+        <rect x="0" y="0" width="1" height="20"></rect>
+        <text x="3" y="15">0000000</text>
+      </g>
+      <g class="el-tag" transform="translate(205, 75)" data-tag="b41.unknown.<%- unknownI++ %>">
+        <rect x="0" y="0" width="1" height="20"></rect>
+        <text x="3" y="15">0000000</text>
+      </g>
+      <g class="el-tag" transform="translate(205, 100)" data-tag="b41.unknown.<%- unknownI++ %>">
+        <rect x="0" y="0" width="1" height="20"></rect>
+        <text x="3" y="15">0000000</text>
+      </g>
+    </g>
+
+    <g id="<%- idPrefix %>-powerCompensation" transform="translate(833,450)">
+      <rect x="-5" y="-5" width="242" height="80" class="el-box"></rect>
+      <text x="0" y="15" text-anchor="start">Kompensacja mocy</text>
+      <text x="0" y="40" text-anchor="start">#1</text>
+      <text x="0" y="65" text-anchor="start">#2</text>
+      <g class="el-tag-flag" transform="translate(30, 25)" data-tag="b41.unknown.<%- unknownI++ %>" data-state="null">
+        <rect x="0" y="0" width="1" height="20"></rect>
+        <text x="3" y="15" data-state="on">DOBRZE</text>
+        <text x="3" y="15" data-state="off">ŹLE</text>
+        <text x="3" y="15" data-state="null">?</text>
+      </g>
+      <g class="el-tag-flag" transform="translate(30, 50)" data-tag="b41.unknown.<%- unknownI++ %>" data-state="null">
+        <rect x="0" y="0" width="1" height="20"></rect>
+        <text x="3" y="15" data-state="on">DOBRZE</text>
+        <text x="3" y="15" data-state="off">ŹLE</text>
+        <text x="3" y="15" data-state="null">?</text>
+      </g>
+    </g>
+
+    <g id="<%- idPrefix %>-temperatures" transform="translate(15,701)">
+      <rect x="-5" y="-5" width="1358" height="75" class="el-box"></rect>
+      <text x="0" y="15" text-anchor="start">Temperatura central nawiewnych</text>
+      <% for (var t = 0; t < 17; ++t) { %>
+      <text x="<%- t * 80 %>" y="40" text-anchor="start">C<%- t + 1 %></text>
+      <g class="el-tag" transform="translate(<%- t * 80 %>, 45)" data-tag="b41.unknown.<%- unknownI++ %>">
+        <rect x="0" y="0" width="1" height="20"></rect>
+        <text x="3" y="15">000.0 °C</text>
+      </g>
+      <% } %>
+    </g>
+
+  </svg>
+</div>
