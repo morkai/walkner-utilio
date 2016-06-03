@@ -113,6 +113,7 @@ define([
     switch (tagName)
     {
       case 'em.5.sum':
+      case 'em.6.sum':
         this.setTagValue(tagName, newValue);
         this.updateRecentTagValue(tagName, newValue);
         break;
@@ -150,7 +151,7 @@ define([
       }
 
       var latest = res.collection[0].x;
-      var recent = null;
+      var recent = 0;
 
       for (var i = 1; i < res.collection.length; ++i)
       {
