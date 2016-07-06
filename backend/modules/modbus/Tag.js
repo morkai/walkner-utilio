@@ -305,6 +305,7 @@ Tag.prototype.writeValue = function(value, done)
 Tag.prototype.checkBeforeWrite = function(value)
 {
   const state = {
+    tag: this,
     allowWrite: true,
     writeDelay: 0,
     newValue: value
@@ -398,7 +399,7 @@ Tag.prototype.writeVirtualValue = function(value, done)
 Tag.prototype.writeSettingValue = function(value, done)
 {
   const selector = {_id: this.name};
-  const doc = {$set: {value: value, time: Date.now()}};
+  const doc = {$set: {value: this.valueToRawValue(value), time: Date.now()}};
   const options = {upsert: true, w: 1};
   const settingsCollection = this.modbus.config.settingsCollection();
 
@@ -408,7 +409,7 @@ Tag.prototype.writeSettingValue = function(value, done)
 
     if (!err)
     {
-      this.setValue(value);
+      this.setValue(doc.$set.value);
     }
   });
 };

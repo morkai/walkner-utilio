@@ -3,6 +3,7 @@
 'use strict';
 
 const _ = require('lodash');
+const moment = require('moment');
 const ObjectID = require('mongodb').ObjectID;
 const step = require('h5.step');
 const mongoSerializer = require('h5.rql/lib/serializers/mongoSerializer');
@@ -100,14 +101,14 @@ module.exports = function startControllerRoutes(app, module)
     const month = day * 31;
 
     const now = Date.now();
-    let start = parseInt(req.query.start, 10);
-    let stop = parseInt(req.query.stop, 10);
+    let start = moment(parseInt(req.query.start, 10)).startOf('minute').valueOf();
+    let stop = moment(parseInt(req.query.stop, 10)).startOf('minute').valueOf();
     let step = minute;
     let interval = 'minutely';
 
     if (isNaN(stop) || stop <= 0 || stop > now)
     {
-      stop = Date.now();
+      stop = moment().startOf('minute').valueOf();
     }
 
     if (isNaN(start) || start >= stop)
@@ -147,7 +148,7 @@ module.exports = function startControllerRoutes(app, module)
         $lt: stop
       }
     };
-    const valueField = mapValueField(req.query.valueField, minutely);
+    const valueField = mapValueField(req.query.valueField || 'v', minutely);
     const deltaField = mapDeltaField(req.query.deltaField || '', minutely);
     const fields = {
       [valueField]: 1
@@ -277,7 +278,7 @@ module.exports = function startControllerRoutes(app, module)
    */
   function mapDeltaField(deltaField, minutely)
   {
-    return minutely
+    return !deltaField ? null : minutely
       ? (fieldMaps.deltaMinutely[deltaField.toLowerCase()] || null)
       : (fieldMaps.delta[deltaField.toLowerCase()] || null);
   }
@@ -384,7 +385,7 @@ module.exports = function startControllerRoutes(app, module)
       }
     }
 
-    const missingRightMetrics = Math.ceil((stop - result.lastTime) / step) - 1;
+    const missingRightMetrics = Math.ceil((stop - (result.lastTime === -1 ? start : result.lastTime)) / step) - 1;
 
     result.missingRight = missingRightMetrics;
     result.missingLeft = result.totalCount - metrics.length - missingRightMetrics;

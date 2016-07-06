@@ -3,6 +3,7 @@
 'use strict';
 
 const _ = require('lodash');
+const moment = require('moment');
 const ObjectID = require('mongodb').ObjectID;
 const averageFunctions = require('./averageFunctions');
 const setUpAggregator = require('./aggregator');
@@ -163,7 +164,12 @@ exports.start = function(app, module)
   {
     if (avgDataSaveTimer === null)
     {
-      avgDataSaveTimer = setTimeout(saveAvgData, 60000);
+      const now = Date.now();
+
+      avgDataSaveTimer = setTimeout(
+        saveAvgData,
+        moment(now).startOf('minute').add(1, 'minute').valueOf() - now + 333
+      );
     }
   }
 
@@ -183,7 +189,7 @@ exports.start = function(app, module)
 
       tagAvgData.values.push(new Date(), currentValue);
 
-      var minuteData = averageFunctions.calculateMinuteData(
+      const minuteData = averageFunctions.calculateMinuteData(
         tagAvgData.values,
         tagAvgData.lastMinuteData,
         averageFunctions.arithmeticMean

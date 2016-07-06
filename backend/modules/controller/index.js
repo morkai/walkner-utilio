@@ -1,4 +1,4 @@
-// Part of <https://miracle.systems/p/walkner-utilio> licensed under <CC BY-NC-SA 4.0>
+// Part of <https://miracle.systems/p/walkner-furmon> licensed under <CC BY-NC-SA 4.0>
 
 'use strict';
 
@@ -37,7 +37,7 @@ exports.start = function startControllerModule(app, module)
   {
     if (messengerClient.isConnected())
     {
-      process.nextTick(sync);
+      setImmediate(sync);
     }
   }
   else
@@ -176,50 +176,9 @@ exports.start = function startControllerModule(app, module)
       return;
     }
 
-    if (!_.isString(tagName))
-    {
-      reply({
-        message: 'Tag name must be a string.',
-        code: 'TAG_WRITE_INVALID_NAME'
-      });
-
-      return;
-    }
-    else if (!_.isString(tagValue) && !_.isNumber(tagValue) && !_.isBoolean(tagValue))
-    {
-      reply({
-        message: 'Tag value must be a string, a number or a boolean.',
-        code: 'TAG_WRITE_INVALID_VALUE'
-      });
-
-      return;
-    }
-
-    const tag = module.tags[tagName];
-
-    if (!tag)
-    {
-      reply({
-        message: 'Unknown tag.',
-        code: 'TAG_WRITE_UNKNOWN'
-      });
-
-      return;
-    }
-
-    if (!tag.writable)
-    {
-      reply({
-        message: 'Tag is not writable.',
-        code: 'TAG_WRITE_NOT_WRITABLE'
-      });
-
-      return;
-    }
-
     const oldValue = module.values[tagName];
 
-    messengerClient.request('modbus.setTagValue', {name: tagName, value: tagValue}, function(err)
+    setTagValue(tagName, tagValue, function(err, tag)
     {
       reply(err);
 
@@ -242,6 +201,56 @@ exports.start = function startControllerModule(app, module)
     });
   }
 
+  function setTagValue(tagName, tagValue, done)
+  {
+    if (!_.isString(tagName))
+    {
+      done({
+        message: 'Tag name must be a string.',
+        code: 'TAG_WRITE_INVALID_NAME'
+      });
+
+      return;
+    }
+
+    if (!_.isString(tagValue) && !_.isNumber(tagValue) && !_.isBoolean(tagValue))
+    {
+      done({
+        message: 'Tag value must be a string, a number or a boolean.',
+        code: 'TAG_WRITE_INVALID_VALUE'
+      });
+
+      return;
+    }
+
+    const tag = module.tags[tagName];
+
+    if (!tag)
+    {
+      done({
+        message: 'Unknown tag.',
+        code: 'TAG_WRITE_UNKNOWN'
+      });
+
+      return;
+    }
+
+    if (!tag.writable)
+    {
+      done({
+        message: 'Tag is not writable.',
+        code: 'TAG_WRITE_NOT_WRITABLE'
+      });
+
+      return;
+    }
+
+    messengerClient.request('modbus.setTagValue', {name: tagName, value: tagValue}, function(err)
+    {
+      done(err, tag);
+    });
+  }
+
   /**
    * @private
    * @param {Object} socket
@@ -251,6 +260,6 @@ exports.start = function startControllerModule(app, module)
   {
     const user = socket.handshake.user;
 
-    return user && _.includes(user.privileges, 'SETTINGS:MANAGE');
+    return user && (user.super || _.includes(user.privileges, 'SETTINGS:MANAGE'));
   }
 };

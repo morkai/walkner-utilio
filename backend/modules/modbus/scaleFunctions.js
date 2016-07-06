@@ -122,19 +122,27 @@ var SCALE_FUNCTIONS = {
     };
   },
 
-  nil: function(tag, args)
+  nil: function(tag, nullValues)
   {
-    if (args.length === 0)
+    if (nullValues.length === 0)
     {
       return NOOP_SCALE_FUNCTIONS;
     }
 
-    const nullValue = args[0];
+    if (nullValues.length === 1)
+    {
+      const nullValue = nullValues[0];
+
+      return {
+        rawValueToValue: rawValue => rawValue === nullValue ? null : rawValue,
+        valueToRawValue: value => value === null ? nullValue : value
+      };
+    }
 
     return {
-      rawValueToValue: rawValue => rawValue === nullValue ? null : rawValue,
-      valueToRawValue: value => value === null ? nullValue : value
-    };
+      rawValueToValue: rawValue => nullValues.includes(rawValue) ? null : rawValue,
+      valueToRawValue: value => value === null ? nullValues[0] : value
+    }
   },
 
   const: function(tag, args)

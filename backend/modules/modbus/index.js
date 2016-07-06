@@ -10,7 +10,6 @@ const Tag = require('./Tag');
 
 exports.DEFAULT_CONFIG = {
   messengerServerId: 'messenger/server',
-  mongodbId: 'mongodb',
   programId: 'program',
   settingsCollection: function(app)
   {
@@ -53,7 +52,7 @@ exports.start = function startModbusModule(app, module, done)
 
     if (typeof tag === 'undefined')
     {
-      done('UNKNOWN_TAG');
+      done(new Error('UNKNOWN_TAG'));
 
       return;
     }
@@ -87,8 +86,7 @@ exports.start = function startModbusModule(app, module, done)
     setUpMasters();
     setUpTags();
     setUpReadTransactions();
-
-    app.onModuleReady(module.config.mongodbId, setUpSettingsTags);
+    setUpSettingsTags();
 
     require('./virtuals')(app, module);
     require('./safeGuards')(app, module);
@@ -137,6 +135,8 @@ exports.start = function startModbusModule(app, module, done)
 
         app.timeout(module.config.broadcastDelay, function()
         {
+          app.broker.publish('tagValuesChanged', pendingChanges);
+
           messengerServer.broadcast('modbus.tagValuesChanged', pendingChanges);
 
           pendingChanges = null;
@@ -379,7 +379,7 @@ exports.start = function startModbusModule(app, module, done)
     const tagsByUnit = groupTagsByUnitAndCode(master.tags);
     const transactions = [];
 
-    _.forEach(tagsByUnit, function(tagsByCode, unit)
+    _.forEach(tagsByUnit, function(tagsByCode)
     {
       _.forEach(tagsByCode, function(tags)
       {
@@ -499,7 +499,7 @@ exports.start = function startModbusModule(app, module, done)
 
       const addressDiff = tag.address - lastAddress;
 
-      if (tInfo.quantity + addressDiff > module.config.maxReadQuantity)
+      if (tInfo.quantity + addressDiff > getMaxReadQuantity(tag.master))
       {
         tInfo.quantity += getRegisterQuantityFromType(tags[i - 1].type) - 1;
 
@@ -521,6 +521,13 @@ exports.start = function startModbusModule(app, module, done)
 
       lastAddress = tag.address;
     });
+  }
+
+  function getMaxReadQuantity(masterName)
+  {
+    const master = module.config.masters[masterName];
+
+    return master && master.maxReadQuantity || module.config.maxReadQuantity;
   }
 
   /**

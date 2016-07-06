@@ -645,9 +645,9 @@ module.exports = function setUpAggregator(app, module)
       return done();
     }
 
-    collection(collectionName).insertMany(averagedDocs, {w: 'majority', j: true}, function(err, res)
+    collection(collectionName).insertMany(averagedDocs, {w: 'majority', j: true, ordered: false}, function(err)
     {
-      if (err)
+      if (err && err.code !== 11000)
       {
         return done(err);
       }
@@ -658,7 +658,7 @@ module.exports = function setUpAggregator(app, module)
 
       tagInfo[timeProperty] = newTime;
 
-      collection('collectorInfo').replaceOne({_id: tagInfo._id}, tagInfo, function(err)
+      collection('collectorInfo').replaceOne({_id: tagInfo._id}, tagInfo, {upsert: true}, function(err)
       {
         if (err)
         {
